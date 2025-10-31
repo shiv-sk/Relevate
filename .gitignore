@@ -1,0 +1,11 @@
+# Ignore all node_modules anywhere
+**/node_modules/
+
+# Ignore build outputs
+**/dist/
+**/build/
+**/.next/
+**/out/
+
+# Env files
+**/.env*
