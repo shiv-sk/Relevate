@@ -29,6 +29,7 @@ export class Profile {
       linkedIn: { type: String, trim: true },
       github: { type: String, trim: true },
       portfolio: { type: String, trim: true },
+      x: { type: String, trim: true },
     },
     default: {},
   })
@@ -36,6 +37,7 @@ export class Profile {
     linkedIn?: string;
     github?: string;
     portfolio?: string;
+    x?: string;
   };
 
   @Prop({
@@ -86,7 +88,7 @@ export class Profile {
     ],
     default: [],
   })
-  project: {
+  projects: {
     name: string;
     description: string;
     links?: {

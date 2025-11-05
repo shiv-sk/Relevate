@@ -16,36 +16,30 @@ export class Job {
   @Prop({ required: true, trim: true })
   salary: string;
 
-  @Prop({ type: [String], required: true, trim: true })
+  @Prop({ type: [String], required: true })
   requiredSkills: string[];
 
-  @Prop({ required: true, trim: true })
-  address: string;
-
-  @Prop({ type: String, enum: JobLevel, default: JobLevel.Entry, trim: true })
+  @Prop({ type: String, enum: JobLevel, default: JobLevel.Entry })
   level: JobLevel;
 
-  @Prop({ type: String, enum: JobType, default: JobType.FullTime, trim: true })
+  @Prop({ type: String, enum: JobType, default: JobType.FullTime })
   type: JobType;
 
   @Prop({
     type: String,
     enum: JobLocation,
     default: JobLocation.Onsite,
-    trim: true,
   })
   location: JobLocation;
 
-  @Prop({ type: String, enum: JobStatus, default: JobStatus.Open, trim: true })
+  @Prop({ type: String, enum: JobStatus, default: JobStatus.Open })
   status: JobStatus;
-
-  @Prop({ required: true, trim: true })
-  contact: string;
 
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Company',
     required: true,
+    index: true,
   })
   companyId: Company;
 }

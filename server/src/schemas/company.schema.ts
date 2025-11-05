@@ -35,7 +35,7 @@ export class Company {
   })
   userId: User;
 
-  @Prop({ type: [String], required: true, trim: true })
+  @Prop({ type: [String], trim: true, default: [] })
   socialMedia: string[];
 }
 
