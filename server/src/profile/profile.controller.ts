@@ -21,22 +21,22 @@ export class ProfileController {
   }
 
   @Get()
-  findAll() {
-    return this.profileService.findAll();
+  findUserProfile() {
+    return this.profileService.findUserProfile();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.profileService.findOne(+id);
+  @Get(':profileId')
+  findOne(@Param('profileId') profileId: string) {
+    return this.profileService.findOne(profileId);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProfileDto: UpdateProfileDto) {
-    return this.profileService.update(+id, updateProfileDto);
+  @Patch()
+  update(@Body() updateProfileDto: UpdateProfileDto) {
+    return this.profileService.update(updateProfileDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.profileService.remove(+id);
+  @Delete()
+  remove() {
+    return this.profileService.remove();
   }
 }

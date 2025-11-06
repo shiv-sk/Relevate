@@ -25,18 +25,23 @@ export class JobController {
     return this.jobService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.jobService.findOne(+id);
+  @Get('/myjobs')
+  findAllMyJobs() {
+    return this.jobService.findAllMyJobs();
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateJobDto: UpdateJobDto) {
-    return this.jobService.update(+id, updateJobDto);
+  @Get(':jobId')
+  findOne(@Param('jobId') jobId: string) {
+    return this.jobService.findOne(jobId);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.jobService.remove(+id);
+  @Patch(':jobId')
+  update(@Param('jobId') jobId: string, @Body() updateJobDto: UpdateJobDto) {
+    return this.jobService.update(jobId, updateJobDto);
+  }
+
+  @Delete(':jobId')
+  remove(@Param('jobId') jobId: string) {
+    return this.jobService.remove(jobId);
   }
 }

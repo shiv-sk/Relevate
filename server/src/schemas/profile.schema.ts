@@ -25,20 +25,18 @@ export class Profile {
   lookingFor: string;
 
   @Prop({
-    type: {
-      linkedIn: { type: String, trim: true },
-      github: { type: String, trim: true },
-      portfolio: { type: String, trim: true },
-      x: { type: String, trim: true },
-    },
-    default: {},
+    type: [
+      {
+        name: String,
+        link: String,
+      },
+    ],
+    default: [],
   })
   socialMedia: {
-    linkedIn?: string;
-    github?: string;
-    portfolio?: string;
-    x?: string;
-  };
+    name: string;
+    link: string;
+  }[];
 
   @Prop({
     type: [
@@ -95,6 +93,7 @@ export class Profile {
       github?: string;
       live?: string;
       demo?: string;
+      article?: string;
     };
   }[];
 

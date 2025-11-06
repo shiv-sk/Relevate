@@ -35,8 +35,19 @@ export class Company {
   })
   userId: User;
 
-  @Prop({ type: [String], trim: true, default: [] })
-  socialMedia: string[];
+  @Prop({
+    type: [
+      {
+        name: String,
+        link: String,
+      },
+    ],
+    default: [],
+  })
+  socialMedia: {
+    name: string;
+    link: string;
+  }[];
 }
 
 export const CompanySchema = SchemaFactory.createForClass(Company);

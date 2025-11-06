@@ -1,28 +1,76 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Profile } from 'src/schemas/profile.schema';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class ProfileService {
-  create(createProfileDto: CreateProfileDto) {
-    console.log(createProfileDto);
-    return 'This action adds a new profile';
+  constructor(
+    @InjectModel(Profile.name) private profileModel: Model<Profile>,
+  ) {}
+  async create(createProfileDto: CreateProfileDto) {
+    const userId = '67f2e7e2124dc2ac77a1c468';
+    const newProfile = await this.profileModel.create({
+      name: createProfileDto.name,
+      email: createProfileDto.email,
+      bio: createProfileDto.bio,
+      currentLocation: createProfileDto.currentLocation,
+      lookingFor: createProfileDto.lookingFor,
+      skills: createProfileDto.skills,
+      education: createProfileDto.education,
+      projects: createProfileDto.projects,
+      socialMedia: createProfileDto.socialMedia,
+      experience: createProfileDto.experience,
+      userId,
+    });
+    if (!newProfile) {
+      throw new InternalServerErrorException('Profile is not created!');
+    }
+    return newProfile;
   }
 
-  findAll() {
-    return `This action returns all profile`;
+  async findOne(profileId: string) {
+    const profile = await this.profileModel.findById(profileId);
+    if (!profile) {
+      throw new NotFoundException('Profile not found');
+    }
+    return profile;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} profile`;
+  async findUserProfile() {
+    const userId = '67f2e7e2124dc2ac77a1c468';
+    const profile = await this.profileModel.findOne({ userId });
+    if (!profile) {
+      throw new NotFoundException('Profile not found');
+    }
+    return profile;
   }
 
-  update(id: number, updateProfileDto: UpdateProfileDto) {
-    console.log(updateProfileDto);
-    return `This action updates a #${id} profile`;
+  async update(updateProfileDto: UpdateProfileDto) {
+    const userId = '67f2e7e2124dc2ac77a1c468';
+    const updatedProfile = await this.profileModel.findOneAndUpdate(
+      { userId },
+      updateProfileDto,
+      { new: true, runValidators: true },
+    );
+    if (!updatedProfile) {
+      throw new NotFoundException('Profile not found and updated');
+    }
+    return updatedProfile;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} profile`;
+  async remove() {
+    const userId = '67f2e7e2124dc2ac77a1c468';
+    const deletedProfile = await this.profileModel.findOneAndDelete({ userId });
+    if (!deletedProfile) {
+      throw new NotFoundException('Profile not found and deleted');
+    }
+    return 'profile deleted successfully';
   }
 }

@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
 import { ApplicationService } from './application.service';
 import { CreateApplicationDto } from './dto/create-application.dto';
 import { UpdateApplicationDto } from './dto/update-application.dto';
@@ -21,13 +13,13 @@ export class ApplicationController {
   }
 
   @Get()
-  findAll() {
-    return this.applicationService.findAll();
+  findAllUserApplications() {
+    return this.applicationService.findAllUserApplications();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.applicationService.findOne(+id);
+  @Get(':jobId')
+  findAllJobApplications(@Param('jobId') jobId: string) {
+    return this.applicationService.findAllJobApplications(jobId);
   }
 
   @Patch(':id')
@@ -35,11 +27,6 @@ export class ApplicationController {
     @Param('id') id: string,
     @Body() updateApplicationDto: UpdateApplicationDto,
   ) {
-    return this.applicationService.update(+id, updateApplicationDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.applicationService.remove(+id);
+    return this.applicationService.update(id, updateApplicationDto);
   }
 }

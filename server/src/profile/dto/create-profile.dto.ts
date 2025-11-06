@@ -7,6 +7,7 @@ import {
   IsObject,
   IsOptional,
   IsString,
+  IsUrl,
   Length,
   ValidateNested,
 } from 'class-validator';
@@ -54,25 +55,19 @@ class ProjectDto {
     github?: string;
     live?: string;
     demo?: string;
+    article?: string;
   };
 }
 
 class SocialMedia {
-  @IsOptional()
   @IsString()
-  linkedIn?: string;
+  @Length(1, 100)
+  @IsNotEmpty()
+  name?: string;
 
-  @IsOptional()
-  @IsString()
-  github?: string;
-
-  @IsOptional()
-  @IsString()
-  portfolio?: string;
-
-  @IsOptional()
-  @IsString()
-  x?: string;
+  @IsUrl({ protocols: ['http', 'https'], require_protocol: true })
+  @IsNotEmpty()
+  link?: string;
 }
 
 export class CreateProfileDto {
@@ -130,5 +125,5 @@ export class CreateProfileDto {
   @IsOptional()
   @ValidateNested({ each: true })
   @Type(() => SocialMedia)
-  socialMedia: SocialMedia;
+  socialMedia: SocialMedia[];
 }

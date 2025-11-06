@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Delete } from '@nestjs/common';
 import { CompanyService } from './company.service';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
@@ -21,22 +13,20 @@ export class CompanyController {
   }
 
   @Get()
-  findAll() {
-    return this.companyService.findAll();
+  findCompnay() {
+    const userId = '67f2e861124dc2ac77a1c46e';
+    return this.companyService.findCompany(userId);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.companyService.findOne(+id);
+  @Patch()
+  update(@Body() updateCompanyDto: UpdateCompanyDto) {
+    const userId = '67f2e861124dc2ac77a1c46e';
+    return this.companyService.update(userId, updateCompanyDto);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCompanyDto: UpdateCompanyDto) {
-    return this.companyService.update(+id, updateCompanyDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.companyService.remove(+id);
+  @Delete()
+  remove() {
+    const userId = '67f2e861124dc2ac77a1c46e';
+    return this.companyService.remove(userId);
   }
 }
