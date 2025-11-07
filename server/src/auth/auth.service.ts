@@ -48,4 +48,8 @@ export class AuthService {
     const user = await this.userService.currentUser(userId);
     return user;
   }
+  async logoutUser(userId: string) {
+    const user = await this.userService.currentUser(userId);
+    return user;
+  }
 }

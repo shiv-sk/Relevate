@@ -50,4 +50,8 @@ export class AuthController {
     const user = await this.authService.currentUser(userId as string);
     return user;
   }
+  //   @UseGuards(AuthGuard)
+  //   @Get('logout')
+  //   async logoutuser(@Request() req) {
+  //   }
 }
