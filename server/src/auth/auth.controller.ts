@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import {
   Body,
   Controller,
@@ -7,15 +5,19 @@ import {
   HttpCode,
   HttpStatus,
   Post,
-  Request,
+  Req,
   Res,
   UseGuards,
 } from '@nestjs/common';
 import { UserRegisterDto } from 'src/user/dto/registerUserDto';
 import { AuthService } from './auth.service';
 import { UserLoginDto } from 'src/user/dto/loginUserDto';
-import { Response } from 'express';
-import { AuthGuard } from './auth.guard';
+import { Request, Response } from 'express';
+import { AuthGuard } from '@nestjs/passport';
+import { User } from './interface/user.interfcae';
+import { RolesGuard } from './role.guard';
+import { Roles } from './roles.decorators';
+import { UserRole } from 'commons/userRoles.common';
 
 @Controller('auth')
 export class AuthController {
@@ -33,8 +35,8 @@ export class AuthController {
     @Body() userLoginDto: UserLoginDto,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const { access_token, user } =
-      await this.authService.loginUser(userLoginDto);
+    const user = await this.authService.validateuser(userLoginDto);
+    const { access_token } = await this.authService.loginUser(user);
     res.cookie('access_token', access_token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
@@ -43,15 +45,16 @@ export class AuthController {
     });
     return user;
   }
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(UserRole.Employer)
   @Get('me')
-  async getCurrentUser(@Request() req) {
-    const userId = req.user.sub;
-    const user = await this.authService.currentUser(userId as string);
-    return user;
+  me(@Req() req: Request & { user: User }) {
+    return req.user;
   }
-  //   @UseGuards(AuthGuard)
-  //   @Get('logout')
-  //   async logoutuser(@Request() req) {
-  //   }
+  @UseGuards(AuthGuard('jwt'))
+  @Get('logout')
+  logout(@Res({ passthrough: true }) res: Response) {
+    res.clearCookie('access_token');
+    return { message: 'Logged out successfully' };
+  }
 }

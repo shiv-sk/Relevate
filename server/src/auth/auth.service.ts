@@ -5,6 +5,7 @@ import { UserRegisterDto } from 'src/user/dto/registerUserDto';
 import { UserPayload } from 'src/auth/interface/userPayload.interface';
 import { UserService } from 'src/user/user.service';
 import { comparePassword, hashPassword } from 'utils/password';
+import { User } from './interface/user.interfcae';
 
 @Injectable()
 export class AuthService {
@@ -14,14 +15,15 @@ export class AuthService {
   ) {}
   async registerUser(userRegisterDto: UserRegisterDto) {
     const hashedPassword = await hashPassword(userRegisterDto.password);
-    const user = await this.userService.userRegister({
+    const user = await this.userService.addNewUser({
       ...userRegisterDto,
       password: hashedPassword,
     });
     return user;
   }
-  async loginUser(userLoginDto: UserLoginDto) {
-    const user = await this.userService.userLogin(userLoginDto);
+
+  async validateuser(userLoginDto: UserLoginDto) {
+    const user = await this.userService.findUserByEmail(userLoginDto.email);
     const isPasswordMatch = await comparePassword(
       userLoginDto.password,
       user.password,
@@ -29,19 +31,17 @@ export class AuthService {
     if (!isPasswordMatch) {
       throw new BadRequestException('Invalid password');
     }
+    return user;
+  }
+  async loginUser(user: User) {
     const payload: UserPayload = {
-      sub: user._id.toString(),
+      sub: user.id,
       email: user.email,
-      roles: [user.role],
+      role: [user.role],
     };
     const access_token = await this.jwtService.signAsync(payload);
     return {
       access_token,
-      user: {
-        name: user.name,
-        email: user.email,
-        id: user._id,
-      },
     };
   }
   async currentUser(userId: string) {

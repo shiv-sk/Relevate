@@ -8,8 +8,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from 'src/schemas/user.schema';
 import { UserRegisterDto } from './dto/registerUserDto';
-import { comparePassword } from 'utils/password';
-import { UserLoginDto } from './dto/loginUserDto';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
@@ -18,7 +16,7 @@ export class UserService {
     @InjectModel(User.name) private userModel: Model<User>,
     private readonly jwtService: JwtService,
   ) {}
-  async userRegister(userRegisterDto: UserRegisterDto) {
+  async addNewUser(userRegisterDto: UserRegisterDto) {
     const existedUser = await this.userModel.findOne({
       email: userRegisterDto.email,
     });
@@ -39,17 +37,33 @@ export class UserService {
     return user;
   }
 
-  async userLogin(userLoginDto: UserLoginDto) {
-    const { email, password } = userLoginDto;
-    const user = await this.userModel.findOne({ email });
+  async findUserByEmail(email: string) {
+    const foundUser = await this.userModel.findOne({ email });
+    if (!foundUser) {
+      throw new NotFoundException('User not found');
+    }
+    const user = {
+      name: foundUser.name,
+      email: foundUser.email,
+      password: foundUser.password,
+      role: foundUser.role,
+      id: foundUser._id.toString(),
+    };
+    return user;
+  }
+
+  async findUserById(id: string) {
+    const user = await this.userModel.findById(id);
     if (!user) {
       throw new NotFoundException('User not found');
     }
-    const isPasswordMatch = await comparePassword(password, user.password);
-    if (!isPasswordMatch) {
-      throw new BadRequestException('Invalid password');
-    }
-    return user;
+
+    return {
+      id: user._id.toString(),
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    };
   }
   async currentUser(userId: string) {
     const user = await this.userModel.findById(userId).select('-password');
