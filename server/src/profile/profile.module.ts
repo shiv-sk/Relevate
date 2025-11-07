@@ -10,6 +10,6 @@ import { Profile, ProfileSchema } from 'src/schemas/profile.schema';
   ],
   controllers: [ProfileController],
   providers: [ProfileService],
-  exports: [ProfileService],
+  exports: [ProfileService, MongooseModule],
 })
 export class ProfileModule {}
