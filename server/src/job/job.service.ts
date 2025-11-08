@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
@@ -7,18 +8,21 @@ import { CreateJobDto } from './dto/create-job.dto';
 import { UpdateJobDto } from './dto/update-job.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Job } from 'src/schemas/job.schema';
-import { Model } from 'mongoose';
-import { Company } from 'src/schemas/company.schema';
+import mongoose, { Model } from 'mongoose';
+import { CompanyService } from 'src/company/company.service';
 
 @Injectable()
 export class JobService {
   constructor(
     @InjectModel(Job.name) private jobModel: Model<Job>,
-    @InjectModel(Company.name) private companyModel: Model<Company>,
+    private readonly companyService: CompanyService,
   ) {}
-  async create(createJobDto: CreateJobDto) {
-    const userId = '67f2e861124dc2ac77a1c46e';
-    const company = await this.companyModel.findOne({ userId });
+  async create(createJobDto: CreateJobDto, userId: string) {
+    const isValidUserId = mongoose.isValidObjectId(userId);
+    if (!isValidUserId) {
+      throw new BadRequestException('Invalid userId');
+    }
+    const company = await this.companyService.findCompany(userId);
     if (!company) {
       throw new NotFoundException('you are not created company yet');
     }
@@ -47,9 +51,8 @@ export class JobService {
     return allJobs;
   }
 
-  async findAllMyJobs() {
-    const userId = '67f2e861124dc2ac77a1c46e';
-    const company = await this.companyModel.findOne({ userId });
+  async findAllMyJobs(userId: string) {
+    const company = await this.companyService.findCompany(userId);
     if (!company) {
       throw new NotFoundException('you are not created company yet');
     }

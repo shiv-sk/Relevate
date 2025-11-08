@@ -9,18 +9,15 @@ import { ProfileService } from 'src/profile/profile.service';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Application } from 'src/schemas/application.schema';
-import { Profile } from 'src/schemas/profile.schema';
 
 @Injectable()
 export class ApplicationService {
   constructor(
     private readonly profileService: ProfileService,
     @InjectModel(Application.name) private applicationModel: Model<Application>,
-    @InjectModel(Profile.name) private profileModel: Model<Profile>,
   ) {}
-  async create(createApplicationDto: CreateApplicationDto) {
-    const userId = '67f2e7e2124dc2ac77a1c468';
-    const profile = await this.profileModel.findOne({ userId });
+  async create(createApplicationDto: CreateApplicationDto, userId: string) {
+    const profile = await this.profileService.findUserProfile(userId);
     if (!profile) {
       throw new NotFoundException('profile not found');
     }
@@ -29,6 +26,15 @@ export class ApplicationService {
       userId,
       profileId,
       jobId: createApplicationDto.jobId,
+      profileSnapshot: {
+        lookingFor: profile.lookingFor,
+        name: profile.name,
+        email: profile.email,
+        currentLocation: profile.currentLocation,
+        skills: profile.skills,
+        experience: profile.experience,
+        projects: profile.projects,
+      },
     });
     if (!newApplication) {
       throw new InternalServerErrorException('new application is not created!');
@@ -36,8 +42,7 @@ export class ApplicationService {
     return newApplication;
   }
 
-  async findAllUserApplications() {
-    const userId = '67f2e7e2124dc2ac77a1c468';
+  async findAllUserApplications(userId: string) {
     const allUserApplications = await this.applicationModel.find({ userId });
     if (allUserApplications.length === 0) {
       throw new NotFoundException('applications are not found');

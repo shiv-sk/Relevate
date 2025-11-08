@@ -6,18 +6,31 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import { JobService } from './job.service';
 import { CreateJobDto } from './dto/create-job.dto';
 import { UpdateJobDto } from './dto/update-job.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { RolesGuard } from 'src/auth/role.guard';
+import { Roles } from 'src/auth/roles.decorators';
+import { UserRole } from 'commons/userRoles.common';
+import { Request } from 'express';
+import { User } from 'src/auth/interface/user.interfcae';
 
 @Controller('job')
 export class JobController {
   constructor(private readonly jobService: JobService) {}
 
   @Post()
-  create(@Body() createJobDto: CreateJobDto) {
-    return this.jobService.create(createJobDto);
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(UserRole.Employer)
+  create(
+    @Body() createJobDto: CreateJobDto,
+    @Req() req: Request & { user: User },
+  ) {
+    return this.jobService.create(createJobDto, req.user.id);
   }
 
   @Get()
@@ -26,8 +39,10 @@ export class JobController {
   }
 
   @Get('/myjobs')
-  findAllMyJobs() {
-    return this.jobService.findAllMyJobs();
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(UserRole.Employer)
+  findAllMyJobs(@Req() req: Request & { user: User }) {
+    return this.jobService.findAllMyJobs(req.user.id);
   }
 
   @Get(':jobId')
@@ -36,11 +51,15 @@ export class JobController {
   }
 
   @Patch(':jobId')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(UserRole.Employer)
   update(@Param('jobId') jobId: string, @Body() updateJobDto: UpdateJobDto) {
     return this.jobService.update(jobId, updateJobDto);
   }
 
   @Delete(':jobId')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(UserRole.Employer)
   remove(@Param('jobId') jobId: string) {
     return this.jobService.remove(jobId);
   }

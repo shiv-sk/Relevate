@@ -6,23 +6,38 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import { ProfileService } from './profile.service';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { RolesGuard } from 'src/auth/role.guard';
+import { Roles } from 'src/auth/roles.decorators';
+import { UserRole } from 'commons/userRoles.common';
+import { Request } from 'express';
+import { User } from 'src/auth/interface/user.interfcae';
 
 @Controller('profile')
 export class ProfileController {
   constructor(private readonly profileService: ProfileService) {}
 
   @Post()
-  create(@Body() createProfileDto: CreateProfileDto) {
-    return this.profileService.create(createProfileDto);
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(UserRole.JobSeeker)
+  create(
+    @Body() createProfileDto: CreateProfileDto,
+    @Req() req: Request & { user: User },
+  ) {
+    return this.profileService.create(createProfileDto, req.user.id);
   }
 
   @Get()
-  findUserProfile() {
-    return this.profileService.findUserProfile();
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(UserRole.JobSeeker)
+  findUserProfile(@Req() req: Request & { user: User }) {
+    return this.profileService.findUserProfile(req.user.id);
   }
 
   @Get(':profileId')
@@ -31,12 +46,19 @@ export class ProfileController {
   }
 
   @Patch()
-  update(@Body() updateProfileDto: UpdateProfileDto) {
-    return this.profileService.update(updateProfileDto);
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(UserRole.JobSeeker)
+  update(
+    @Body() updateProfileDto: UpdateProfileDto,
+    @Req() req: Request & { user: User },
+  ) {
+    return this.profileService.update(updateProfileDto, req.user.id);
   }
 
   @Delete()
-  remove() {
-    return this.profileService.remove();
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(UserRole.JobSeeker)
+  remove(@Req() req: Request & { user: User }) {
+    return this.profileService.remove(req.user.id);
   }
 }

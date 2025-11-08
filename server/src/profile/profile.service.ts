@@ -14,8 +14,7 @@ export class ProfileService {
   constructor(
     @InjectModel(Profile.name) private profileModel: Model<Profile>,
   ) {}
-  async create(createProfileDto: CreateProfileDto) {
-    const userId = '67f2e7e2124dc2ac77a1c468';
+  async create(createProfileDto: CreateProfileDto, userId: string) {
     const newProfile = await this.profileModel.create({
       name: createProfileDto.name,
       email: createProfileDto.email,
@@ -43,8 +42,7 @@ export class ProfileService {
     return profile;
   }
 
-  async findUserProfile() {
-    const userId = '67f2e7e2124dc2ac77a1c468';
+  async findUserProfile(userId: string) {
     const profile = await this.profileModel.findOne({ userId });
     if (!profile) {
       throw new NotFoundException('Profile not found');
@@ -52,8 +50,7 @@ export class ProfileService {
     return profile;
   }
 
-  async update(updateProfileDto: UpdateProfileDto) {
-    const userId = '67f2e7e2124dc2ac77a1c468';
+  async update(updateProfileDto: UpdateProfileDto, userId: string) {
     const updatedProfile = await this.profileModel.findOneAndUpdate(
       { userId },
       updateProfileDto,
@@ -65,8 +62,7 @@ export class ProfileService {
     return updatedProfile;
   }
 
-  async remove() {
-    const userId = '67f2e7e2124dc2ac77a1c468';
+  async remove(userId: string) {
     const deletedProfile = await this.profileModel.findOneAndDelete({ userId });
     if (!deletedProfile) {
       throw new NotFoundException('Profile not found and deleted');

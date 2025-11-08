@@ -15,7 +15,11 @@ export class CompanyService {
   constructor(
     @InjectModel(Company.name) private companyModel: Model<Company>,
   ) {}
-  async create(createCompanyDto: CreateCompanyDto) {
+  async create(createCompanyDto: CreateCompanyDto, userId: string) {
+    const isValidUserId = mongoose.isValidObjectId(userId);
+    if (!isValidUserId) {
+      throw new BadRequestException('Invalid userId');
+    }
     const newCompany = await this.companyModel.create({
       name: createCompanyDto.name,
       officialEmail: createCompanyDto.officialEmail,
@@ -25,7 +29,7 @@ export class CompanyService {
       address: createCompanyDto.address,
       contact: createCompanyDto.contact,
       socialMedia: createCompanyDto.socialMedia,
-      userId: '67f2e861124dc2ac77a1c46e',
+      userId,
     });
     if (!newCompany) {
       throw new InternalServerErrorException('server error');
@@ -38,7 +42,7 @@ export class CompanyService {
     if (!isValidUserId) {
       throw new BadRequestException('Invalid userId');
     }
-    const company = await this.companyModel.find({ userId: userId });
+    const company = await this.companyModel.findOne({ userId: userId });
     if (!company) {
       throw new NotFoundException('company not found');
     }
