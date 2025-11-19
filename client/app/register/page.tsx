@@ -1,9 +1,9 @@
 "use client";
-import LoginForm from "@/components/forms/loginForm";
+import RegisterForm from "@/components/forms/registerForm";
 import { useState } from "react";
 
-export default function Login(){
-    const [form, setForm] = useState({email:"", password:""});
+export default function Register(){
+    const [form, setForm] = useState({email:"", password:"", name:"", role:""});
 
     const handleOnChange = (key: string, value: string)=>{
         setForm({...form, [key]: value});
@@ -14,7 +14,7 @@ export default function Login(){
     }
     return(
         <div className="min-h-screen gap-4 py-36 bg-base-300">
-            <LoginForm onChange={handleOnChange} form={form} onSubmit={handleOnSubmit} />
+            <RegisterForm onChange={handleOnChange} form={form} onSubmit={handleOnSubmit} />
         </div>
     )
 }
