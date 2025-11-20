@@ -1,12 +1,17 @@
 import BaseButton from "./baseButton";
 import BaseInput from "./baseInput";
 
-export default function NewProfileForm({skill, onChange, onSubmit, addSkill, form}){
+export default function NewProfileForm(
+    {
+        skill, onChange, onSubmit, addSkill, form, addEducation, addProject, 
+        addSocialMedia, addExperience, onEducationChange, onExperienceChange, 
+        onProjectChange, onSocialMediaChange, education, project, experience, socialMedia, onProjectLinkChange
+    }){
     return(
         <div className="bg-base-100 flex justify-center items-center max-w-sm w-full p-6 rounded-lg shadow-lg mx-auto flex-col">
             <h1 className="text-center font-bold text-2xl underline">NewProfile</h1>
             <div>
-                <form action="" className="gap-2.5 py-6 space-y-3 w-full">
+                <form action="" className="gap-2.5 py-6 space-y-3 w-full" onSubmit={onSubmit}>
                     <BaseInput 
                     label="Name" 
                     type="text" 
@@ -45,7 +50,8 @@ export default function NewProfileForm({skill, onChange, onSubmit, addSkill, for
                         <BaseButton 
                         type="button" 
                         text="Add" 
-                        className="btn btn-secondary py-2.5 px-2"/>
+                        className="btn btn-secondary py-2.5 px-2"
+                        handleOnClick={addSkill}/>
                     </div>
 
                     <div className="space-y-1.5">
@@ -55,23 +61,27 @@ export default function NewProfileForm({skill, onChange, onSubmit, addSkill, for
                         <BaseInput 
                         label="Institute" 
                         type="text" 
-                        onChange={""} 
-                        value={""} 
+                        onChange={(e)=>onEducationChange("institute" , e.target.value)} 
+                        value={education.institute} 
                         placeholder="Institute Name" />
 
                         <BaseInput 
                         label="Degree" 
                         type="text" 
-                        onChange={""} 
-                        value={""} 
+                        onChange={(e)=>onEducationChange("degree" , e.target.value)} 
+                        value={education.degree} 
                         placeholder="BE" />
 
                         <BaseInput 
                         label="PassoutYear" 
                         type="number" 
-                        onChange={""} 
-                        value={""}  />
-                        <BaseButton type="button" text="Add" className="btn btn-secondary py-2.5 px-2"/>
+                        onChange={(e)=>onEducationChange("passoutYear" , e.target.value)} 
+                        value={education.passoutYear}  />
+                        <BaseButton 
+                        type="button" 
+                        text="Add" 
+                        className="btn btn-secondary py-2.5 px-2"
+                        handleOnClick={addEducation}/>
                     </div>
 
                     <div className="space-y-1.5">
@@ -81,30 +91,34 @@ export default function NewProfileForm({skill, onChange, onSubmit, addSkill, for
                         <BaseInput 
                         label="Company" 
                         type="text" 
-                        onChange={""} 
-                        value={""} 
+                        onChange={(e)=>onExperienceChange("company", e.target.value)} 
+                        value={experience.company} 
                         placeholder="Company Name" />
 
                         <BaseInput 
                         label="Role" 
                         type="text" 
-                        onChange={""} 
-                        value={""} 
+                        onChange={(e)=>onExperienceChange("role", e.target.value)} 
+                        value={experience.role} 
                         placeholder="Tester" />
 
                         <BaseInput 
                         label="Year" 
                         type="number" 
-                        onChange={""} 
-                        value={""}  />
+                        onChange={(e)=>onExperienceChange("years", e.target.value)} 
+                        value={experience.year}  />
                         
                         <BaseInput 
                         label="Noticeperiod" 
                         type="text" 
-                        onChange={""} 
-                        value={""}
+                        onChange={(e)=>onExperienceChange("noticeperiod", e.target.value)} 
+                        value={experience.noticeperiod}
                         placeholder="30-45"  />
-                        <BaseButton type="button" text="Add" className="btn btn-secondary py-2.5 px-2"/>
+                        <BaseButton 
+                        type="button" 
+                        text="Add" 
+                        className="btn btn-secondary py-2.5 px-2"
+                        handleOnClick={addExperience}/>
                     </div>
 
                     <div className="space-y-1.5">
@@ -114,45 +128,50 @@ export default function NewProfileForm({skill, onChange, onSubmit, addSkill, for
                         <BaseInput 
                         label="Name" 
                         type="text" 
-                        onChange={""} 
-                        value={""} 
+                        onChange={(e)=>onProjectChange("name", e.target.value)} 
+                        value={project.name} 
                         placeholder="Project Name" />
 
                         <BaseInput 
                         label="Description" 
                         type="text" 
-                        onChange={""} 
-                        value={""} 
+                        onChange={(e)=>onProjectChange("description", e.target.value)} 
+                        value={project.description} 
                         placeholder="About Project" />
                         
                         <BaseInput 
                         label="Github" 
                         type="text" 
-                        onChange={""} 
-                        value={""}
+                        onChange={(e)=>onProjectLinkChange("github", e.target.value)} 
+                        value={project.links.github}
                         placeholder="Project-Github-Link"  />
 
                         <BaseInput 
                         label="Live" 
                         type="text" 
-                        onChange={""} 
-                        value={""}
+                        onChange={(e)=>onProjectLinkChange("live", e.target.value)} 
+                        value={project.links.live}
                         placeholder="Project-Live-Link"  />
 
                         <BaseInput 
                         label="Demo" 
                         type="text" 
-                        onChange={""} 
-                        value={""}
+                        onChange={(e)=>onProjectLinkChange("demo", e.target.value)} 
+                        value={project.links.demo}
                         placeholder="Project-Demo-Link"  />
 
                         <BaseInput 
                         label="Article" 
                         type="text" 
-                        onChange={""} 
-                        value={""}
+                        onChange={(e)=>onProjectLinkChange("article", e.target.value)} 
+                        value={project.links.article}
                         placeholder="Project-Article-Link"  />
-                        <BaseButton type="button" text="Add" className="btn btn-secondary py-2.5 px-2"/>
+
+                        <BaseButton 
+                        type="button" 
+                        text="Add" 
+                        className="btn btn-secondary py-2.5 px-2"
+                        handleOnClick={addProject}/>
                     </div>
 
                     <div className="space-y-1.5">
@@ -162,23 +181,27 @@ export default function NewProfileForm({skill, onChange, onSubmit, addSkill, for
                         <BaseInput 
                         label="Name" 
                         type="text" 
-                        onChange={""} 
-                        value={""} 
+                        onChange={(e)=>onSocialMediaChange("name", e.target.value)} 
+                        value={socialMedia.name} 
                         placeholder="SocialMedia Name" />
 
                         <BaseInput 
                         label="Link" 
                         type="text" 
-                        onChange={""} 
-                        value={""} 
+                        onChange={(e)=>onSocialMediaChange("link", e.target.value)} 
+                        value={socialMedia.link} 
                         placeholder="SocialMedia-Link" />
 
-                        <BaseButton type="button" text="Add" className="btn btn-secondary py-2.5 px-2"/>
+                        <BaseButton 
+                        type="button" 
+                        text="Add" 
+                        className="btn btn-secondary py-2.5 px-2"
+                        handleOnClick={addSocialMedia}/>
                     </div>
 
                     <BaseButton type="submit" text="Create" className="btn btn-primary py-2.5 px-2 w-full"/>
-                        </form>
-                    </div>
-                </div>
+                </form>
+            </div>
+        </div>
     )
 }

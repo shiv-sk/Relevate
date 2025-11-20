@@ -34,8 +34,8 @@ export interface ProfileInterface {
     currentLocation: string,
     lookingFor: string,
     skills: string[],
-    education?:Education[],
-    projects?:Projects[],
-    experience?:Experience[],
-    socialMedia?:SocialMedia[],
+    education:Education[],
+    projects:Projects[],
+    experience:Experience[],
+    socialMedia:SocialMedia[],
 }
