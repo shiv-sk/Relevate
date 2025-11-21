@@ -3,7 +3,7 @@ import SimpleBaseCrad from "./simplejobcard";
 
 export default function JobCardSimple({job, onApply}){
     return(
-        <div className="space-y-4 gap-4 min-h-screen flex flex-col justify-center items-center bg-base-300">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
         {
             job.map((j)=>(
                 <SimpleBaseCrad key={j.id}>
