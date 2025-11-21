@@ -59,8 +59,10 @@ export default function Login(){
     return(
         <div className="space-y-3.5 py-5 bg-base-300 min-h-screen ">
             <div className="flex flex-col gap-6 items-center w-full mx-auto">
+                <div className="w-full max-w-[220px] md:max-w-[580px]">
+                    <SearchBar onChange={undefined} value={undefined} label={""}/>
+                </div>
                 <Filter />
-                <SearchBar onChange={undefined} value={undefined} label={""}/>
                 <div className="">
                     <JobCardSimple job={job} onApply={onApply}></JobCardSimple>
                 </div>
