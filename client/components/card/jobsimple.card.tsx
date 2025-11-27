@@ -3,7 +3,7 @@ import SimpleBaseCrad from "./simplejobcard";
 
 export default function JobCardSimple({job, onApply}){
     return(
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+        <div className="w-full flex flex-col gap-6 items-center">
         {
             job.map((j)=>(
                 <SimpleBaseCrad key={j.id}>
@@ -15,9 +15,11 @@ export default function JobCardSimple({job, onApply}){
                             <p className="text-sm mt-2">{j.type}</p>
                             <p className="text-sm mt-2">{j.level}</p>
                         </div>
-                        <button className="btn btn-primary btn-sm mt-4" onClick={onApply}>
-                            Apply
-                        </button>
+                        <div className="card-actions justify-end">
+                            <button className="btn btn-primary btn-md mt-4" onClick={onApply}>
+                                Apply
+                            </button>
+                        </div>
                     </div>
                 </SimpleBaseCrad>
             ))

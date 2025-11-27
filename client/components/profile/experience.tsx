@@ -1,33 +1,33 @@
 export default function Experience(){
     const experience = [
         {
-            "company":"Institute1",
+            "company":"Institute8",
             "role":"degree1",
             "years":2,
             "noticePeriod":"30 - 60"
         },
         {
-            "company":"Institute1",
+            "company":"Institute5",
             "role":"degree1",
             "years":2,
             "noticePeriod":"30 - 60"
         },
         {
-            "company":"Institute1",
-            "role":"degree1",
+            "company":"Institute4",
+            "role":"degree3",
             "years":2,
             "noticePeriod":"30 - 60"
         },
         {
             "company":"Institute1",
-            "role":"degree1",
+            "role":"degree2",
             "years":2,
             "noticePeriod":"30 - 60"
         },
     ]
     return(
-        <div className="bg-base-300 shadow-xl py-4 px-2">
-            <h3 className="font-bold text-lg">Education</h3>
+        <div className="bg-base-100 shadow-xl px-2 py-4 w-full rounded-xl">
+            <h3 className="font-bold text-lg">Experience</h3>
             <div className="space-y-3">
                 {
                     experience.map((exp, index)=>(

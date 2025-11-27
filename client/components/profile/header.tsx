@@ -1,9 +1,9 @@
 export default function Header(){
     return(
-        <div className="py-4 space-y-4 bg-base-300">
+        <div className="bg-base-100 shadow-xl px-2 py-4 w-full rounded-xl">
             <div className="flex gap-2">
                 <div className="avatar avatar-placeholder px-2 py-2">
-                    <div className="bg-neutral text-neutral-content w-24 rounded-full">
+                    <div className="bg-neutral text-neutral-content w-36 rounded-full">
                         <span className="text-3xl">D</span>
                     </div>
                 </div>

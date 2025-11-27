@@ -34,7 +34,7 @@ export default function Projects(){
         },
     ]
     return(
-        <div className="bg-base-300 shadow-xl px-2 py-4">
+        <div className="bg-base-100 shadow-xl px-2 py-4 w-full rounded-xl">
             <h3 className="font-bold text-lg">Projects</h3>
             <div>
                 {

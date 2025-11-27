@@ -9,7 +9,7 @@ export default function SearchBar({onChange, value, label}){
                     <label htmlFor="" className="label font-bold text-lg">{label}</label>
                 )
             }
-            <div className="flex justify-between items-center gap-2">
+            <div className="flex justify-between items-center gap-2 px-4">
                 <BaseInput 
                 type="text" 
                 onChange={(e)=>onChange(e.target.value)} 

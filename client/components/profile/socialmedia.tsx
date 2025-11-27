@@ -16,7 +16,7 @@ export default function SocialMedia(){
         },
     ]
     return(
-        <div className="bg-base-300 shadow-xl">
+        <div className="bg-base-100 shadow-xl px-2 py-4 w-full rounded-xl">
             <h3 className="font-bold text-lg">SocialMedia</h3>
             <div className="flex flex-wrap gap-2">
                 {

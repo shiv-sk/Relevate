@@ -1,7 +1,7 @@
 "use client";
 import JobCardSimple from "@/components/card/jobsimple.card";
-import Filter from "@/components/filter/filter";
 import SearchBar from "@/components/searchbar/search";
+import Filter from "@/components/sidebar/filter";
 import { useState } from "react";
 
 const job = [
@@ -58,13 +58,17 @@ export default function Login(){
 
     return(
         <div className="space-y-3.5 py-5 bg-base-300 min-h-screen ">
-            <div className="flex flex-col gap-6 items-center w-full mx-auto">
-                <div className="w-full max-w-[220px] md:max-w-[580px]">
+            <div className="flex flex-col gap-6 w-full mx-auto lg:max-w-[1200px]">
+                <div className="w-full max-w-[600px] mx-auto">
                     <SearchBar onChange={undefined} value={undefined} label={""}/>
                 </div>
-                <Filter />
-                <div className="">
-                    <JobCardSimple job={job} onApply={onApply}></JobCardSimple>
+                <div className="flex flex-wrap gap-6 w-full">
+                    <div className="w-full lg:w-[30%] py-4 px-4 lg:sticky lg:top-4 h-fit">
+                        <Filter />
+                    </div>
+                    <div className="w-full lg:w-[60%] py-4">
+                        <JobCardSimple job={job} onApply={onApply}></JobCardSimple>
+                    </div>
                 </div>
             </div> 
         </div>
