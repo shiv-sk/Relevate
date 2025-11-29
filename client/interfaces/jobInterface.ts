@@ -16,3 +16,13 @@ export enum JobLocation {
   Onsite = 'Onsite',
   Remote = 'Remote',
 }
+
+export interface Job {
+  title: string,
+  description: string,
+  salary: string,
+  requiredSkills: string[],
+  level: JobLevel,
+  type: JobType,
+  location: JobLocation
+}

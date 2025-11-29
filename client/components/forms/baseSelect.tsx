@@ -1,6 +1,12 @@
 export default function BaseSelect(
-    {option, label, value, onChange}: 
-    {option: string[], label: string, value: string, onChange: (value: string)=>void}){
+    {option, label, value, onChange, className}: 
+    {
+        option: string[], 
+        label: string, 
+        value: string, 
+        onChange: (value: string)=>void,
+        className?: string
+    }){
     return(
         <div>
             {
@@ -8,7 +14,7 @@ export default function BaseSelect(
                     <label htmlFor="" className="label font-bold text-lg">{label}</label>
                 )
             }
-            <select className="select w-full" value={value} onChange={(e)=>onChange(e.target.value)}>
+            <select className={`select w-full ${className}`} value={value} onChange={(e)=>onChange(e.target.value)}>
                 {
                     option.map((opt)=>(
                         <option key={opt} value={opt}>
