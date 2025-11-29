@@ -30,15 +30,17 @@ const job = {
 
 export default function AboutJob(){
     return(
-        <div className="py-6 w-full max-w-[720px] mx-auto bg-base-100 space-y-4">
-            <JobDetail job={job} />
-            <div className="flex justify-end gap-2">
-                <button className="btn btn-primary">
-                    Apply
-                </button>
-                <button className="btn btn-secondary">
-                    AI-detail
-                </button>
+        <div className="py-6 bg-base-300 min-h-screen">
+            <div className="w-full max-w-[680px] mx-auto space-y-4">
+                <JobDetail job={job} />
+                <div className="flex justify-end gap-2">
+                    <button className="btn btn-primary">
+                        Apply
+                    </button>
+                    <button className="btn btn-secondary">
+                        AI-detail
+                    </button>
+                </div>
             </div>
         </div>
     )
