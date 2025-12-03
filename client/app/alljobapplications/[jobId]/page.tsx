@@ -1,16 +1,17 @@
 "use client";
-import ApplicationCard from "@/components/card/applicationcard";
+import AllJobApplicationsCard from "@/components/card/alljobapplications";
 
 const applications = [
     {
         id:1,
-        jobId:{
-            title:"job1",
-            companyId:{
-                name:"company1"
-            }
+        jobId:2,
+        userId:{
+            name:"user2",
+            email:"user2@email.com"
         },
-        userId:"123",
+        snapshot:{
+            lookingFor:"role2"
+        },
         profileId:"123",
         status:"Applied",
         createdAt:"24/5/2020",
@@ -18,13 +19,14 @@ const applications = [
     },
     {
         id:2,
-        jobId:{
-            title:"job2",
-            companyId:{
-                name:"company2"
-            }
+        jobId:1,
+        userId:{
+            name:"user3",
+            email:"user3@email.com"
         },
-        userId:"123",
+        snapshot:{
+            lookingFor:"role1"
+        },
         profileId:"123",
         status:"Applied",
         createdAt:"24/5/2020",
@@ -32,13 +34,14 @@ const applications = [
     },
     {
         id:3,
-        jobId:{
-            title:"job3",
-            companyId:{
-                name:"company3"
-            }
+        jobId:1,
+        userId:{
+            name:"user1",
+            email:"user1@email.com"
         },
-        userId:"123",
+        snapshot:{
+            lookingFor:"role1"
+        },
         profileId:"123",
         status:"Applied",
         createdAt:"24/5/2020",
@@ -46,12 +49,12 @@ const applications = [
     },
 ]
 
-export default function MyApplications(){
+export default function AllApplications(){
     return(
         <div className="min-h-screen bg-base-300 py-10">
             <div className="flex items-center flex-col space-y-4">
                 <h1 className="font-bold text-lg">Applications</h1>
-                <ApplicationCard applications={applications}/>
+                <AllJobApplicationsCard applications={applications}/>
             </div>
         </div>
     )

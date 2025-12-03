@@ -1,7 +1,87 @@
-export default function Jobs(){
+"use client";
+
+import JobCardSimple from "@/components/card/jobsimple.card";
+import SearchBar from "@/components/searchbar/search";
+import Filter from "@/components/sidebar/filter";
+import { useState } from "react";
+
+const jobs = [
+    {
+        id:1,
+        title:"job1",
+        location:"xyz",
+        salary:50000,
+        level:"Intern",
+        type:"Fulltime",
+    },
+    {
+        id:2,
+        title:"job1",
+        location:"xyz",
+        salary:50000,
+        level:"Entery",
+        type:"PartTime",
+    },
+    {
+        id:3,
+        title:"job1",
+        location:"xyz",
+        salary:50000,
+        level:"Intern",
+        type:"Intership",
+    },
+    {
+        id:4,
+        title:"job1",
+        location:"xyz",
+        salary:50000,
+        level:"Intern",
+        type:"Intership",
+    },
+    {
+        id:5,
+        title:"job1",
+        location:"xyz",
+        salary:50000,
+        level:"Intern",
+        type:"Intership",
+    },
+]
+
+export default function CompanyJobs(){
+
+    const [search, setSearch] = useState("");
+
+    const handleOnSearchChange = (val: string)=>{
+        setSearch(val);
+    }
+
+    const handleSearchOnClick = ()=>{
+        if(!search.trim()){
+            alert("enter atleast three characters to search");
+            return;
+        }
+        console.log("the serach is!", search);
+    }
+
     return(
-        <div>
-            Jobs
+        <div className="space-y-3.5 py-5 bg-base-300 min-h-screen ">
+            <div className="flex flex-col gap-6 w-full mx-auto lg:max-w-[1200px]">
+                <div className="w-full max-w-[600px] mx-auto">
+                    <SearchBar 
+                    value={search} 
+                    onSearchChange={handleOnSearchChange} 
+                    handleSearchOnClick={handleSearchOnClick}/>
+                </div>
+                <div className="flex flex-wrap gap-6 w-full">
+                    <div className="w-full lg:w-[30%] py-4 px-4 lg:sticky lg:top-4 h-fit">
+                        <Filter />
+                    </div>
+                    <div className="w-full lg:w-[60%] py-4">
+                        <JobCardSimple jobs={jobs}></JobCardSimple>
+                    </div>
+                </div>
+            </div> 
         </div>
     )
 }

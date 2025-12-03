@@ -1,11 +1,12 @@
 "use client";
+import BaseButton from "../forms/baseButton";
 import SimpleJobCrad from "./simplejobcard";
 
-export default function JobCardSimple({job, onApply}){
+export default function JobCardSimple({jobs}){
     return(
         <div className="w-full flex flex-col gap-6 items-center">
         {
-            job.map((j)=>(
+            jobs.map((j)=>(
                 <SimpleJobCrad key={j.id}>
                     <div>
                         <h2 className="card-title">{j.title}</h2>
@@ -16,9 +17,10 @@ export default function JobCardSimple({job, onApply}){
                             <p className="text-sm mt-2">{j.level}</p>
                         </div>
                         <div className="card-actions justify-end">
-                            <button className="btn btn-primary btn-md mt-4" onClick={onApply}>
-                                Apply
-                            </button>
+                            <BaseButton 
+                            type={"button"} 
+                            text={"more"} 
+                            className="btn btn-primary"/>
                         </div>
                     </div>
                 </SimpleJobCrad>
