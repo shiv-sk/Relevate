@@ -3,7 +3,7 @@ import CompanyForm from "@/components/forms/companyForm";
 import {Company as CompanyInterface, SocialMedia} from "@/interfaces/company";
 import { useState } from "react";
 
-export default function Company(){
+export default function NewCompany(){
 
     const handleOnChange = (val: string, key: string)=>{
         setCompany({...company, [key]: val});
