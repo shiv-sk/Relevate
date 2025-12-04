@@ -13,13 +13,13 @@ export default function CompanyForm({onChange, socialMediaOnChange, company, soc
         company: Company,
         socialMedia: SocialMedia,
         handleSocialMediaAdd: ()=>void,
-        onSubmit: ()=>void
+        onSubmit: (e)=>void
     }){
     return(
         <div 
         className="bg-base-100 flex flex-col justify-center items-center max-w-sm w-full p-6 rounded-lg shadow-lg mx-auto">
             <H1 heading={"NewCompany"}/>
-            <form className="gap-2.5 py-6 space-y-3 w-full" onSubmit={onSubmit}>
+            <form className="gap-2.5 py-6 space-y-3 w-full" onSubmit={(e)=>onSubmit(e)}>
                 <BaseInput 
                 type={"text"} 
                 onChange={(e)=>onChange(e.target.value, "name")} 
