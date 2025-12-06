@@ -1,11 +1,14 @@
 "use client";
+import { Availability, Experience, PreferredLocation, SalaryExcepted } from "@/constants/applicationFilterContest";
+import BaseButton from "../forms/baseButton";
+import BaseSelect from "../forms/baseSelect";
 import Level from "../icons/level";
 import Location from "../icons/location";
 import Salary from "../icons/salary";
 import Type from "../icons/type";
 import JobDetailBaseCard from "./jobdetailbasecard";
 
-export default function JobDetail({job}){
+export default function JobDetail({job, confirmRef, onClick, applicationOptions, onChange, handleConfirmClick}){
     return(
         <JobDetailBaseCard>
         <div 
@@ -64,8 +67,63 @@ export default function JobDetail({job}){
                         ))
                     }
                 </div>
+                <div className="card-actions justify-end">
+                    <BaseButton 
+                    type={"button"} 
+                    text={"Apply"} 
+                    className="btn btn-primary"
+                    handleOnClick={onClick} />
+                    <BaseButton type={"button"} text={"AiReview"} className="btn btn-secondary" />
+                </div>
             </div>
         </div>
+        <dialog ref={confirmRef} className="modal modal-bottom sm:modal-middle">
+            <div className="modal-box">
+                <h3 className="font-bold text-lg">Mandatry Fields</h3>
+                <p className="py-2">Press ESC key or click the button below to close</p>
+                <div className="modal-action">
+                    <form method="dialog" className="w-full space-y-2">
+                        <BaseSelect 
+                        option={[SalaryExcepted.ThreeToFive, SalaryExcepted.FiveToEight, SalaryExcepted.MoreThanEight]} 
+                        label={"SalaryExcepted"}
+                        value={applicationOptions.salaryExcepted}
+                        onChange={(e)=>onChange("salaryExcepted", e.target.value)} />
+                                    
+                        <BaseSelect 
+                        option={
+                            [PreferredLocation.onsiteOnly, PreferredLocation.remoteOnly, 
+                            PreferredLocation.hybrid, PreferredLocation.allOfTheAbove]
+                        } 
+                        label={"PreferredLocation"}
+                        value={applicationOptions.preferredLocation}
+                        onChange={(e)=>onChange("preferredLocation", e.target.value)} />
+                                    
+                        <BaseSelect 
+                        option={
+                            [Availability.immediate, Availability.zeroToFifteen, 
+                            Availability.fifteenToThirty, Availability.moreThanThirty]
+                        } 
+                        label={"Availability"}
+                        value={applicationOptions.availability}
+                        onChange={(e)=>onChange("availability", e.target.value)} />
+                        
+                        <BaseSelect 
+                        option={[Experience.zeroToTwo, Experience.twoToFive, Experience.moreThanFive]} 
+                        label={"Experience"}
+                        value={applicationOptions.experience}
+                        onChange={(e)=>onChange("experience", e.target.value)} />
+                        {/* if there is a button in form, it will close the modal */}
+                        <div className="card-actions justify-end">
+                            <BaseButton 
+                            type={"button"} 
+                            text={"Confirm"} 
+                            className="btn btn-neutral"
+                            handleOnClick={handleConfirmClick} />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </dialog>
         </JobDetailBaseCard>
     )
 }

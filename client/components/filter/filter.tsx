@@ -13,20 +13,26 @@ export default function Filter(){
             ">
                 <div className="w-full md:w-[30%]">
                     <BaseSelect 
-                    option={[JobLevel.Intern, JobLevel.Associate, JobLevel.Entry, JobLevel.Senior]} 
-                    label={"JobLevel"}/>
+                    option={[JobLevel.Intern, JobLevel.Associate, JobLevel.Entry, JobLevel.Senior]}
+                    label={"JobLevel"} value={""} onChange={function (e: any): void {
+                        throw new Error("Function not implemented.");
+                    } }/>
                 </div>
 
                 <div className="w-full md:w-[30%]">
                     <BaseSelect 
-                    option={[JobType.Contract, JobType.FullTime, JobType.Internship, JobType.PartTime]} 
-                    label={"JobType"}/>
+                    option={[JobType.Contract, JobType.FullTime, JobType.Internship, JobType.PartTime]}
+                    label={"JobType"} value={""} onChange={function (e: any): void {
+                        throw new Error("Function not implemented.");
+                    } }/>
                 </div>
 
                 <div className="w-full md:w-[30%]">
                     <BaseSelect 
-                    option={[JobLocation.Onsite, JobLocation.Remote]} 
-                    label={"JobLocation"}/>
+                    option={[JobLocation.Onsite, JobLocation.Remote]}
+                    label={"JobLocation"} value={""} onChange={function (e: any): void {
+                        throw new Error("Function not implemented.");
+                    } }/>
                 </div>
         </div>
     )

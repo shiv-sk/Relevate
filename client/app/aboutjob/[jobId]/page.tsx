@@ -1,4 +1,8 @@
+"use client";
+
 import JobDetail from "@/components/card/jobdetailcard";
+import { Availability, Experience, PreferredLocation, SalaryExcepted } from "@/constants/applicationFilterContest";
+import { useRef, useState } from "react";
 
 const job = {
     title:"job1",
@@ -29,18 +33,48 @@ const job = {
 }
 
 export default function AboutJob(){
+
+    const confirmRef = useRef<HTMLDialogElement | null>(null);
+
+    const handleOnClick = ()=>{
+        console.log("button is clicked with data!");
+        try {
+            confirmRef.current?.showModal();
+        } catch (error) {
+            console.log("error of dialogbox! ", error);
+        }
+    }
+
+    const  handleConfirmClick = ()=>{
+        console.log("button is clicked with data!", applicationOptions);
+        try {
+            confirmRef.current?.close();
+        } catch (error) {
+            console.log("error of dialogbox! ", error);
+        }
+    }
+
+    const [applicationOptions, setApplicationOptions] = useState({
+        salaryExcepted: SalaryExcepted.ThreeToFive,
+        preferredLocation: PreferredLocation.allOfTheAbove,
+        availability: Availability.immediate,
+        experience: Experience.zeroToTwo,
+    });
+    
+    const handleOnChange = (key: string, value: string)=>{
+        setApplicationOptions({...applicationOptions, [key]: value});
+    }
+
     return(
         <div className="py-6 bg-base-300 min-h-screen">
             <div className="w-full max-w-[680px] mx-auto space-y-4">
-                <JobDetail job={job} />
-                <div className="flex justify-end gap-2">
-                    <button className="btn btn-primary">
-                        Apply
-                    </button>
-                    <button className="btn btn-secondary">
-                        AI-detail
-                    </button>
-                </div>
+                <JobDetail 
+                job={job} 
+                confirmRef={confirmRef} 
+                onClick={handleOnClick} 
+                applicationOptions={applicationOptions} 
+                onChange={handleOnChange}
+                 handleConfirmClick={handleConfirmClick} />
             </div>
         </div>
     )

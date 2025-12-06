@@ -1,5 +1,5 @@
 export default function Textarea({value, onChange, placeholder, className, label}: 
-    {value: string, onChange: ()=>void, placeholder: string, className?: string, label?: string}){
+    {value: string, onChange, placeholder: string, className?: string, label?: string}){
     return(
         <div className="form-control w-full">
             {
