@@ -35,6 +35,10 @@ export class ApplicationService {
         experience: profile.experience,
         projects: profile.projects,
       },
+      salaryExcepted: createApplicationDto.salaryExcepted,
+      availability: createApplicationDto.availability,
+      experience: createApplicationDto.experience,
+      preferredLocation: createApplicationDto.preferredLocation,
     });
     if (!newApplication) {
       throw new InternalServerErrorException('new application is not created!');

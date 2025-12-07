@@ -2,7 +2,13 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 import { User } from './user.schema';
 import { Job } from './job.schema';
-import { ApplicationStatus } from 'commons/application.common';
+import {
+  ApplicationStatus,
+  Availability,
+  Experience,
+  PreferredLocation,
+  SalaryExcepted,
+} from 'commons/application.common';
 import { Profile } from './profile.schema';
 
 export type ApplicationDocument = HydratedDocument<Application>;
@@ -94,6 +100,38 @@ export class Application {
     trim: true,
   })
   status: ApplicationStatus;
+
+  @Prop({
+    type: String,
+    enum: SalaryExcepted,
+    default: SalaryExcepted.ThreeToFive,
+    trim: true,
+  })
+  salaryExcepted: SalaryExcepted;
+
+  @Prop({
+    type: String,
+    enum: PreferredLocation,
+    default: PreferredLocation.allOfTheAbove,
+    trim: true,
+  })
+  preferredLocation: PreferredLocation;
+
+  @Prop({
+    type: String,
+    enum: Availability,
+    default: Availability.immediate,
+    trim: true,
+  })
+  availability: Availability;
+
+  @Prop({
+    type: String,
+    enum: Experience,
+    default: Experience.zeroToTwo,
+    trim: true,
+  })
+  experience: Experience;
 }
 
 export const ApplicationSchema = SchemaFactory.createForClass(Application);
