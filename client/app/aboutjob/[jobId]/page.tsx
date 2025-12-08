@@ -2,6 +2,7 @@
 
 import JobDetail from "@/components/card/jobdetailcard";
 import { Availability, Experience, PreferredLocation, SalaryExcepted } from "@/constants/applicationFilterContest";
+import { useParams } from "next/navigation";
 import { useRef, useState } from "react";
 
 const job = {
@@ -33,6 +34,7 @@ const job = {
 }
 
 export default function AboutJob(){
+    const {jobId} = useParams();
 
     const confirmRef = useRef<HTMLDialogElement | null>(null);
 
@@ -46,9 +48,17 @@ export default function AboutJob(){
     }
 
     const  handleConfirmClick = ()=>{
-        console.log("button is clicked with data!", applicationOptions);
+        if(Object.values(applicationOptions).length === 0){
+            alert("please select the options!");
+            return;
+        }
+        const dataTosend = {
+            jobId,
+            applicationOptions
+        };
         try {
             confirmRef.current?.close();
+            console.log("the final data to send! ", dataTosend);
         } catch (error) {
             console.log("error of dialogbox! ", error);
         }

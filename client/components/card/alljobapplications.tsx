@@ -9,7 +9,7 @@ export default function AllJobApplicationsCard({applications}){
         <div className="gap-3 px-2 py-4 flex flex-wrap justify-center items-center border-2">
             {
                 applications.map((application)=>(
-                    <BaseApplicationCard key={application.id}>
+                    <BaseApplicationCard key={application.id} className="md:w-[680px] w-[350px]">
                         <div className="py-4 px-3 flex-col border-2">
                             <h3 className="text-lg font-bold">Name: 
                                 <span className="font-normal">Name of candidate</span>

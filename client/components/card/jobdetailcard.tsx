@@ -79,8 +79,8 @@ export default function JobDetail({job, confirmRef, onClick, applicationOptions,
         </div>
         <dialog ref={confirmRef} className="modal modal-bottom sm:modal-middle">
             <div className="modal-box">
-                <h3 className="font-bold text-lg">Mandatry Fields</h3>
-                <p className="py-2">Press ESC key or click the button below to close</p>
+                <h3 className="font-bold text-lg text-center">Select Options</h3>
+                <p className="py-2 text-center">Press ESC key or click the button below to close</p>
                 <div className="modal-action">
                     <form method="dialog" className="w-full space-y-2">
                         <BaseSelect 

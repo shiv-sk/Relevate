@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import BaseButton from "../forms/baseButton";
 import SimpleJobCrad from "./simplejobcard";
 
@@ -17,10 +18,12 @@ export default function JobCardSimple({jobs}){
                             <p className="text-sm mt-2">{j.level}</p>
                         </div>
                         <div className="card-actions justify-end">
-                            <BaseButton 
-                            type={"button"} 
-                            text={"more"} 
-                            className="btn btn-primary"/>
+                            <Link href={`/aboutjob/${j.id}`}>
+                                <BaseButton 
+                                type={"button"} 
+                                text={"more"} 
+                                className="btn btn-primary"/>
+                            </Link>
                         </div>
                     </div>
                 </SimpleJobCrad>
