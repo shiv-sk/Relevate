@@ -1,7 +1,15 @@
 "use client";
 export default function BaseInput(
     {label, type, onChange, value, placeholder, required=false, className}:
-    {label?: string, type :string, onChange, value: string, placeholder?: string, required?: boolean, className?: string}){
+    {
+        label?: string, 
+        type :string, 
+        onChange: (e: React.ChangeEvent<HTMLInputElement>)=>void, 
+        value: string, 
+        placeholder?: string, 
+        required?: boolean, 
+        className?: string
+    }){
     return(
         <div className="form-control w-full">
             {

@@ -3,17 +3,15 @@
 import AllJobApplicationsCard from "@/components/card/alljobapplications";
 import ApplicationFilter from "@/components/filter/applicationfilter";
 import { Availability, Experience, PreferredLocation, SalaryExcepted } from "@/constants/applicationFilterContest";
+import { JobApplication } from "@/interfaces/applicationInterface";
 import { useState } from "react";
 
-const applications = [
+const applications: JobApplication[] = [
     {
-        id:1,
-        jobId:2,
-        userId:{
-            name:"user2",
-            email:"user2@email.com"
-        },
-        snapshot:{
+        _id:"1",
+        jobId:"2",
+        userId:"2",
+        snapShot:{
             lookingFor:"role2"
         },
         profileId:"123",
@@ -22,13 +20,10 @@ const applications = [
         updatedAt:"24/5/2020",
     },
     {
-        id:2,
-        jobId:1,
-        userId:{
-            name:"user3",
-            email:"user3@email.com"
-        },
-        snapshot:{
+        _id:"2",
+        jobId:"1",
+        userId:"2",
+        snapShot:{
             lookingFor:"role1"
         },
         profileId:"123",
@@ -37,13 +32,10 @@ const applications = [
         updatedAt:"24/5/2020",
     },
     {
-        id:3,
-        jobId:1,
-        userId:{
-            name:"user1",
-            email:"user1@email.com"
-        },
-        snapshot:{
+        _id:"3",
+        jobId:"1",
+        userId:"1",
+        snapShot:{
             lookingFor:"role1"
         },
         profileId:"123",

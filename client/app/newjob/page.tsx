@@ -25,7 +25,7 @@ export default function NewJob(){
         setJob({...job, [key]: value});
     }
 
-    const handleOnSubmit = (e)=>{
+    const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
         console.log("the jobData is! ", job);
     }

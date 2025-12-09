@@ -174,7 +174,7 @@ export default function NewProfile(){
             link:"",
         })
     }
-    const handleOnSubmit = (e)=>{
+    const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
         if(
             !form.name.trim() || !form.currentLocation.trim() 

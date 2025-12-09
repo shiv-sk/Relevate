@@ -18,13 +18,14 @@ export enum JobLocation {
 }
 
 export interface Job {
+  _id?: string
   title: string,
   description: string,
   salary: string,
   requiredSkills: string[],
-  level: JobLevel,
-  type: JobType,
-  location: JobLocation
+  level: string,
+  type: string,
+  location: string
 }
 
 export interface JobDetail {

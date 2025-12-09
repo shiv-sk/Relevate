@@ -3,25 +3,26 @@
 import Link from "next/link";
 import BaseButton from "../forms/baseButton";
 import BaseApplicationCard from "./baseapplicationcard";
+import { JobApplication } from "@/interfaces/applicationInterface";
 
-export default function AllJobApplicationsCard({applications}){
+export default function AllJobApplicationsCard({applications}: {applications: JobApplication[]}){
     return(
         <div className="gap-3 px-2 py-4 flex flex-wrap justify-center items-center border-2">
             {
                 applications.map((application)=>(
-                    <BaseApplicationCard key={application.id} className="md:w-[680px] w-[350px]">
+                    <BaseApplicationCard key={application._id} className="md:w-[680px] w-[350px]">
                         <div className="py-4 px-3 flex-col border-2">
                             <h3 className="text-lg font-bold">Name: 
-                                <span className="font-normal">Name of candidate</span>
+                                <span className="font-normal">{application.snapShot?.name}</span>
                             </h3>
                             <h5 className="text-lg font-bold">Email: 
-                                <span className="font-normal text-base">Email of candidate</span>
+                                <span className="font-normal text-base">{application.snapShot?.email}</span>
                             </h5>
                             <h5 className="text-lg font-bold">Role: 
-                                <span className="font-normal text-base">user lookingFor</span>
+                                <span className="font-normal text-base">{application.snapShot?.lookingFor}</span>
                             </h5>
                             <div className="card-actions justify-end">
-                                <Link href={`/jobapplication/${application.id}`}>
+                                <Link href={`/jobapplication/${application._id}`}>
                                     <BaseButton type={"button"} 
                                     text="View" 
                                     className="btn btn-primary"/>

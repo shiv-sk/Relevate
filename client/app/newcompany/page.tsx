@@ -25,7 +25,7 @@ export default function NewCompany(){
         })
     }
 
-    const handleOnSubmit = (e)=>{
+    const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
         console.log("the button is clicked!");
         console.log("the company data is! " , company);

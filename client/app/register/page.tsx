@@ -1,14 +1,15 @@
 "use client";
 import RegisterForm from "@/components/forms/registerForm";
+import { Register as RegisterInterface } from "@/interfaces/registerInterface";
 import { useState } from "react";
 
 export default function Register(){
-    const [form, setForm] = useState({email:"", password:"", name:"", role:""});
+    const [form, setForm] = useState<RegisterInterface>({email:"", password:"", name:"", role:""});
 
     const handleOnChange = (key: string, value: string)=>{
         setForm({...form, [key]: value});
     }
-    const handleOnSubmit = (e)=>{
+    const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
         console.log("the button is clicked with form data", form);
     }

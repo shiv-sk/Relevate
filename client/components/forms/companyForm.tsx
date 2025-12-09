@@ -13,7 +13,7 @@ export default function CompanyForm({onChange, socialMediaOnChange, company, soc
         company: Company,
         socialMedia: SocialMedia,
         handleSocialMediaAdd: ()=>void,
-        onSubmit: (e)=>void
+        onSubmit: (e: React.FormEvent<HTMLFormElement>)=>void
     }){
     return(
         <div 
@@ -22,18 +22,18 @@ export default function CompanyForm({onChange, socialMediaOnChange, company, soc
             <form className="gap-2.5 py-6 space-y-3 w-full" onSubmit={(e)=>onSubmit(e)}>
                 <BaseInput 
                 type={"text"} 
-                onChange={(e)=>onChange(e.target.value, "name")} 
+                onChange={(e: React.ChangeEvent<HTMLInputElement>)=>onChange(e.target.value, "name")} 
                 value={company.name} 
                 label="Name"/>
 
                 <BaseInput 
                 type={"email"} 
-                onChange={(e)=>onChange(e.target.value, "officialEmail")} 
+                onChange={(e: React.ChangeEvent<HTMLInputElement>)=>onChange(e.target.value, "officialEmail")} 
                 value={company.officialEmail} 
                 label="OfficialEmail"/>
 
                 <Textarea 
-                onChange={(e)=>onChange(e.target.value, "about")} 
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>)=>onChange(e.target.value, "about")} 
                 value={company.about} 
                 placeholder={"About company"} 
                 className={""}
@@ -41,25 +41,25 @@ export default function CompanyForm({onChange, socialMediaOnChange, company, soc
 
                 <BaseInput 
                 type={"text"} 
-                onChange={(e)=>onChange(e.target.value, "domain")} 
+                onChange={(e: React.ChangeEvent<HTMLInputElement>)=>onChange(e.target.value, "domain")} 
                 value={company.domain} 
                 label="Domain"/>
 
                 <BaseInput 
                 type={"text"} 
-                onChange={(e)=>onChange(e.target.value, "size")} 
+                onChange={(e: React.ChangeEvent<HTMLInputElement>)=>onChange(e.target.value, "size")} 
                 value={company.size} 
                 label="Size"/>
 
                 <BaseInput 
                 type={"text"} 
-                onChange={(e)=>onChange(e.target.value, "address")} 
+                onChange={(e: React.ChangeEvent<HTMLInputElement>)=>onChange(e.target.value, "address")} 
                 value={company.address} 
                 label="Address"/>
 
                 <BaseInput 
                 type={"text"} 
-                onChange={(e)=>onChange(e.target.value, "contact")} 
+                onChange={(e: React.ChangeEvent<HTMLInputElement>)=>onChange(e.target.value, "contact")} 
                 value={company.contact} 
                 label="Contact"/>
                 
@@ -67,13 +67,13 @@ export default function CompanyForm({onChange, socialMediaOnChange, company, soc
                     <H3 title={"SocialMedia"}/>
                     <BaseInput 
                     type={"text"} 
-                    onChange={(e)=>socialMediaOnChange(e.target.value, "name")} 
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>)=>socialMediaOnChange(e.target.value, "name")} 
                     value={socialMedia.name} 
                     label="Name"/>
 
                     <BaseInput 
                     type={"text"} 
-                    onChange={(e)=>socialMediaOnChange(e.target.value, "link")} 
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>)=>socialMediaOnChange(e.target.value, "link")} 
                     value={socialMedia.link} 
                     label="Link"/>
 

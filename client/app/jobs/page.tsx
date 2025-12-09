@@ -3,48 +3,54 @@
 import JobCardSimple from "@/components/card/jobsimple.card";
 import SearchBar from "@/components/searchbar/search";
 import Filter from "@/components/sidebar/filter";
+import { Job, JobLevel, JobLocation, JobType } from "@/interfaces/jobInterface";
 import { useState } from "react";
 
-const jobs = [
+const jobs: Job[] = [
     {
-        id:1,
-        title:"job1",
-        location:"xyz",
-        salary:50000,
-        level:"Intern",
-        type:"Fulltime",
+        _id: "1",
+        title: "job1",
+        requiredSkills: [],
+        level: JobLevel.Intern,
+        type: JobType.Internship,
+        location: JobLocation.Onsite,
+        salary: "7 - 9 LPA"
     },
     {
-        id:2,
-        title:"job1",
-        location:"xyz",
-        salary:50000,
-        level:"Entery",
-        type:"PartTime",
+        _id: "2",
+        title: "job1",
+        requiredSkills: [],
+        level: JobLevel.Intern,
+        type: JobType.Internship,
+        location: JobLocation.Onsite,
+        salary: "7 - 9 LPA"
     },
     {
-        id:3,
-        title:"job1",
-        location:"xyz",
-        salary:50000,
-        level:"Intern",
-        type:"Intership",
+        _id: "3",
+        title: "job1",
+        requiredSkills: [],
+        level: JobLevel.Intern,
+        type: JobType.Internship,
+        location: JobLocation.Onsite,
+        salary: "8 - 8.5 LPA"
     },
     {
-        id:4,
-        title:"job1",
-        location:"xyz",
-        salary:50000,
-        level:"Intern",
-        type:"Intership",
+        _id: "4",
+        title: "job1",
+        requiredSkills: [],
+        level: JobLevel.Intern,
+        type: JobType.Internship,
+        location: JobLocation.Onsite,
+        salary: "3 - 4.5 LPA"
     },
     {
-        id:5,
-        title:"job1",
-        location:"xyz",
-        salary:50000,
-        level:"Intern",
-        type:"Intership",
+        _id: "5",
+        title: "job1",
+        requiredSkills: [],
+        level: JobLevel.Intern,
+        type: JobType.Internship,
+        location: JobLocation.Onsite,
+        salary: "3 - 5 LPA"
     },
 ]
 
