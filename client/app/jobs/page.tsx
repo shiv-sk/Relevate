@@ -14,7 +14,8 @@ const jobs: Job[] = [
         level: JobLevel.Intern,
         type: JobType.Internship,
         location: JobLocation.Onsite,
-        salary: "7 - 9 LPA"
+        salary: "7 - 9 LPA",
+        description:""
     },
     {
         _id: "2",
@@ -23,7 +24,8 @@ const jobs: Job[] = [
         level: JobLevel.Intern,
         type: JobType.Internship,
         location: JobLocation.Onsite,
-        salary: "7 - 9 LPA"
+        salary: "7 - 9 LPA",
+        description:""
     },
     {
         _id: "3",
@@ -32,7 +34,8 @@ const jobs: Job[] = [
         level: JobLevel.Intern,
         type: JobType.Internship,
         location: JobLocation.Onsite,
-        salary: "8 - 8.5 LPA"
+        salary: "8 - 8.5 LPA",
+        description:""
     },
     {
         _id: "4",
@@ -41,7 +44,8 @@ const jobs: Job[] = [
         level: JobLevel.Intern,
         type: JobType.Internship,
         location: JobLocation.Onsite,
-        salary: "3 - 4.5 LPA"
+        salary: "3 - 4.5 LPA",
+        description:""
     },
     {
         _id: "5",
@@ -50,7 +54,8 @@ const jobs: Job[] = [
         level: JobLevel.Intern,
         type: JobType.Internship,
         location: JobLocation.Onsite,
-        salary: "3 - 5 LPA"
+        salary: "3 - 5 LPA",
+        description:""
     },
 ]
 
