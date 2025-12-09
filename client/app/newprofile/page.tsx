@@ -176,6 +176,12 @@ export default function NewProfile(){
     }
     const handleOnSubmit = (e)=>{
         e.preventDefault();
+        if(
+            !form.name.trim() || !form.currentLocation.trim() 
+            || !form.email.trim() || !form.lookingFor.trim() || form.skills.length === 0){
+                alert("please fill required fields!");
+                return;
+            }
         console.log("the button is clicked with form data", form);
     }
 

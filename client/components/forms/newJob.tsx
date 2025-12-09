@@ -6,7 +6,7 @@ import BaseSelect from "./baseSelect";
 import Textarea from "./textarea";
 import BaseButton from "./baseButton";
 
-export default function NewJob(
+export default function NewJobForm(
     {job, skill, handleOnChange, handleOnSubmit, handleAddSkill}: 
     {
         job: Job, 
@@ -16,8 +16,8 @@ export default function NewJob(
         handleAddSkill: ()=>void}){
     return(
         <div 
-        className="bg-base-100 flex flex-col justify-center items-center max-w-sm w-full p-6 rounded-lg shadow-lg mx-auto">
-            <form action="" className="gap-2.5 py-6 space-y-3 w-full" onSubmit={(e)=>handleOnSubmit(e)}>
+        className="bg-base-100 flex flex-col justify-center items-center w-full p-6 rounded-lg shadow-lg">
+            <form className="gap-2.5 py-6 space-y-3 w-full" onSubmit={(e)=>handleOnSubmit(e)}>
                 <H1 heading={"AddJob"}/>
 
                 <BaseInput 

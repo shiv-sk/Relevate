@@ -1,12 +1,14 @@
 "use client";
 import ApplicationCard from "@/components/card/applicationcard";
+import { UserApplication } from "@/interfaces/applicationInterface";
 
-const applications = [
+const applications: UserApplication[] = [
     {
-        id:1,
+        _id:"1",
         jobId:{
             title:"job1",
             companyId:{
+                _id: "1",
                 name:"company1"
             }
         },
@@ -17,10 +19,11 @@ const applications = [
         updatedAt:"24/5/2020",
     },
     {
-        id:2,
+        _id:"2",
         jobId:{
             title:"job2",
             companyId:{
+                _id:"2",
                 name:"company2"
             }
         },
@@ -31,10 +34,11 @@ const applications = [
         updatedAt:"24/5/2020",
     },
     {
-        id:3,
+        _id:"3",
         jobId:{
             title:"job3",
             companyId:{
+                _id:"3",
                 name:"company3"
             }
         },

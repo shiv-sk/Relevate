@@ -2,12 +2,16 @@
 
 import JobDetail from "@/components/card/jobdetailcard";
 import { Availability, Experience, PreferredLocation, SalaryExcepted } from "@/constants/applicationFilterContest";
+import { JobLevel, JobLocation, JobType } from "@/constants/jobcontest";
+import { ApplicationOptions } from "@/interfaces/applicationInterface";
+import { JobDetail as JobDetailInterface } from "@/interfaces/jobInterface";
 import { useParams } from "next/navigation";
 import { useRef, useState } from "react";
 
-const job = {
+const job: JobDetailInterface = {
     title:"job1",
     companyId:{
+        _id: "",
         name:"company1",
         socialMedia:[
             {
@@ -23,12 +27,12 @@ const job = {
                 link:"link3"
             },
         ],
-        description:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo ipsa magnam, inventore sit ullam hic perferendis odit, aspernatur maiores voluptate quod, velit mollitia vitae facere corporis quas vero. Sunt provident recusandae aliquid magni error at officia molestias nulla! Ipsa beatae, quo architecto quaerat delectus neque perferendis impedit id vel quod incidunt laudantium provident, cupiditate veniam, eligendi aspernatur! Adipisci optio odio vero unde vitae enim tempore consequatur fugit, assumenda minus corrupti quia corporis, aspernatur ullam ut nulla at amet distinctio aperiam alias quibusdam. Sed recusandae vero itaque sunt repellat sit, animi eaque? Enim, debitis. Aut aperiam, dicta architecto adipisci, dignissimos aliquam autem laborum ex, minima sit quasi beatae inventore ratione ad explicabo. Autem, ipsum maxime mollitia officiis quod quisquam recusandae, nam laborum sed odio vel dolores exercitationem earum, ipsa iure sint voluptatibus nisi voluptas possimus cum consequatur magnam! Eveniet beatae dignissimos assumenda id perferendis harum quaerat, voluptate alias facilis dolore"
+        about:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo ipsa magnam, inventore sit ullam hic perferendis odit, aspernatur maiores voluptate quod, velit mollitia vitae facere corporis quas vero. Sunt provident recusandae aliquid magni error at officia molestias nulla! Ipsa beatae, quo architecto quaerat delectus neque perferendis impedit id vel quod incidunt laudantium provident, cupiditate veniam, eligendi aspernatur! Adipisci optio odio vero unde vitae enim tempore consequatur fugit, assumenda minus corrupti quia corporis, aspernatur ullam ut nulla at amet distinctio aperiam alias quibusdam. Sed recusandae vero itaque sunt repellat sit, animi eaque? Enim, debitis. Aut aperiam, dicta architecto adipisci, dignissimos aliquam autem laborum ex, minima sit quasi beatae inventore ratione ad explicabo. Autem, ipsum maxime mollitia officiis quod quisquam recusandae, nam laborum sed odio vel dolores exercitationem earum, ipsa iure sint voluptatibus nisi voluptas possimus cum consequatur magnam! Eveniet beatae dignissimos assumenda id perferendis harum quaerat, voluptate alias facilis dolore"
     },
-    location:"OnSite",
-    salary:5000,
-    type:"Internship",
-    level:"Intern",
+    location:JobLocation.Onsite,
+    salary:"",
+    type:JobType.FullTime,
+    level:JobLevel.Entry,
     requiredSkills:["skill1" , "skill2" , "skill3" , "skill4"],
     description:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo ipsa magnam, inventore sit ullam hic perferendis odit, aspernatur maiores voluptate quod, velit mollitia vitae facere corporis quas vero. Sunt provident recusandae aliquid magni error at officia molestias nulla! Ipsa beatae, quo architecto quaerat delectus neque perferendis impedit id vel quod incidunt laudantium provident, cupiditate veniam, eligendi aspernatur! Adipisci optio odio vero unde vitae enim tempore consequatur fugit, assumenda minus corrupti quia corporis, aspernatur ullam ut nulla at amet distinctio aperiam alias quibusdam. Sed recusandae vero itaque sunt repellat sit, animi eaque? Enim, debitis. Aut aperiam, dicta architecto adipisci, dignissimos aliquam autem laborum ex, minima sit quasi beatae inventore ratione ad explicabo. Autem, ipsum maxime mollitia officiis quod quisquam recusandae, nam laborum sed odio vel dolores exercitationem earum, ipsa iure sint voluptatibus nisi voluptas possimus cum consequatur magnam! Eveniet beatae dignissimos assumenda id perferendis harum quaerat, voluptate alias facilis dolores libero."
 }
@@ -64,7 +68,7 @@ export default function AboutJob(){
         }
     }
 
-    const [applicationOptions, setApplicationOptions] = useState({
+    const [applicationOptions, setApplicationOptions] = useState<ApplicationOptions>({
         salaryExcepted: SalaryExcepted.ThreeToFive,
         preferredLocation: PreferredLocation.allOfTheAbove,
         availability: Availability.immediate,

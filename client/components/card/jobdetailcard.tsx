@@ -7,8 +7,24 @@ import Location from "../icons/location";
 import Salary from "../icons/salary";
 import Type from "../icons/type";
 import JobDetailBaseCard from "./jobdetailbasecard";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import { JobDetail as JobDetailInterface } from "@/interfaces/jobInterface";
+import { ApplicationOptions } from "@/interfaces/applicationInterface";
 
-export default function JobDetail({job, confirmRef, onClick, applicationOptions, onChange, handleConfirmClick}){
+export default function JobDetail(
+    {job, confirmRef, onClick, applicationOptions, onChange, handleConfirmClick}:
+    {
+        job: JobDetailInterface, 
+        confirmRef, 
+        onClick: ()=>void, 
+        applicationOptions: ApplicationOptions, 
+        onChange: (key: string, value: string)=>void, 
+        handleConfirmClick: ()=>void
+    }){
+
+    const {jobId} = useParams();
+
     return(
         <JobDetailBaseCard>
         <div 
@@ -56,7 +72,7 @@ export default function JobDetail({job, confirmRef, onClick, applicationOptions,
             <div className="py-4 px-2">
                 <h3 className="font-bold text-lg">AboutCompany</h3>
                 <p className="text-lg">
-                    {job.companyId.description}
+                    {job.companyId.about}
                 </p>
                 <div className="flex gap-4 py-0.5">
                     {
@@ -74,6 +90,9 @@ export default function JobDetail({job, confirmRef, onClick, applicationOptions,
                     className="btn btn-primary"
                     handleOnClick={onClick} />
                     <BaseButton type={"button"} text={"AiReview"} className="btn btn-secondary" />
+                    <Link href={`/editjob/${jobId}`}>
+                        <BaseButton type={"button"} text={"Edit"} className="btn btn-primary" />
+                    </Link>
                 </div>
             </div>
         </div>

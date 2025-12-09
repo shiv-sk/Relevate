@@ -26,3 +26,22 @@ export interface Job {
   type: JobType,
   location: JobLocation
 }
+
+export interface JobDetail {
+  title: string,
+  description: string,
+  salary: string,
+  requiredSkills: string[],
+  level: JobLevel,
+  type: JobType,
+  location: JobLocation,
+  companyId:{
+    _id: string,
+    about: string,
+    name: string,
+    socialMedia: {
+      name: string,
+      link: string
+    }[]
+  }
+}

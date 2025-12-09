@@ -2,11 +2,12 @@
 import { useRef, useState } from "react";
 import BaseButton from "../forms/baseButton";
 import BaseApplicationCard from "./baseapplicationcard";
+import { UserApplication } from "@/interfaces/applicationInterface";
 
-export default function ApplicationCard({applications}){
+export default function ApplicationCard({applications}: {applications: UserApplication[]}){
     const applicationRef = useRef<HTMLDialogElement | null>(null);
-    const [applicatonData, setApplicationData] = useState(null);
-    const handleOnClick = (application)=>{
+    const [applicatonData, setApplicationData] = useState<UserApplication | null>(null);
+    const handleOnClick = (application: UserApplication)=>{
         console.log("button is clicked!!");
         console.log(application);
         try {
@@ -21,7 +22,7 @@ export default function ApplicationCard({applications}){
         <div className="gap-3 px-2 py-4 flex flex-wrap justify-center items-center border-2">
             {
                 applications.map((application)=>(
-                    <BaseApplicationCard key={application.id} className="md:w-[480px] w-[350px]">
+                    <BaseApplicationCard key={application._id} className="md:w-[480px] w-[350px]">
                         <div className="py-4 px-3 flex-col border-2">
                             <h3 className="card-title">{application.jobId.title}</h3>
                             <h5>{application.jobId.companyId.name}</h5>
