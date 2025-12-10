@@ -2,46 +2,48 @@
 import JobCardSimple from "@/components/card/jobsimple.card";
 import SearchBar from "@/components/searchbar/search";
 import Filter from "@/components/sidebar/filter";
+import { useGetAllJobs } from "@/customhooks/job";
+import { SimpleJob } from "@/interfaces/jobInterface";
 import { useState } from "react";
 
-const jobs = [
+const allJobs: SimpleJob[] = [
     {
-        id:1,
+        _id:"1",
         title:"job1",
         location:"xyz",
-        salary:50000,
+        salary:"50000",
         level:"Intern",
         type:"Fulltime",
     },
     {
-        id:2,
+        _id:"2",
         title:"job1",
         location:"xyz",
-        salary:50000,
+        salary:"50000",
         level:"Entery",
         type:"PartTime",
     },
     {
-        id:3,
+        _id:"3",
         title:"job1",
         location:"xyz",
-        salary:50000,
+        salary:"50000",
         level:"Intern",
         type:"Intership",
     },
     {
-        id:4,
+        _id:"4",
         title:"job1",
         location:"xyz",
-        salary:50000,
+        salary:"50000",
         level:"Intern",
         type:"Intership",
     },
     {
-        id:5,
+        _id:"5",
         title:"job1",
         location:"xyz",
-        salary:50000,
+        salary:"50000",
         level:"Intern",
         type:"Intership",
     },
@@ -49,6 +51,13 @@ const jobs = [
 
 export default function Home(){
     const [search, setSearch] = useState("");
+    const { jobs, error } = useGetAllJobs();
+    if(jobs){
+        console.log("response from allJobs hokk!", jobs);
+    }
+    else{
+        console.log("error from allJobs hokk!", error);
+    }
 
     const handleOnChange = (value: string)=>{
         setSearch(value);

@@ -8,8 +8,13 @@ import BaseSelect from "./baseSelect";
 import { UserRole } from "@/constants/userConstant";
 
 export default function RegisterForm(
-    {onChange, form, onSubmit}: 
-    {onChange: (key: string, value: string)=>void, form: Register, onSubmit: (e: React.FormEvent<HTMLFormElement>)=>void}){
+    {onChange, form, onSubmit, isLoading}: 
+    {
+        onChange: (key: string, value: string)=>void, 
+        form: Register, 
+        onSubmit: (e: React.FormEvent<HTMLFormElement>)=>void,
+        isLoading: boolean
+    }){
     return(
         <div className="bg-base-100 flex justify-center items-center max-w-sm w-full p-6 rounded-lg shadow-lg mx-auto flex-col">
             <h1 className="text-center font-bold text-2xl underline">Register</h1>
@@ -40,10 +45,14 @@ export default function RegisterForm(
                     option={[UserRole.Employer, UserRole.JobSeeker]} 
                     label={"Role"} 
                     value={form.role} 
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange("role", e.target.value)}/>
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onChange("role", e.target.value)}/>
 
                     <Redirect url={"/login"} name={"Login"} text={"Already Have An Account"} />
-                    <BaseButton type="submit" text="Register" className="btn btn-primary py-2.5 px-2 w-full"/>
+                    <BaseButton 
+                    type="submit" 
+                    text="Register"
+                    isLoading={isLoading} 
+                    className="btn btn-primary py-2.5 px-2 w-full"/>
                 </form>
             </div>
         </div>

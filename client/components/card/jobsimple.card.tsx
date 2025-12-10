@@ -2,13 +2,13 @@
 import Link from "next/link";
 import BaseButton from "../forms/baseButton";
 import SimpleJobCrad from "./simplejobcard";
-import { Job } from "@/interfaces/jobInterface";
+import { SimpleJob } from "@/interfaces/jobInterface";
 
-export default function JobCardSimple({jobs}: {jobs: Job[]}){
+export default function JobCardSimple({jobs}: {jobs: SimpleJob[]}){
     return(
         <div className="w-full flex flex-col gap-6 items-center">
         {
-            jobs.map((j)=>(
+            jobs.length > 0 ? jobs.map((j)=>(
                 <SimpleJobCrad key={j._id}>
                     <div>
                         <h2 className="card-title">{j.title}</h2>
@@ -28,7 +28,9 @@ export default function JobCardSimple({jobs}: {jobs: Job[]}){
                         </div>
                     </div>
                 </SimpleJobCrad>
-            ))
+            )): (
+                <p>Jobs are not found!</p>
+            )
         }
         </div>
     )

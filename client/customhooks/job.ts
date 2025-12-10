@@ -1,0 +1,32 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+
+import { baseUrl, getAndDeleteReq } from "@/apicalls/apiCalls";
+import { SimpleJob } from "@/interfaces/jobInterface";
+import { useEffect, useState } from "react";
+
+export function useGetAllJobs(){
+
+    const [jobs, setJobs] = useState<SimpleJob[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<any | null>(null);
+
+    useEffect(()=>{
+        const getAllJobs = async()=>{
+            try {
+                setIsLoading(true);
+                const response = await getAndDeleteReq(`${baseUrl}/job/`, "GET");
+                console.log("response from alljobs", response);
+                setJobs(response);
+            } catch (error) {
+                console.log("error from allJobs page!", error);
+                setError(error)
+            }finally{
+                setIsLoading(false);
+            }
+        }
+        getAllJobs();
+    }, []);
+
+    return { jobs, error, isLoading }
+};

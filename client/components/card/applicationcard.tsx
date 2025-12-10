@@ -28,7 +28,9 @@ export default function ApplicationCard({applications}: {applications: UserAppli
                             <h5>{application.jobId.companyId.name}</h5>
                             <div className="flex gap-2 space-x-2 items-center">
                                 <p className="text-sm mt-2 font-bold">AppliedAt: 
-                                    <span className="font-normal">&nbsp;{application.createdAt}</span>
+                                    <span className="font-normal">
+                                        &nbsp;{application.createdAt ? new Date(application.createdAt).toLocaleDateString() : "Applied-Date"}
+                                    </span>
                                 </p>
                                 <p className="text-sm mt-2 font-bold">Status: 
                                     <span className="font-normal">&nbsp;{application.status}</span>

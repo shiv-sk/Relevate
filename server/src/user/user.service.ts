@@ -33,6 +33,7 @@ export class UserService {
       name: newUser.name,
       id: newUser._id,
       email: newUser.email,
+      role: newUser.role,
     };
     return user;
   }

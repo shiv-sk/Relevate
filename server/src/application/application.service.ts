@@ -47,7 +47,13 @@ export class ApplicationService {
   }
 
   async findAllUserApplications(userId: string) {
-    const allUserApplications = await this.applicationModel.find({ userId });
+    const allUserApplications = await this.applicationModel
+      .find({ userId })
+      .populate({
+        path: 'jobId',
+        select: 'title companyId',
+        populate: { path: 'companyId', select: 'name' },
+      });
     if (allUserApplications.length === 0) {
       throw new NotFoundException('applications are not found');
     }

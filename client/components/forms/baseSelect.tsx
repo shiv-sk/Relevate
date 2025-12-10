@@ -1,10 +1,12 @@
+import React from "react"
+
 export default function BaseSelect(
     {option, label, value, onChange, className}: 
     {
         option: string[], 
         label: string, 
         value: string, 
-        onChange: (e)=>void,
+        onChange: (e: React.ChangeEvent<HTMLSelectElement>)=>void,
         className?: string
     }){
     return(

@@ -17,12 +17,9 @@ export interface UserApplication {
     userId: string,
     profileId: string,
     status: string,
-    createdAt: string,
-    updatedAt: string,
+    createdAt: Date,
+    updatedAt: Date,
     snapShot?:{
-        name: string,
-        email: string,
-        currentLocation: string;
         lookingFor: string,
         skills: string[],
         experience:{

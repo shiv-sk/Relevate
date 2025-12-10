@@ -94,26 +94,26 @@ const AuthProvider = ({ children }: { children: ReactNode })=>{
         try {
             const response = await postAndPatchReq(`${baseUrl}/auth/login` , "POST" , data);
             console.log(response);
-            setUser(response?.foundUser);
-            return { success: true, data: response?.foundUser };
+            setUser(response);
+            return { success: true, data: response };
         } catch (error: any) {
             const errorMessage = error?.response?.data?.messgae || "Unable to find current user.";
-            throw { success:false , error:errorMessage }
+            return { success:false , error:errorMessage }
         }finally{
             setIsLoading(false);
         }
     };
 
-    const registerUser = async(data:LoginData):Promise<AuthResponse>=>{
+    const registerUser = async(data:RegisterData):Promise<AuthResponse>=>{
         setIsLoading(true);
         try {
             const response = await postAndPatchReq(`${baseUrl}/auth/register` , "POST" , data);
             console.log(response);
-            setUser(response?.foundUser);
+            setUser(response);
             return { success: true, data: response?.data };
         } catch (error: any) {
             const errorMessage = error.response?.data?.message || "Unable to find current user.";
-            throw { success:false , error:errorMessage }
+            return { success:false , error:errorMessage }
         }finally{
             setIsLoading(false);
         }

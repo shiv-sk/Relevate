@@ -31,6 +31,7 @@ export class AuthService {
     if (!isPasswordMatch) {
       throw new BadRequestException('Invalid password');
     }
+    user.password = '';
     return user;
   }
   async loginUser(user: User) {

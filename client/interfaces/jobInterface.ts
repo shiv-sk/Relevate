@@ -28,6 +28,15 @@ export interface Job {
   location: string
 }
 
+export interface SimpleJob {
+  _id?: string
+  title: string,
+  salary: string,
+  level: string,
+  type: string,
+  location: string
+}
+
 export interface JobDetail {
   title: string,
   description: string,

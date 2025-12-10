@@ -12,7 +12,7 @@ export default function NewJobForm(
         job: Job, 
         skill: string, 
         handleOnChange: (key: string, value: string)=>void, 
-        handleOnSubmit: (e)=>void, 
+        handleOnSubmit: (e: React.FormEvent<HTMLFormElement>)=>void, 
         handleAddSkill: ()=>void}){
     return(
         <div 

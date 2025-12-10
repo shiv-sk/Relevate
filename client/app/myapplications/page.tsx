@@ -1,56 +1,62 @@
 "use client";
+
 import ApplicationCard from "@/components/card/applicationcard";
+import { useGetMyApplications } from "@/customhooks/application";
 import { UserApplication } from "@/interfaces/applicationInterface";
 
-const applications: UserApplication[] = [
-    {
-        _id:"1",
-        jobId:{
-            title:"job1",
-            companyId:{
-                _id: "1",
-                name:"company1"
-            }
-        },
-        userId:"123",
-        profileId:"123",
-        status:"Applied",
-        createdAt:"24/5/2020",
-        updatedAt:"24/5/2020",
-    },
-    {
-        _id:"2",
-        jobId:{
-            title:"job2",
-            companyId:{
-                _id:"2",
-                name:"company2"
-            }
-        },
-        userId:"123",
-        profileId:"123",
-        status:"Applied",
-        createdAt:"24/5/2020",
-        updatedAt:"24/5/2020",
-    },
-    {
-        _id:"3",
-        jobId:{
-            title:"job3",
-            companyId:{
-                _id:"3",
-                name:"company3"
-            }
-        },
-        userId:"123",
-        profileId:"123",
-        status:"Applied",
-        createdAt:"24/5/2020",
-        updatedAt:"24/5/2020",
-    },
-]
+// const applicationsh: UserApplication[] = [
+//     {
+//         _id:"1",
+//         jobId:{
+//             title:"job1",
+//             companyId:{
+//                 _id: "1",
+//                 name:"company1"
+//             }
+//         },
+//         userId:"123",
+//         profileId:"123",
+//         status:"Applied",
+//         createdAt:"24/5/2020",
+//         updatedAt:"24/5/2020",
+//     },
+//     {
+//         _id:"2",
+//         jobId:{
+//             title:"job2",
+//             companyId:{
+//                 _id:"2",
+//                 name:"company2"
+//             }
+//         },
+//         userId:"123",
+//         profileId:"123",
+//         status:"Applied",
+//         createdAt:"24/5/2020",
+//         updatedAt:"24/5/2020",
+//     },
+//     {
+//         _id:"3",
+//         jobId:{
+//             title:"job3",
+//             companyId:{
+//                 _id:"3",
+//                 name:"company3"
+//             }
+//         },
+//         userId:"123",
+//         profileId:"123",
+//         status:"Applied",
+//         createdAt:"24/5/2020",
+//         updatedAt:"24/5/2020",
+//     },
+// ]
 
 export default function MyApplications(){
+
+    const { applications } = useGetMyApplications();
+    console.log("the applications are!", applications);
+
     return(
         <div className="min-h-screen bg-base-300 py-10">
             <div className="flex items-center flex-col space-y-4">
