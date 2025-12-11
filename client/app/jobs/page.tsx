@@ -1,67 +1,18 @@
 "use client";
 
 import JobCardSimple from "@/components/card/jobsimple.card";
+import { Loadingstate } from "@/components/forms/loadingState";
 import SearchBar from "@/components/searchbar/search";
 import Filter from "@/components/sidebar/filter";
-import { Job, JobLevel, JobLocation, JobType } from "@/interfaces/jobInterface";
+import { useAuth } from "@/context/authcontext";
+import { useGetCompanyAllJobs } from "@/customhooks/job";
 import { useState } from "react";
-
-const jobs: Job[] = [
-    {
-        _id: "1",
-        title: "job1",
-        requiredSkills: [],
-        level: JobLevel.Intern,
-        type: JobType.Internship,
-        location: JobLocation.Onsite,
-        salary: "7 - 9 LPA",
-        description:""
-    },
-    {
-        _id: "2",
-        title: "job1",
-        requiredSkills: [],
-        level: JobLevel.Intern,
-        type: JobType.Internship,
-        location: JobLocation.Onsite,
-        salary: "7 - 9 LPA",
-        description:""
-    },
-    {
-        _id: "3",
-        title: "job1",
-        requiredSkills: [],
-        level: JobLevel.Intern,
-        type: JobType.Internship,
-        location: JobLocation.Onsite,
-        salary: "8 - 8.5 LPA",
-        description:""
-    },
-    {
-        _id: "4",
-        title: "job1",
-        requiredSkills: [],
-        level: JobLevel.Intern,
-        type: JobType.Internship,
-        location: JobLocation.Onsite,
-        salary: "3 - 4.5 LPA",
-        description:""
-    },
-    {
-        _id: "5",
-        title: "job1",
-        requiredSkills: [],
-        level: JobLevel.Intern,
-        type: JobType.Internship,
-        location: JobLocation.Onsite,
-        salary: "3 - 5 LPA",
-        description:""
-    },
-]
 
 export default function CompanyJobs(){
 
     const [search, setSearch] = useState("");
+    const {companyJobs, isLoading} = useGetCompanyAllJobs()
+    const {user} = useAuth();
 
     const handleOnSearchChange = (val: string)=>{
         setSearch(val);
@@ -89,7 +40,19 @@ export default function CompanyJobs(){
                         <Filter />
                     </div>
                     <div className="w-full lg:w-[60%] py-4">
-                        <JobCardSimple jobs={jobs}></JobCardSimple>
+                        {
+                            isLoading ? (
+                                <Loadingstate className="loading-xl"/>
+                            ) : companyJobs.length > 0 ? (
+                                <>
+                                    <JobCardSimple jobs={companyJobs}></JobCardSimple>
+                                </>
+                            ) : (
+                                <div>
+                                    <p>No jobs</p>
+                                </div>
+                            )
+                        }
                     </div>
                 </div>
             </div> 

@@ -4,7 +4,7 @@ import BaseButton from "../forms/baseButton";
 import SimpleJobCrad from "./simplejobcard";
 import { SimpleJob } from "@/interfaces/jobInterface";
 
-export default function JobCardSimple({jobs}: {jobs: SimpleJob[]}){
+export default function JobCardSimple({jobs, role}: {jobs: SimpleJob[], role?: string}){
     return(
         <div className="w-full flex flex-col gap-6 items-center">
         {
@@ -25,6 +25,18 @@ export default function JobCardSimple({jobs}: {jobs: SimpleJob[]}){
                                 text={"more"} 
                                 className="btn btn-primary"/>
                             </Link>
+                            {
+                                role === "Employer" && (
+                                    <>
+                                        <Link href={`/aboutjob/${j._id}`}>
+                                            <BaseButton 
+                                            type={"button"} 
+                                            text={"applications"} 
+                                            className="btn btn-secondary"/>
+                                        </Link>
+                                    </>
+                                )
+                            }
                         </div>
                     </div>
                 </SimpleJobCrad>

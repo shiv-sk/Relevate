@@ -1,4 +1,5 @@
 "use client";
+
 import { Availability, Experience, PreferredLocation, SalaryExcepted } from "@/constants/applicationFilterContest";
 import BaseButton from "../forms/baseButton";
 import BaseSelect from "../forms/baseSelect";
@@ -11,6 +12,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { JobDetail as JobDetailInterface } from "@/interfaces/jobInterface";
 import { ApplicationOptions } from "@/interfaces/applicationInterface";
+import { useAuth } from "@/context/authcontext";
 
 export default function JobDetail(
     {job, confirmRef, onClick, applicationOptions, onChange, handleConfirmClick}:
@@ -24,6 +26,7 @@ export default function JobDetail(
     }){
 
     const {jobId} = useParams();
+    const {user} = useAuth();
 
     return(
         <JobDetailBaseCard>
@@ -106,6 +109,16 @@ export default function JobDetail(
                     <Link href={`/editjob/${jobId}`}>
                         <BaseButton type={"button"} text={"Edit"} className="btn btn-primary" />
                     </Link>
+                    {
+                        user?.role === "Employer" && (
+                            <Link href={`/alljobapplications/${jobId}`}>
+                                <BaseButton 
+                                type={"button"} 
+                                text={"Applications"} 
+                                className="btn btn-neutral" />
+                            </Link>
+                        )
+                    }
                 </div>
             </div>
         </div>

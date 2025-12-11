@@ -19,7 +19,7 @@ export interface UserApplication {
     status: string,
     createdAt: Date,
     updatedAt: Date,
-    snapShot?:{
+    profileSnapshot?:{
         lookingFor: string,
         skills: string[],
         experience:{
@@ -42,6 +42,10 @@ export interface UserApplication {
 }
 
 export interface JobApplication {
+    salaryExcepted: string,
+    preferredLocation: string,
+    availability: string,
+    experience: string,
     _id: string,
     jobId: string,
     userId: string,
@@ -49,7 +53,7 @@ export interface JobApplication {
     status: string,
     createdAt: string,
     updatedAt: string,
-    snapShot?:{
+    profileSnapshot?:{
         name?: string,
         email?: string,
         currentLocation?: string;

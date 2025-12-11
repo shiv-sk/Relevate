@@ -2,7 +2,7 @@
 "use client";
 
 import { baseUrl, getAndDeleteReq } from "@/apicalls/apiCalls";
-import { SimpleJob } from "@/interfaces/jobInterface";
+import { Job, SimpleJob } from "@/interfaces/jobInterface";
 import { useEffect, useState } from "react";
 
 export function useGetAllJobs(){
@@ -29,4 +29,30 @@ export function useGetAllJobs(){
     }, []);
 
     return { jobs, error, isLoading }
+};
+
+export function useGetCompanyAllJobs(){
+
+    const [companyJobs, setCompanyJobs] = useState<Job[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<any | null>(null);
+
+    useEffect(()=>{
+        const getAllJobs = async()=>{
+            try {
+                setIsLoading(true);
+                const response = await getAndDeleteReq(`${baseUrl}/job/myjobs`, "GET");
+                console.log("response from alljobs", response);
+                setCompanyJobs(response);
+            } catch (error) {
+                console.log("error from allJobs page!", error);
+                setError(error)
+            }finally{
+                setIsLoading(false);
+            }
+        }
+        getAllJobs();
+    }, []);
+
+    return { companyJobs, error, isLoading }
 };

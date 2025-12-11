@@ -13,13 +13,13 @@ export default function AllJobApplicationsCard({applications}: {applications: Jo
                     <BaseApplicationCard key={application._id} className="md:w-[680px] w-[350px]">
                         <div className="py-4 px-3 flex-col border-2">
                             <h3 className="text-lg font-bold">Name: 
-                                <span className="font-normal">{application.snapShot?.name}</span>
+                                <span className="font-normal">{application.profileSnapshot?.name}</span>
                             </h3>
                             <h5 className="text-lg font-bold">Email: 
-                                <span className="font-normal text-base">{application.snapShot?.email}</span>
+                                <span className="font-normal text-base">{application.profileSnapshot?.email}</span>
                             </h5>
                             <h5 className="text-lg font-bold">Role: 
-                                <span className="font-normal text-base">{application.snapShot?.lookingFor}</span>
+                                <span className="font-normal text-base">{application.profileSnapshot?.lookingFor}</span>
                             </h5>
                             <div className="card-actions justify-end">
                                 <Link href={`/jobapplication/${application._id}`}>

@@ -58,9 +58,9 @@ const AuthProvider = ({ children }: { children: ReactNode })=>{
             setIsLoading(true);
             try {
                 const response = await getAndDeleteReq(`${baseUrl}/auth/me` , "GET");
-                if(response.success){
+                if(response){
                     // console.log(response);
-                    setUser(response?.user);
+                    setUser(response);
                 }
                 // console.log("user from current user function! " , user);
                 return { success: true, data: response?.user }; 

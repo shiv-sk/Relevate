@@ -1,51 +1,37 @@
 "use client";
 
+import { baseUrl, getAndDeleteReq } from "@/apicalls/apiCalls";
 import AllJobApplicationsCard from "@/components/card/alljobapplications";
 import ApplicationFilter from "@/components/filter/applicationfilter";
+import { Loadingstate } from "@/components/forms/loadingState";
 import { Availability, Experience, PreferredLocation, SalaryExcepted } from "@/constants/applicationFilterContest";
 import { JobApplication } from "@/interfaces/applicationInterface";
-import { useState } from "react";
-
-const applications: JobApplication[] = [
-    {
-        _id:"1",
-        jobId:"2",
-        userId:"2",
-        snapShot:{
-            lookingFor:"role2"
-        },
-        profileId:"123",
-        status:"Applied",
-        createdAt:"24/5/2020",
-        updatedAt:"24/5/2020",
-    },
-    {
-        _id:"2",
-        jobId:"1",
-        userId:"2",
-        snapShot:{
-            lookingFor:"role1"
-        },
-        profileId:"123",
-        status:"Applied",
-        createdAt:"24/5/2020",
-        updatedAt:"24/5/2020",
-    },
-    {
-        _id:"3",
-        jobId:"1",
-        userId:"1",
-        snapShot:{
-            lookingFor:"role1"
-        },
-        profileId:"123",
-        status:"Applied",
-        createdAt:"24/5/2020",
-        updatedAt:"24/5/2020",
-    },
-]
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function AllApplications(){
+
+    const {jobId} = useParams();
+    const [jobApplications, setJobApplications] = useState<JobApplication[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(()=>{
+        const getJobApplications = async()=>{
+            if(!jobId){
+                return;
+            }
+            try {
+                setIsLoading(true);
+                const response = await getAndDeleteReq(`${baseUrl}/application/${jobId}`, "GET");
+                setJobApplications(response);
+            } catch (error) {
+                console.log("error from jobApplications!", error);
+            }finally{
+                setIsLoading(false);
+            }
+        }
+        getJobApplications();
+    }, [jobId]);
 
     const [applicationFilter, setApplicationFilter] = useState({
         salaryExcepted: SalaryExcepted.ThreeToFive,
@@ -76,7 +62,18 @@ export default function AllApplications(){
                         onClick={handleOnClick} />
                     </div>
                     <div className="w-full lg:w-[60%] py-4">
-                        <AllJobApplicationsCard applications={applications}/>
+                        {
+                            isLoading ? (
+                                <Loadingstate className="loading-xl"/>
+                            ) : jobApplications.length > 0 ? (
+                                <AllJobApplicationsCard applications={jobApplications}/>
+                            ) : (
+                                <div>
+                                    <p>No job applications!</p>
+                                </div>
+                            )
+                        }
+                        
                     </div>
                 </div>
             </div>

@@ -46,6 +46,13 @@ export class ApplicationController {
     return this.applicationService.findAllJobApplications(jobId);
   }
 
+  @Get('/user/:applicationId')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(UserRole.Employer)
+  findJobApplication(@Param('applicationId') applicationId: string) {
+    return this.applicationService.findJobApplication(applicationId);
+  }
+
   @Patch(':id')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(UserRole.Employer, UserRole.JobSeeker)

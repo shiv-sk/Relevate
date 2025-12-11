@@ -68,6 +68,16 @@ export class ApplicationService {
     return allJobApplications;
   }
 
+  async findJobApplication(applicationId: string) {
+    const jobApplication = await this.applicationModel.findOne({
+      _id: applicationId,
+    });
+    if (!jobApplication) {
+      throw new NotFoundException('jobapplication is not found');
+    }
+    return jobApplication;
+  }
+
   async update(
     applicationId: string,
     updateApplicationDto: UpdateApplicationDto,

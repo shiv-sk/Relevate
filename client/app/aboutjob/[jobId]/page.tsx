@@ -4,9 +4,7 @@ import { baseUrl, getAndDeleteReq } from "@/apicalls/apiCalls";
 import JobDetail from "@/components/card/jobdetailcard";
 import { Loadingstate } from "@/components/forms/loadingState";
 import { Availability, Experience, PreferredLocation, SalaryExcepted } from "@/constants/applicationFilterContest";
-import { JobLevel, JobLocation, JobType } from "@/constants/jobcontest";
 import { ApplicationOptions } from "@/interfaces/applicationInterface";
-import { JobDetail as JobDetailInterface } from "@/interfaces/jobInterface";
 import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 

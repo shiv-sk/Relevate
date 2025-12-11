@@ -1,14 +1,16 @@
-export default function ApplicationHeader(){
+"use client";
+
+export default function ApplicationHeader({name, email, role}: {name: string, email: string, role: string}){
     return(
         <div className="flex flex-col py-4 px-2 bg-base-300 rounded-lg shadow-xl w-full">
             <p className="font-bold text-lg">Name: 
-                <span className="font-normal">&nbsp;CandidateName</span>
+                <span className="font-normal">&nbsp;{name ?? "Name"}</span>
             </p>
             <p className="font-bold text-lg">Email: 
-                <span className="font-normal text-base">&nbsp;CandidateEmail</span>
+                <span className="font-normal text-base">&nbsp;{email ?? "Email"}</span>
             </p>
             <p className="font-bold text-lg">Role: 
-                <span className="font-normal text-base">&nbsp;LookingFor</span>
+                <span className="font-normal text-base">&nbsp;{role ?? "Role"}</span>
             </p>
         </div>
     )
