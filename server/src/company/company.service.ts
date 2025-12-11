@@ -15,25 +15,35 @@ export class CompanyService {
   constructor(
     @InjectModel(Company.name) private companyModel: Model<Company>,
   ) {}
-  async create(createCompanyDto: CreateCompanyDto, userId: string) {
+  create(createCompanyDto: CreateCompanyDto, userId: string) {
     const isValidUserId = mongoose.isValidObjectId(userId);
     if (!isValidUserId) {
       throw new BadRequestException('Invalid userId');
     }
-    const newCompany = await this.companyModel.create({
+    const newCompany = {
+      userId,
       name: createCompanyDto.name,
       officialEmail: createCompanyDto.officialEmail,
       about: createCompanyDto.about,
       domain: createCompanyDto.domain,
       size: createCompanyDto.size,
-      address: createCompanyDto.address,
-      contact: createCompanyDto.contact,
+      location: createCompanyDto.location,
       socialMedia: createCompanyDto.socialMedia,
-      userId,
-    });
+    };
+    // const newCompany = await this.companyModel.create({
+    //   name: createCompanyDto.name,
+    //   officialEmail: createCompanyDto.officialEmail,
+    //   about: createCompanyDto.about,
+    //   domain: createCompanyDto.domain,
+    //   size: createCompanyDto.size,
+    //   location: createCompanyDto.location,
+    //   socialMedia: createCompanyDto.socialMedia,
+    //   userId,
+    // });
     if (!newCompany) {
       throw new InternalServerErrorException('server error');
     }
+    console.log('the new Company is!', newCompany);
     return newCompany;
   }
 

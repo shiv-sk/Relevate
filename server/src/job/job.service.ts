@@ -27,7 +27,8 @@ export class JobService {
       throw new NotFoundException('you are not created company yet');
     }
     const companyId = company._id;
-    const newJob = await this.jobModel.create({
+    const newJob = {
+      companyId,
       title: createJobDto.title,
       description: createJobDto.description,
       salary: createJobDto.salary,
@@ -35,11 +36,21 @@ export class JobService {
       type: createJobDto.type,
       location: createJobDto.location,
       requiredSkills: createJobDto.requiredSkills,
-      companyId,
-    });
+    };
+    // const newJob = await this.jobModel.create({
+    //   title: createJobDto.title,
+    //   description: createJobDto.description,
+    //   salary: createJobDto.salary,
+    //   level: createJobDto.level,
+    //   type: createJobDto.type,
+    //   location: createJobDto.location,
+    //   requiredSkills: createJobDto.requiredSkills,
+    //   companyId,
+    // });
     if (!newJob) {
       throw new InternalServerErrorException('new job is not created!');
     }
+    console.log('new job is!', newJob);
     return newJob;
   }
 
@@ -65,7 +76,9 @@ export class JobService {
   }
 
   async findOne(jobId: string) {
-    const job = await this.jobModel.findById(jobId);
+    const job = await this.jobModel
+      .findById(jobId)
+      .populate('companyId', 'name socialMedia');
     if (!job) {
       throw new NotFoundException('Job not found');
     }

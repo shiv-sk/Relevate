@@ -6,14 +6,24 @@ import BaseButton from "./baseButton";
 import BaseInput from "./baseInput";
 import Textarea from "./textarea";
 
-export default function CompanyForm({onChange, socialMediaOnChange, company, socialMedia, handleSocialMediaAdd, onSubmit}: 
+export default function CompanyForm(
+    {
+        onChange, 
+        socialMediaOnChange, 
+        company, 
+        socialMedia, 
+        handleSocialMediaAdd, 
+        onSubmit, 
+        isLoading
+    }: 
     {
         onChange: (val: string, key: string) => void, 
         socialMediaOnChange: (val: string, key: keyof SocialMedia) => void, 
         company: Company,
         socialMedia: SocialMedia,
         handleSocialMediaAdd: ()=>void,
-        onSubmit: (e: React.FormEvent<HTMLFormElement>)=>void
+        onSubmit: (e: React.FormEvent<HTMLFormElement>)=>void,
+        isLoading: boolean
     }){
     return(
         <div 
@@ -53,15 +63,9 @@ export default function CompanyForm({onChange, socialMediaOnChange, company, soc
 
                 <BaseInput 
                 type={"text"} 
-                onChange={(e: React.ChangeEvent<HTMLInputElement>)=>onChange(e.target.value, "address")} 
-                value={company.address} 
-                label="Address"/>
-
-                <BaseInput 
-                type={"text"} 
-                onChange={(e: React.ChangeEvent<HTMLInputElement>)=>onChange(e.target.value, "contact")} 
-                value={company.contact} 
-                label="Contact"/>
+                onChange={(e: React.ChangeEvent<HTMLInputElement>)=>onChange(e.target.value, "location")} 
+                value={company.location} 
+                label="Location"/>
                 
                 <div className="space-y-2">
                     <H3 title={"SocialMedia"}/>
@@ -83,7 +87,11 @@ export default function CompanyForm({onChange, socialMediaOnChange, company, soc
                     className="btn btn-secondary" 
                     handleOnClick={handleSocialMediaAdd}/>
                 </div>
-                <BaseButton type={"submit"} text={"Create"} className="btn btn-primary w-full"/>
+                <BaseButton 
+                type={"submit"} 
+                text={"Create"} 
+                className="btn btn-primary w-full"
+                isLoading={isLoading}/>
             </form>
         </div>
     )

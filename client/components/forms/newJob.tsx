@@ -7,13 +7,15 @@ import Textarea from "./textarea";
 import BaseButton from "./baseButton";
 
 export default function NewJobForm(
-    {job, skill, handleOnChange, handleOnSubmit, handleAddSkill}: 
+    {job, skill, handleOnChange, handleOnSubmit, handleAddSkill, isLoading}: 
     {
         job: Job, 
         skill: string, 
         handleOnChange: (key: string, value: string)=>void, 
         handleOnSubmit: (e: React.FormEvent<HTMLFormElement>)=>void, 
-        handleAddSkill: ()=>void}){
+        handleAddSkill: ()=>void,
+        isLoading: boolean
+    }){
     return(
         <div 
         className="bg-base-100 flex flex-col justify-center items-center w-full p-6 rounded-lg shadow-lg">

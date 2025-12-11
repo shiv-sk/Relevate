@@ -22,10 +22,7 @@ export class Company {
   size: string;
 
   @Prop({ required: true, trim: true })
-  address: string;
-
-  @Prop({ required: true, trim: true })
-  contact: string;
+  location: string;
 
   @Prop({
     type: mongoose.Schema.Types.ObjectId,

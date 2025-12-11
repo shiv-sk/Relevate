@@ -1,5 +1,6 @@
 "use client";
 
+import { baseUrl, postAndPatchReq } from "@/apicalls/apiCalls";
 import NewJobForm from "@/components/forms/newJob";
 import { JobLevel, JobLocation, JobType } from "@/constants/jobcontest";
 import { Job } from "@/interfaces/jobInterface";
@@ -17,6 +18,7 @@ export default function NewJob(){
         salary:""
     });
     const [skill, setSkill] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleOnChange = (key: string, value: string)=>{
         if(key === "skill"){
@@ -25,8 +27,23 @@ export default function NewJob(){
         setJob({...job, [key]: value});
     }
 
-    const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>)=>{
+    const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
+        if(!job.title.trim() || !job.description.trim() || !job.salary.trim() || job.requiredSkills.length === 0){
+            alert("fill the required fields!");
+            return;
+        }
+        try {
+            setIsLoading(true);
+            const response = await postAndPatchReq(`${baseUrl}/job`, "POST", job);
+            if(response){
+                alert("new job added successfully!");
+            }
+        } catch (error) {
+            console.log("error from newJob page!", error);
+        }finally{
+            setIsLoading(false);
+        }
         console.log("the jobData is! ", job);
     }
 
@@ -51,7 +68,8 @@ export default function NewJob(){
                 skill={skill} 
                 handleOnChange={handleOnChange} 
                 handleOnSubmit={handleOnSubmit} 
-                handleAddSkill={handleAddSkill} />
+                handleAddSkill={handleAddSkill}
+                isLoading={isLoading} />
             </div>
         </div>
     )

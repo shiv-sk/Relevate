@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+import { baseUrl, postAndPatchReq } from "@/apicalls/apiCalls";
 import CompanyForm from "@/components/forms/companyForm";
 import {Company as CompanyInterface, SocialMedia} from "@/interfaces/company";
 import { useState } from "react";
@@ -14,7 +16,7 @@ export default function NewCompany(){
     }
 
     const handleSocialMediaAdd = ()=>{
-        if(!socialMedia.name.trim() || !socialMedia.link.trim()){
+        if(!socialMedia.name?.trim() || !socialMedia.link?.trim()){
             alert("name or link is missing from socialMedia");
             return;
         }
@@ -25,9 +27,22 @@ export default function NewCompany(){
         })
     }
 
-    const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>)=>{
+    const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
-        console.log("the button is clicked!");
+        if(!company.name.trim() || !company.about.trim() || !company.officialEmail.trim() 
+            || !company.domain.trim() || !company.location.trim() || !company.size.trim()){
+                alert("please fill required fields!");
+                return;
+            }
+        try {
+            setIsLoading(true);
+            const response = await postAndPatchReq(`${baseUrl}/company`, "POST", company);
+            console.log("the response from newCompany page!", response);
+        } catch (error: any) {
+            console.log("the error from newCompany page!", error);
+        }finally{
+            setIsLoading(false);
+        }
         console.log("the company data is! " , company);
     }
 
@@ -37,8 +52,7 @@ export default function NewCompany(){
         about:"",
         domain:"",
         size:"",
-        address:"",
-        contact:"",
+        location:"",
         socialMedia:[]
     })
 
@@ -46,6 +60,8 @@ export default function NewCompany(){
         name:"",
         link:""
     })
+
+    const [isLoading, setIsLoading] = useState(false);
 
     return(
         <div className="min-h-screen bg-base-300 py-6">
@@ -56,7 +72,8 @@ export default function NewCompany(){
                 company={company}
                 socialMedia={socialMedia}
                 handleSocialMediaAdd={handleSocialMediaAdd}
-                onSubmit={handleOnSubmit}/>
+                onSubmit={handleOnSubmit}
+                isLoading={isLoading}/>
             </div>
         </div>
     )

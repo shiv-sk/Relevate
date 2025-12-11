@@ -9,7 +9,6 @@ export interface Company {
     about:string,
     domain:string,
     size:string,
-    address:string,
-    contact:string,
+    location: string,
     socialMedia:SocialMedia[]
 }

@@ -49,12 +49,7 @@ export class CreateCompanyDto {
   @IsNotEmpty()
   @Length(3, 2000)
   @IsString()
-  address: string;
-
-  @IsNotEmpty()
-  @Length(3, 200)
-  @IsString()
-  contact: string;
+  location: string;
 
   @ArrayMaxSize(7)
   @IsArray()

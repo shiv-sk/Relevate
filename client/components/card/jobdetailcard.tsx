@@ -30,7 +30,7 @@ export default function JobDetail(
         <div 
         className="flex flex-col gap-2 space-x-2 justify-center w-full py-4 px-4">
             <h3 className="font-bold text-2xl">{job.title}</h3>
-            <h3 className="font-semibold text-lg">{job.companyId.name}</h3>
+            <h3 className="font-semibold text-lg">{job.companyId.name ?? "companyName"}</h3>
             <div className="flex gap-2 space-x-2 justify-center items-center py-2 px-2">
                 <div className="flex flex-col justify-center items-center gap-0.5 py-2 px-1">
                     <Salary/>
@@ -54,11 +54,17 @@ export default function JobDetail(
                 <h3 className="text-lg font-semibold">Required skills</h3>
                 <div className="flex gap-2">
                     {
-                        job.requiredSkills.map((skill)=>(
-                            <div key={skill} className="flex flex-row gap-2 space-x-2 justify-center items-center">
-                                <span className="text-lg mt-2 badge badge-neutral">{skill}</span>
+                        job.requiredSkills.length > 0 ? (
+                            job.requiredSkills.map((skill)=>(
+                                <div key={skill} className="flex flex-row gap-2 space-x-2 justify-center items-center">
+                                    <span className="text-lg mt-2 badge badge-neutral">{skill}</span>
+                                </div>
+                            ))
+                        ) : (
+                            <div>
+                                <p>Skills are not mentioned!</p>
                             </div>
-                        ))
+                        )
                     }
                 </div>
             </div>
@@ -76,11 +82,18 @@ export default function JobDetail(
                 </p>
                 <div className="flex gap-4 py-0.5">
                     {
-                        job.companyId.socialMedia.map((socilaMedia)=>(
-                            <div key={socilaMedia.name} className="flex flex-row gap-2 space-x-2 justify-center items-center">
-                                <span className="text-sm mt-2 font-bold">{socilaMedia.name}</span>
+                        job.companyId.socialMedia.length > 0 ? (
+                            job.companyId.socialMedia.map((socilaMedia, index)=>(
+                                <div key={index} className="flex flex-row gap-2 space-x-2 justify-center items-center">
+                                    <span className="text-sm mt-2 font-bold">{socilaMedia.name}</span>
+                                    <span className="text-sm mt-2 font-bold">{socilaMedia.link}</span>
+                                </div>
+                            ))
+                        ) : (
+                            <div>
+                                <p>No socialMedia</p>
                             </div>
-                        ))
+                        )
                     }
                 </div>
                 <div className="card-actions justify-end">
