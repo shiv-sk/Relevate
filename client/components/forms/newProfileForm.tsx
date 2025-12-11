@@ -1,11 +1,13 @@
 import BaseButton from "./baseButton";
 import BaseInput from "./baseInput";
+import Textarea from "./textarea";
 
 export default function NewProfileForm(
     {
         skill, onChange, onSubmit, addSkill, form, addEducation, addProject, 
         addSocialMedia, addExperience, onEducationChange, onExperienceChange, 
-        onProjectChange, onSocialMediaChange, education, project, experience, socialMedia, onProjectLinkChange
+        onProjectChange, onSocialMediaChange, education, project, experience, socialMedia, onProjectLinkChange,
+        isLoading
     }){
     return(
         <div className="bg-base-100 flex justify-center items-center max-w-sm w-full p-6 rounded-lg shadow-lg mx-auto flex-col">
@@ -39,6 +41,12 @@ export default function NewProfileForm(
                     onChange={(e)=>onChange("lookingFor", e.target.value)} 
                     value={form.lookingFor} 
                     placeholder="Testing" />
+
+                    <Textarea 
+                    label="Bio" 
+                    value={form.bio} 
+                    onChange={(e)=>onChange("bio", e.target.value)} 
+                    placeholder={"bio"} />
 
                     <div className="space-y-1.5">
                         <BaseInput 
@@ -103,16 +111,16 @@ export default function NewProfileForm(
                         placeholder="Tester" />
 
                         <BaseInput 
-                        label="Year" 
-                        type="number" 
+                        label="Years" 
+                        type="number"  
                         onChange={(e)=>onExperienceChange("years", e.target.value)} 
-                        value={experience.year}  />
+                        value={experience.years}  />
                         
                         <BaseInput 
                         label="Noticeperiod" 
                         type="text" 
-                        onChange={(e)=>onExperienceChange("noticeperiod", e.target.value)} 
-                        value={experience.noticeperiod}
+                        onChange={(e)=>onExperienceChange("noticePeriod", e.target.value)} 
+                        value={experience.noticePeriod}
                         placeholder="30-45"  />
                         <BaseButton 
                         type="button" 
@@ -199,7 +207,11 @@ export default function NewProfileForm(
                         handleOnClick={addSocialMedia}/>
                     </div>
 
-                    <BaseButton type="submit" text="Create" className="btn btn-primary py-2.5 px-2 w-full"/>
+                    <BaseButton
+                    isLoading={isLoading} 
+                    type="submit" 
+                    text="Create" 
+                    className="btn btn-primary py-2.5 px-2 w-full"/>
                 </form>
             </div>
         </div>

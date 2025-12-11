@@ -1,10 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
+import { baseUrl, postAndPatchReq } from "@/apicalls/apiCalls";
+import { Loadingstate } from "@/components/forms/loadingState";
 import NewProfileForm from "@/components/forms/newProfileForm";
 import { Education, Experience, ProfileInterface, Projects, SocialMedia } from "@/interfaces/profileInterface";
 import { useState } from "react";
 
 export default function NewProfile(){
+    const [isLoading, setIsLoading] = useState(false);
     const [skill, setSkill] = useState("");
     const [education, setEducation] = useState<Education>({
         institute:"",
@@ -24,7 +28,7 @@ export default function NewProfile(){
     const [experience, setExperience] = useState<Experience>({
         company:"",
         role:"",
-        noticeperiod:"",
+        noticePeriod:"",
         years:0
     });
     const [socialMedia, setSocialMedia] = useState<SocialMedia>({
@@ -73,10 +77,10 @@ export default function NewProfile(){
     }
 
     const handleAddEducation = ()=>{
-        if(!education.institute.trim()){
+        if(!education.institute?.trim()){
             alert("Institute is required");
             return;
-        }else if(!education.degree.trim()){
+        }else if(!education.degree?.trim()){
             alert("Degree is required");
             return;
         }else if(!education.passoutYear){
@@ -105,10 +109,10 @@ export default function NewProfile(){
     }
 
     const handleAddProject = ()=>{
-        if(!project.name.trim()){
+        if(!project.name?.trim()){
             alert("Projectname is required");
             return;
-        }else if(!project.description.trim()){
+        }else if(!project.description?.trim()){
             alert("Project description is required");
             return;
         }else if(!project.links){
@@ -133,13 +137,13 @@ export default function NewProfile(){
     }
 
     const handleAddExperience = ()=>{
-        if(!experience.company.trim()){
+        if(!experience.company?.trim()){
             alert("Company name is required");
             return;
-        }else if(!experience.role.trim()){
+        }else if(!experience.role?.trim()){
             alert("Role is required");
             return;
-        }else if(!experience.noticeperiod.trim()){
+        }else if(!experience.noticePeriod?.trim()){
             alert("Noticeperiod is required");
             return;
         }else if(!experience.years){
@@ -152,7 +156,7 @@ export default function NewProfile(){
             company:"",
             role:"",
             years:0,
-            noticeperiod:""
+            noticePeriod:""
         })
     }
     const handleSocialMediaChange = (key: keyof SocialMedia, value: string)=>{
@@ -160,10 +164,10 @@ export default function NewProfile(){
     }
 
     const handleAddSocialMedia = ()=>{
-        if(!socialMedia.name.trim()){
+        if(!socialMedia.name?.trim()){
             alert("SocialMedia name is required");
             return;
-        }else if(!socialMedia.link.trim()){
+        }else if(!socialMedia.link?.trim()){
             alert("SocialMedia link is required");
             return;
         }
@@ -174,38 +178,57 @@ export default function NewProfile(){
             link:"",
         })
     }
-    const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>)=>{
+    const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
-        if(
-            !form.name.trim() || !form.currentLocation.trim() 
-            || !form.email.trim() || !form.lookingFor.trim() || form.skills.length === 0){
+        if(!form.name.trim() || !form.currentLocation.trim() || !form.email.trim() || !form.lookingFor.trim() || 
+        form.skills.length === 0){
                 alert("please fill required fields!");
                 return;
             }
+        try {
+            setIsLoading(true);
+            const response = await postAndPatchReq(`${baseUrl}/profile`, "POST", form);
+            if(response){
+                alert("profile created successfully!");
+            }
+        } catch (error: any) {
+            console.log("error is from newProfile-Page!", error);
+        }finally{
+            setIsLoading(false);
+        }
         console.log("the button is clicked with form data", form);
     }
 
     return(
         <div className="min-h-screen gap-4 py-5 bg-base-300">
-            <NewProfileForm 
-            skill={skill} 
-            onChange={handleOnChange} 
-            onSubmit={handleOnSubmit} 
-            addSkill={handleAddSkill}
-            addEducation = {handleAddEducation}
-            addProject = {handleAddProject}
-            addSocialMedia = {handleAddSocialMedia}
-            addExperience = {handleAddExperience}
-            onEducationChange = {handleEducationChange}
-            onExperienceChange = {handleExperienceChange}
-            onProjectChange = {handleProjectsChange}
-            onProjectLinkChange = {handleProjectLinksChange}
-            onSocialMediaChange = {handleSocialMediaChange}
-            form={form}
-            education={education}
-            project={project}
-            experience={experience}
-            socialMedia={socialMedia} />
+            {
+                isLoading ? (
+                    <div>
+                        <Loadingstate className="loading-xl"/>
+                    </div>
+                ) : (
+                    <NewProfileForm 
+                    skill={skill} 
+                    onChange={handleOnChange} 
+                    onSubmit={handleOnSubmit} 
+                    addSkill={handleAddSkill}
+                    addEducation = {handleAddEducation}
+                    addProject = {handleAddProject}
+                    addSocialMedia = {handleAddSocialMedia}
+                    addExperience = {handleAddExperience}
+                    onEducationChange = {handleEducationChange}
+                    onExperienceChange = {handleExperienceChange}
+                    onProjectChange = {handleProjectsChange}
+                    onProjectLinkChange = {handleProjectLinksChange}
+                    onSocialMediaChange = {handleSocialMediaChange}
+                    form={form}
+                    education={education}
+                    project={project}
+                    experience={experience}
+                    socialMedia={socialMedia}
+                    isLoading = {isLoading} />
+                )
+            }
         </div>
     )
 }

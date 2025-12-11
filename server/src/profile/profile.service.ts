@@ -14,8 +14,8 @@ export class ProfileService {
   constructor(
     @InjectModel(Profile.name) private profileModel: Model<Profile>,
   ) {}
-  async create(createProfileDto: CreateProfileDto, userId: string) {
-    const newProfile = await this.profileModel.create({
+  create(createProfileDto: CreateProfileDto, userId: string) {
+    const newProfile = {
       name: createProfileDto.name,
       email: createProfileDto.email,
       bio: createProfileDto.bio,
@@ -27,10 +27,24 @@ export class ProfileService {
       socialMedia: createProfileDto.socialMedia,
       experience: createProfileDto.experience,
       userId,
-    });
+    };
+    // const newProfile = await this.profileModel.create({
+    //   name: createProfileDto.name,
+    //   email: createProfileDto.email,
+    //   bio: createProfileDto.bio,
+    //   currentLocation: createProfileDto.currentLocation,
+    //   lookingFor: createProfileDto.lookingFor,
+    //   skills: createProfileDto.skills,
+    //   education: createProfileDto.education,
+    //   projects: createProfileDto.projects,
+    //   socialMedia: createProfileDto.socialMedia,
+    //   experience: createProfileDto.experience,
+    //   userId,
+    // });
     if (!newProfile) {
       throw new InternalServerErrorException('Profile is not created!');
     }
+    console.log(newProfile);
     return newProfile;
   }
 

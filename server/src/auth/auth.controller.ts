@@ -46,7 +46,7 @@ export class AuthController {
     return user;
   }
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @Roles(UserRole.Employer)
+  @Roles(UserRole.Employer, UserRole.JobSeeker)
   @Get('me')
   me(@Req() req: Request & { user: User }) {
     return req.user;

@@ -4,10 +4,8 @@ import {
   IsArray,
   IsEmail,
   IsNotEmpty,
-  IsObject,
   IsOptional,
   IsString,
-  IsUrl,
   Length,
   ValidateNested,
 } from 'class-validator';
@@ -60,12 +58,14 @@ class ProjectDto {
 }
 
 class SocialMedia {
+  @IsOptional()
   @IsString()
   @Length(1, 100)
   @IsNotEmpty()
   name?: string;
 
-  @IsUrl({ protocols: ['http', 'https'], require_protocol: true })
+  @IsOptional()
+  @IsString()
   @IsNotEmpty()
   link?: string;
 }
@@ -121,8 +121,9 @@ export class CreateProfileDto {
   @IsOptional()
   experience: ExperienceDto[];
 
-  @IsObject()
+  @IsArray()
   @IsOptional()
+  @ArrayMaxSize(5)
   @ValidateNested({ each: true })
   @Type(() => SocialMedia)
   socialMedia: SocialMedia[];
