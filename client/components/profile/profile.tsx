@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useEffect, useState } from "react";
 import BaseButton from "../forms/baseButton";
 import About from "./about";
 import Education from "./education";
@@ -31,9 +29,9 @@ export default function ProfileDisplay({profile}: {profile: ProfileInterface}){
                 <Experience experience={profile?.experience || []} />
                 <Projects projects={profile?.projects || []} />
                 <SocialMedia socialMedia={profile?.socialMedia || []} />
-                <div className="card-actions justify-end mt-2">
+                <div className="flex justify-end gap-3 pt-4">
                     <BaseButton type={"button"} text={"Edit"} className="btn btn-primary"/>
-                    <BaseButton type={"button"} text={"Delete"} className="btn btn-primary"/>
+                    <BaseButton type={"button"} text={"Delete"} className="btn btn-outline btn-error"/>
                 </div>
             </div>
         </div>
