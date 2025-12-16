@@ -3,18 +3,23 @@
 import { Experience as ExperienceInterface } from "@/interfaces/profileInterface";
 
 export default function Experience({experience}: {experience: ExperienceInterface[]}){
+    console.log("the experience is!", experience);
     return(
-        <div className="bg-base-100 shadow-xl px-2 py-4 w-full rounded-xl">
-            <h3 className="font-bold text-lg">Experience</h3>
+        <div className="bg-base-100 rounded-xl p-5">
+            <h3 className="text-lg font-semibold mb-3">Experience</h3>
             <div className="space-y-3">
                 {
                     experience.length > 0 ? (
                         experience.map((exp, index)=>(
-                            <div key={index}>
-                                <p className="font-semibold text-lg">Company: {exp.company}</p>
-                                <p>role: {exp.role}</p>
-                                <p>role: {exp.years}</p>
-                                <p>noticePeriod: {exp.noticePeriod ?? 0}</p>
+                            <div key={index} className="border-l-2 border-primary pl-4">
+                                <p className="font-medium">{exp.company}</p>
+                                <p className="font-medium">{exp.role}</p>
+                                <div className="flex flex-wrap gap-4 text-sm mt-2">
+                                    <span>{exp.years}-years</span>
+                                    <p className="font-bold">Available-In 
+                                        &nbsp;<span className="font-normal">{exp.noticePeriod ?? 0}</span>
+                                    </p>
+                                </div>
                             </div>
                         ))
                     ) : (

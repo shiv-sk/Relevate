@@ -103,7 +103,7 @@ export default function AboutJob(){
 
     return(
         <div className="py-6 bg-base-300 min-h-screen">
-            <div className="w-full max-w-[680px] mx-auto space-y-4">
+            <div className="w-full max-w-[580px] mx-auto space-y-4">
                 {
                     isLoading ? (
                         <Loadingstate className="loading-xl"/>  

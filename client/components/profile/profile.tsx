@@ -18,7 +18,7 @@ export default function ProfileDisplay({profile}: {profile: ProfileInterface}){
         <div className="min-h-screen bg-base-300 py-6">
             <div 
             className="
-            flex flex-col justify-center py-6 w-full max-w-[720px] 
+            flex flex-col justify-center py-6 w-full max-w-[560px] 
             mx-auto space-y-2 px-4 rounded-lg shadow-lg">
                 <Header 
                 name={profile?.name} 
@@ -31,7 +31,7 @@ export default function ProfileDisplay({profile}: {profile: ProfileInterface}){
                 <Experience experience={profile?.experience || []} />
                 <Projects projects={profile?.projects || []} />
                 <SocialMedia socialMedia={profile?.socialMedia || []} />
-                <div className="card-actions justify-end">
+                <div className="card-actions justify-end mt-2">
                     <BaseButton type={"button"} text={"Edit"} className="btn btn-primary"/>
                     <BaseButton type={"button"} text={"Delete"} className="btn btn-primary"/>
                 </div>

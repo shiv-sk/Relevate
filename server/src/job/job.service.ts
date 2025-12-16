@@ -78,7 +78,7 @@ export class JobService {
   async findOne(jobId: string) {
     const job = await this.jobModel
       .findById(jobId)
-      .populate('companyId', 'name socialMedia');
+      .populate('companyId', 'name about socialMedia');
     if (!job) {
       throw new NotFoundException('Job not found');
     }

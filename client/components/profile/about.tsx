@@ -2,10 +2,10 @@
 
 export default function About({about}: {about?: string}){
     return(
-        <div className="bg-base-100 shadow-xl px-2 py-4 w-full rounded-xl">
+        <div className="bg-base-100 rounded-xl p-5">
             <div>
-                <h3 className="font-bold text-xl">About</h3>
-                <p>{about}</p>
+                <h3 className="text-lg font-semibold mb-2">About</h3>
+                <p className="text-gray-700 leading-relaxed">{about ?? "No bio provided"}</p>
             </div>
         </div>
     )

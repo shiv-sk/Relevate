@@ -9,26 +9,20 @@ export default function Header(
         lookingFor?: string
     }){
     return(
-        <div className="bg-base-100 shadow-xl px-2 py-4 w-full rounded-xl">
-            <div className="flex gap-2">
+        <div className="bg-base-100 rounded-2xl shadow-lg p-6">
+            <div className="flex items-center gap-6">
                 <div className="avatar avatar-placeholder px-2 py-2">
-                    <div className="bg-neutral text-neutral-content w-36 rounded-full">
-                        <span className="text-3xl">D</span>
+                    <div className="w-24 rounded-full bg-neutral text-neutral-content">
+                        <span className="text-3xl font-bold">D</span>
                     </div>
                 </div>
-                <div className="py-4 px-3 gap-2">
-                    <p className="font-semibold text-lg">Name: 
-                        &nbsp;<span className="font-normal">{name ?? "Name"}</span>
-                    </p>
-                    <p className="font-semibold text-lg">Email: 
-                        &nbsp;<span className="font-normal">{email ?? "Email"}</span>
-                    </p>
-                    <p className="font-semibold text-lg">Location: 
-                        &nbsp;<span className="font-normal">{currentLocation ?? "Location"}</span>
-                    </p>
-                    <p className="font-semibold text-lg">Looking for: 
-                        &nbsp;<span className="font-normal">{lookingFor ?? "Role"}</span>
-                    </p>
+                <div className="space-y-1">
+                    <h2 className="text-2xl font-bold">{name}</h2>
+                    <p className="text-sm text-gray-500">{email}</p>
+                    <div className="flex flex-wrap gap-4 text-sm mt-2">
+                        <span> {currentLocation}</span>
+                        <span> {lookingFor}</span>
+                    </div>
                 </div>
             </div>
         </div>

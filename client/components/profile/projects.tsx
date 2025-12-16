@@ -4,35 +4,22 @@ import { Projects as ProjectsInterface } from "@/interfaces/profileInterface";
 
 export default function Projects({projects}: {projects: ProjectsInterface[]}){
     return(
-        <div className="bg-base-100 shadow-xl px-2 py-4 w-full rounded-xl">
-            <h3 className="font-bold text-lg">Projects</h3>
-            <div>
+        <div className="bg-base-100 rounded-xl p-5">
+            <h3 className="text-lg font-semibold mb-3">Projects</h3>
+            <div className="space-y-4">
                 {
                     projects.length > 0 ? (
                         projects.map((project, index)=>(
-                            <div key={index}>
-                               <h5 className="font-semibold text-lg">Projectname: 
-                                    &nbsp;<span className="font-normal">{project.name}</span>
-                                </h5> 
-                                <p className="font-semibold text-lg">description: 
-                                    &nbsp;<span className="font-normal">{project.description}</span>
+                            <div key={index} className="border rounded-lg p-4 hover:shadow transition">
+                               <h4 className="font-semibold">{project.name}</h4>
+                                <p className="text-sm text-gray-600 mt-1"> 
+                                    {project.description}
                                 </p>
-                                <div>
-                                    <h5 className="font-semibold text-lg">Links</h5>
-                                    <div className="flex flex-wrap gap-2">
-                                        <span className="font-semibold">
-                                            <a target="_blank" href={project.links?.github}>GitHub</a>
-                                        </span>
-                                        <span className="font-semibold">
-                                            <a target="_blank" href={project.links?.live}>Live</a>
-                                        </span>
-                                        <span className="font-semibold">
-                                            <a target="_blank" href={project.links?.demo}>Demo</a>
-                                        </span>
-                                        <span className="font-semibold">
-                                            <a target="_blank" href={project.links?.article}>Article</a>
-                                        </span> 
-                                    </div>
+                                <div className="flex gap-4 mt-2 text-sm text-primary">
+                                    {project.links?.github && <a href={project.links.github}>GitHub</a>}
+                                    {project.links?.live && <a href={project.links.live}>Live</a>}
+                                    {project.links?.demo && <a href={project.links?.demo}>Demo</a>}
+                                    {project.links?.article && <a href={project.links?.article}>Article</a>}
                                 </div>
                             </div>
                         ))

@@ -4,15 +4,15 @@ import { Education as EducationInterface } from "@/interfaces/profileInterface";
 
 export default function Education({education}: {education: EducationInterface[]}){
     return(
-        <div className="bg-base-100 shadow-xl px-2 py-4 w-full rounded-xl">
-            <h3 className="font-bold text-lg">Education</h3>
-            <div className="space-y-3">
+        <div className="bg-base-100 rounded-xl p-5">
+            <h3 className="text-lg font-semibold mb-3">Education</h3>
+            <div className="space-y-4">
                 {
                     education.length > 0 ? (
                         education.map((edu, index)=>(
-                            <div key={index}>
-                                <p>Institute: {edu.institute}</p>
-                                <p>Degree: {edu.degree} <span>({edu.passoutYear})</span></p>
+                            <div key={index} className="border-l-2 border-primary pl-4">
+                                <p className="font-medium">{edu.institute}</p>
+                                <p className="text-sm text-gray-500"> {edu.institute} • {edu.passoutYear}</p>
                             </div>
                         ))
                     ) : (
