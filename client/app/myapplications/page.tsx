@@ -1,67 +1,44 @@
 "use client";
 
 import ApplicationCard from "@/components/card/applicationcard";
+import { Loadingstate } from "@/components/forms/loadingState";
+import { useAuth } from "@/context/authcontext";
 import { useGetMyApplications } from "@/customhooks/application";
-import { UserApplication } from "@/interfaces/applicationInterface";
-
-// const applicationsh: UserApplication[] = [
-//     {
-//         _id:"1",
-//         jobId:{
-//             title:"job1",
-//             companyId:{
-//                 _id: "1",
-//                 name:"company1"
-//             }
-//         },
-//         userId:"123",
-//         profileId:"123",
-//         status:"Applied",
-//         createdAt:"24/5/2020",
-//         updatedAt:"24/5/2020",
-//     },
-//     {
-//         _id:"2",
-//         jobId:{
-//             title:"job2",
-//             companyId:{
-//                 _id:"2",
-//                 name:"company2"
-//             }
-//         },
-//         userId:"123",
-//         profileId:"123",
-//         status:"Applied",
-//         createdAt:"24/5/2020",
-//         updatedAt:"24/5/2020",
-//     },
-//     {
-//         _id:"3",
-//         jobId:{
-//             title:"job3",
-//             companyId:{
-//                 _id:"3",
-//                 name:"company3"
-//             }
-//         },
-//         userId:"123",
-//         profileId:"123",
-//         status:"Applied",
-//         createdAt:"24/5/2020",
-//         updatedAt:"24/5/2020",
-//     },
-// ]
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function MyApplications(){
 
-    const { applications } = useGetMyApplications();
+    const { applications, isLoading: pageLoading } = useGetMyApplications();
     console.log("the applications are!", applications);
+    const {user, isLoading} = useAuth();
+    const router = useRouter();
+
+    useEffect(()=>{
+        if(!user && !isLoading){
+            router.push("/login");
+        }
+    }, [user, isLoading, router]);
 
     return(
         <div className="min-h-screen bg-base-300 py-10">
             <div className="flex items-center flex-col space-y-4">
                 <h1 className="font-bold text-lg">Applications</h1>
-                <ApplicationCard applications={applications}/>
+                {
+                    pageLoading ? (
+                        <div>
+                            <Loadingstate className={"loading-xl"}/>
+                        </div>
+                    ) :
+                    user?.role === "JobSeeker" ? (
+                        <ApplicationCard applications={applications}/>
+                    ) : (
+                        <div>
+                            <p>Forbidden resource</p>
+                        </div>
+                    )
+                }
+                
             </div>
         </div>
     )

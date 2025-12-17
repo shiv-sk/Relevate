@@ -47,8 +47,10 @@ export default function JobDetail(
                         {
                             job.requiredSkills.length > 0 ? (
                                 job.requiredSkills.map((skill)=>(
-                                    <div key={skill} className="flex flex-wrap gap-1 mt-2">
-                                        <span className="text-lg mt-2 badge badge-neutral">{skill}</span>
+                                    <div key={skill} className="flex flex-wrap mt-2">
+                                        <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium">
+                                            {skill}
+                                        </span>
                                     </div>
                                 ))
                             ) : (

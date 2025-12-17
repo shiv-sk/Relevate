@@ -39,7 +39,7 @@ interface AuthContextType{
 
 const AuthContext = createContext<AuthContextType>({
     user: null,
-    isLoading: false,
+    isLoading: true,
     registerUser: async () => ({ success: false, error: "Not implemented" }),
     loginUser: async () => ({ success: false, error: "Not implemented" }),
     logoutUser: async () => ({ success: false, error: "Not implemented" }),

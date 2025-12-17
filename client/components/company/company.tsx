@@ -1,38 +1,37 @@
+"use client";
+
 import Link from "next/link";
 import BaseButton from "../forms/baseButton";
+import { MdDomain } from "react-icons/md";
+import { MdPeopleOutline } from "react-icons/md";
+import { IoLocationSharp } from "react-icons/io5";
 
 export default function Company(){
     return(
-        <div className="bg-base-300 rounded-lg shadow-lg py-6 px-2">
-            <h3 className="font-bold text-lg text-center">Company-Name</h3>
+        <div className="bg-base-100 rounded-xl shadow-lg p-6 space-y-4">
+            <div className="flex justify-between items-center">
+                <h3 className="text-xl font-bold">Company Name</h3>
+                <BaseButton text="Edit" className="btn btn-primary btn-sm" type={"button"} />
+            </div>
             <div className="">
-                <h5 className="font-bold text-lg">About CompanyName</h5>
-                <p>About Company</p>
+                <h5 className="font-semibold">About</h5>
+                <p className="text-sm text-gray-600">Company description...</p>
+            </div>
+            <div className="">
+                <h5 className="font-semibold">Email</h5>
+                <p className="text-sm text-gray-600">officialCompany@email.com</p>
             </div>
             <div className="flex flex-col gap-2">
                 <h5 className="font-bold text-lg">SocialMedia</h5>
-                <div className="flex flex-wrap gap-2">
-                    <span>
-                        <Link href={"/"}>socialMediaName</Link>
-                    </span>
-                    <span>
-                        <Link href={"/"}>socialMediaName</Link>
-                    </span>
-                    <span>
-                        <Link href={"/"}>socialMediaName</Link>
-                    </span>
+                <div className="flex gap-3">
+                    <Link href="/">LinkedIn</Link>
+                    <Link href="/">Website</Link>
                 </div>
             </div>
-            <p className="font-bold text-lg">Email 
-                <span className="font-normal">&nbsp;officialCompany@email.com</span>
-            </p>
-            <div className="flex flex-wrap justify-start items-center gap-2">
-                <p>Domain</p>
-                <p>Size</p>
-                <p>Location</p>
-            </div>
-            <div className="card-actions justify-end">
-                <BaseButton type={"button"} text={"Edit"} className="btn btn-primary"/>
+            <div className="flex flex-wrap gap-4 text-sm">
+                <span><MdDomain /> Health</span>
+                <span><MdPeopleOutline /> 10 - 20</span>
+                <span><IoLocationSharp /> Location</span>
             </div>
         </div>
     )

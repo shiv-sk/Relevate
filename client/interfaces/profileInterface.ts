@@ -28,6 +28,7 @@ export interface SocialMedia{
 }
 
 export interface ProfileInterface {
+    _id: string,
     name: string,
     email: string,
     bio: string,

@@ -38,7 +38,11 @@ export interface UserApplication {
                 article: string
             }
         }[]
-    }
+    },
+    salaryExcepted: string,
+    preferredLocation: string,
+    experience: string,
+    availability: string,
 }
 
 export interface JobApplication {

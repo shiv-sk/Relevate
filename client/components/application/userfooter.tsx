@@ -5,35 +5,40 @@ export default function UserFooter(
         salaryExcepted, 
         preferredLocation, 
         availability, 
-        experience
+        experience,
+        className
     }:
     {
         salaryExcepted: string, 
         preferredLocation: string, 
         availability: string, 
-        experience: string
+        experience: string,
+        className?: string
     }){
+        let location;
+        if(preferredLocation === "alloftheabove"){
+            location = "OnSite/Remote/Hybrid" 
+        }
     return(
-        <div className="flex flex-wrap gap-2 py-4 px-2 bg-base-300 rounded-lg shadow-xl w-full justify-around items-center">
-            <div className="flex flex-col">
-                <p className="font-bold text-lg">Experience(in years): 
-                    <span className="font-normal">&nbsp;{salaryExcepted ?? "salaryExcepted"}</span>
-                </p>
-            </div>
-            <div className="">
-                <p className="font-bold text-lg">Preferred Location: 
-                    <span className="font-normal">&nbsp;{preferredLocation ?? "preferredLocation"}</span>
-                </p>
-            </div>
-            <div className="flex flex-col">
-                <p className="font-bold text-lg">Expected Salary(in LPA): 
-                    <span className="font-normal">&nbsp;{availability ?? "availability"}</span>
-                </p>
-            </div>
-            <div className="flex flex-col">
-                <p className="font-bold text-lg">Availability: 
-                    <span className="font-normal">&nbsp;{experience ?? "experience"}</span>
-                </p>
+        <div className="bg-base-300 rounded-xl shadow-lg p-4 w-full space-y-4">
+            <h3 className="text-lg font-bold">Application Preferences</h3>
+            <div className={`grid grid-cols-1 sm:grid-cols-2 ${className} gap-4`}>
+                <div className="bg-base-100 rounded-lg p-4 shadow flex flex-col gap-1">
+                    <span className="text-sm text-gray-500">Experience</span>
+                    <span className="text-lg font-semibold">{experience ?? "Not specified"}</span>
+                </div>
+                <div className="bg-base-100 rounded-lg p-4 shadow flex flex-col gap-1">
+                    <span className="text-sm text-gray-500">Preferred Location</span>
+                    <span className="text-lg font-semibold">{location ?? "Not specified"}</span>
+                </div>
+                <div className="bg-base-100 rounded-lg p-4 shadow flex flex-col gap-1">
+                    <span className="text-sm text-gray-500">Expected Salary</span>
+                    <span className="text-lg font-semibold">{salaryExcepted ?? "Not specified"}</span>
+                </div>
+                <div className="bg-base-100 rounded-lg p-4 shadow flex flex-col gap-1">
+                    <span className="text-sm text-gray-500">Availability</span>
+                    <span className="text-lg font-semibold">{availability ?? "Not specified"}</span>
+                </div>
             </div>
         </div>
     )

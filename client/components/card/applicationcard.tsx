@@ -3,6 +3,10 @@ import { useRef, useState } from "react";
 import BaseButton from "../forms/baseButton";
 import BaseApplicationCard from "./baseapplicationcard";
 import { UserApplication } from "@/interfaces/applicationInterface";
+import Skills from "../profile/skills";
+import Experience from "../profile/experience";
+import Projects from "../profile/projects";
+import UserFooter from "../application/userfooter";
 
 export default function ApplicationCard({applications}: {applications: UserApplication[]}){
     const applicationRef = useRef<HTMLDialogElement | null>(null);
@@ -29,7 +33,9 @@ export default function ApplicationCard({applications}: {applications: UserAppli
                             <div className="flex gap-2 space-x-2 items-center">
                                 <p className="text-sm mt-2 font-bold">AppliedAt: 
                                     <span className="font-normal">
-                                        &nbsp;{application.createdAt ? new Date(application.createdAt).toLocaleDateString() : "Applied-Date"}
+                                        &nbsp;{
+                                        application.createdAt ? new Date(application.createdAt).toLocaleDateString() 
+                                        : "Applied-Date"}
                                     </span>
                                 </p>
                                 <p className="text-sm mt-2 font-bold">Status: 
@@ -49,9 +55,18 @@ export default function ApplicationCard({applications}: {applications: UserAppli
             {
                 applicatonData && (
                     <dialog ref={applicationRef} className="modal modal-bottom sm:modal-middle">
-                        <div className="modal-box">
-                            <h3 className="font-bold text-lg">{applicatonData?.jobId.title}</h3>
-                            <p className="py-4">Press ESC key or click the button below to close</p>
+                        <div className="modal-box bg-base-300 space-y-2.5">
+                            <h3 className="font-bold text-lg px-5 text-center">profileSnapshot</h3>
+                            <p className="px-5 mt-2 font-semibold">{applicatonData?.jobId.title}</p>
+                            <Skills skills={applicatonData.profileSnapshot?.skills || []} />
+                            <Experience experience={applicatonData.profileSnapshot?.experience || []} />
+                            <Projects projects={applicatonData.profileSnapshot?.projects || []} />
+                            <UserFooter 
+                            salaryExcepted={applicatonData.salaryExcepted} 
+                            preferredLocation={applicatonData.preferredLocation} 
+                            availability={applicatonData.availability} 
+                            experience={applicatonData.experience}
+                            className={"lg:grid-cols-1"} />
                             <div className="modal-action">
                                 <form method="dialog">
                                     {/* if there is a button in form, it will close the modal */}
