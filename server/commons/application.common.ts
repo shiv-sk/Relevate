@@ -13,10 +13,10 @@ export enum SalaryExcepted {
 }
 
 export enum PreferredLocation {
-  onsiteOnly = 'onsiteOnly',
-  remoteOnly = 'remoteOnly',
-  hybrid = 'hybrid',
-  allOfTheAbove = 'alloftheabove',
+  onsiteOnly = 'OnsiteOnly',
+  remoteOnly = 'RemoteOnly',
+  hybrid = 'Hybrid',
+  allOfTheAbove = 'Onsite/Remote/Hybrid',
 }
 
 export enum Availability {

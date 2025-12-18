@@ -3,61 +3,11 @@ import JobCardSimple from "@/components/card/jobsimple.card";
 import SearchBar from "@/components/searchbar/search";
 import Filter from "@/components/sidebar/filter";
 import { useGetAllJobs } from "@/customhooks/job";
-import { SimpleJob } from "@/interfaces/jobInterface";
 import { useState } from "react";
-
-const allJobs: SimpleJob[] = [
-    {
-        _id:"1",
-        title:"job1",
-        location:"xyz",
-        salary:"50000",
-        level:"Intern",
-        type:"Fulltime",
-    },
-    {
-        _id:"2",
-        title:"job1",
-        location:"xyz",
-        salary:"50000",
-        level:"Entery",
-        type:"PartTime",
-    },
-    {
-        _id:"3",
-        title:"job1",
-        location:"xyz",
-        salary:"50000",
-        level:"Intern",
-        type:"Intership",
-    },
-    {
-        _id:"4",
-        title:"job1",
-        location:"xyz",
-        salary:"50000",
-        level:"Intern",
-        type:"Intership",
-    },
-    {
-        _id:"5",
-        title:"job1",
-        location:"xyz",
-        salary:"50000",
-        level:"Intern",
-        type:"Intership",
-    },
-]
 
 export default function Home(){
     const [search, setSearch] = useState("");
     const { jobs, error } = useGetAllJobs();
-    if(jobs){
-        console.log("response from allJobs hokk!", jobs);
-    }
-    else{
-        console.log("error from allJobs hokk!", error);
-    }
 
     const handleOnChange = (value: string)=>{
         setSearch(value);
@@ -77,7 +27,7 @@ export default function Home(){
                 <div className="w-full max-w-[600px] mx-auto">
                     <SearchBar onSearchChange={handleOnChange} value={search} handleSearchOnClick={handleSearchOnClick}/>
                 </div>
-                <div className="flex flex-wrap gap-6 w-full">
+                <div className="flex flex-wrap gap-4 w-full">
                     <div className="w-full lg:w-[30%] py-4 px-4 lg:sticky lg:top-4 h-fit">
                         <Filter />
                     </div>
@@ -85,7 +35,7 @@ export default function Home(){
                         <JobCardSimple jobs={jobs}></JobCardSimple>
                     </div>
                 </div>
-            </div> 
+            </div>
         </div>
     )
 }

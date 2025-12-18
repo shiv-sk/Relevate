@@ -1,31 +1,21 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { baseUrl, getAndDeleteReq } from "@/apicalls/apiCalls";
 import { Loadingstate } from "@/components/forms/loadingState";
 import ProfileDisplay from "@/components/profile/profile";
-import { ProfileInterface } from "@/interfaces/profileInterface";
-import { useEffect, useState } from "react";
+import { useGetProfile } from "@/customhooks/profile";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function ViewProfile(){
-    const [profile, setProfile] = useState<ProfileInterface | null>(null);
-    const [error, setError] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const {isLoading, profile} = useGetProfile();
+    const router = useRouter();
 
     useEffect(()=>{
-        const getProfile = async()=>{
-            try {
-                setIsLoading(true);
-                const response = await getAndDeleteReq(`${baseUrl}/profile`, "GET");
-                setProfile(response);
-            } catch (error: any) {
-                setError(error);
-            }finally{
-                setIsLoading(false);
-            }
+        if(!isLoading && profile === null){
+            router.push("/newprofile");
         }
-        getProfile();
-    }, []);
+    }, [isLoading, profile, router]);
+
     return(
         <div>
             {
@@ -44,6 +34,5 @@ export default function ViewProfile(){
                 )
             }
         </div>
-        
     )
 }
