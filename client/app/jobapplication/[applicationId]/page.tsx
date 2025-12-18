@@ -31,7 +31,7 @@ export default function JobApplication(){
         <div className="min-h-screen py-6 bg-base-300">
             <div className="
             flex flex-col justify-center items-center py-6 w-full max-w-[620px] 
-            mx-auto space-y-4 border-2 px-2">
+            mx-auto space-y-4 px-2">
                 {
                     isLoading ? (
                         <Loadingstate className="loading-xl"/>

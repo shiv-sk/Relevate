@@ -2,7 +2,7 @@
 
 export default function ApplicationHeader({name, email, role}: {name: string, email: string, role: string}){
     return(
-        <div className="flex flex-col py-4 px-2 bg-base-300 rounded-lg shadow-xl w-full">
+        <div className="flex flex-col py-4 px-2 bg-base-100 rounded-lg w-full">
             <p className="font-bold text-lg">Name: 
                 <span className="font-normal">&nbsp;{name ?? "Name"}</span>
             </p>

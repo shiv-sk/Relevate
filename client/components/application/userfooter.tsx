@@ -20,7 +20,7 @@ export default function UserFooter(
             location = "OnSite/Remote/Hybrid" 
         }
     return(
-        <div className="bg-base-300 rounded-xl shadow-lg p-4 w-full space-y-4">
+        <div className="bg-base-300 rounded-xl p-4 w-full space-y-4">
             <h3 className="text-lg font-bold">Application Preferences</h3>
             <div className={`grid grid-cols-1 sm:grid-cols-2 ${className} gap-4`}>
                 <div className="bg-base-100 rounded-lg p-4 shadow flex flex-col gap-1">

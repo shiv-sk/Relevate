@@ -28,10 +28,13 @@ export default function Navbar(){
                                     tabIndex={-1}
                                     className="menu menu-sm dropdown-content bg-base-200 rounded-box z-1 mt-3 w-52 p-2 shadow">
                                     <li>
-                                        <Link href={"/myprofile"} className="text-lg">Company</Link>
+                                        <Link href={"/company"} className="text-lg">Company</Link>
                                     </li>
                                     <li>
-                                        <Link href={"/myapplications"} className="text-lg">NewJob</Link>
+                                        <Link href={"/jobs"} className="text-lg">Jobs</Link>
+                                    </li>
+                                    <li>
+                                        <Link href={"/newjob"} className="text-lg">NewJob</Link>
                                     </li>
                                     <li>
                                         <BaseButton 

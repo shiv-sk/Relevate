@@ -39,9 +39,9 @@ export default function Company({company}: {company: CompanyInterface}){
                 </div>
             </div>
             <div className="flex flex-wrap gap-4 text-sm">
-                <span><MdDomain /> {company.domain ?? "companyDomain"}</span>
-                <span><MdPeopleOutline /> {company.size ?? "companySize"}</span>
-                <span><IoLocationSharp /> {company.location ?? "companyLocation"}</span>
+                <span><MdDomain className="text-lg"/> {company.domain ?? "companyDomain"}</span>
+                <span><MdPeopleOutline className="text-lg" /> {company.size ?? "companySize"}</span>
+                <span><IoLocationSharp className="text-lg"/> {company.location ?? "companyLocation"}</span>
             </div>
         </div>
     )

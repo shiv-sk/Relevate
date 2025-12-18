@@ -91,23 +91,38 @@ export default function JobDetail(
                         }
                     </div>
                     <div className="card-actions justify-end gap-3 mt-3">
-                        <BaseButton 
-                        type={"button"} 
-                        text={"Apply"} 
-                        className="btn btn-primary"
-                        handleOnClick={onClick} />
-                        <BaseButton type={"button"} text={"AiReview"} className="btn btn-secondary" />
-                        <Link href={`/editjob/${jobId}`}>
-                            <BaseButton type={"button"} text={"Edit"} className="btn btn-primary" />
-                        </Link>
                         {
-                            user?.role === "Employer" && (
-                                <Link href={`/alljobapplications/${jobId}`}>
+                            user && user.role === "JobSeeker" && (
+                                <>
                                     <BaseButton 
                                     type={"button"} 
-                                    text={"Applications"} 
-                                    className="btn btn-neutral" />
-                                </Link>
+                                    text={"Apply"} 
+                                    className="btn btn-primary"
+                                    handleOnClick={onClick} />
+                                    <BaseButton 
+                                    type={"button"} 
+                                    text={"profileReview"} 
+                                    className="btn btn-secondary" />
+                                </>
+                            )
+                        }
+                        
+                        {
+                            user?.role === "Employer" && (
+                                <>
+                                    <Link href={`/editjob/${jobId}`}>
+                                        <BaseButton 
+                                        type={"button"} 
+                                        text={"Edit"} 
+                                        className="btn btn-warning" />
+                                    </Link>
+                                    <Link href={`/alljobapplications/${jobId}`}>
+                                        <BaseButton 
+                                        type={"button"} 
+                                        text={"Applications"} 
+                                        className="btn btn-neutral" />
+                                    </Link>
+                                </>
                             )
                         }
                     </div>
@@ -160,6 +175,26 @@ export default function JobDetail(
                     </div>
                 </div>
             </dialog>
+            <div className="fab">
+                {/* a focusable div with tabIndex is necessary to work on all browsers. 
+                role="button" is necessary for accessibility */}
+                {
+                    user && user.role === "JobSeeker" && (
+                        <>
+                            <div tabIndex={0} role="button" className="btn btn-lg btn-circle btn-primary">VA</div>
+                            {/* buttons that show up when FAB is open */}
+                            <BaseButton 
+                            type={"button"} 
+                            text={"Improve Profile"} 
+                            className="btn btn-md btn-neutral"/>
+                            <BaseButton 
+                            type={"button"} 
+                            text={"Job Summary"} 
+                            className="btn btn-md btn-accent"/>
+                        </>
+                    )
+                }
+            </div>
         </JobDetailBaseCard>
     )
 }

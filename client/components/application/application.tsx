@@ -8,7 +8,8 @@ import UserInfo from "./userInfo";
 
 export default function Application({application}: {application: JobApplication}){
     return(
-        <div className="w-full px-2 py-4 space-y-5">
+        <div className="w-full px-4 py-4 space-y-5 bg-base-100 rounded-lg">
+            <h3 className="text-lg font-semibold text-center">Candidate Application</h3>
             <ApplicationHeader 
             name={application.profileSnapshot?.name ?? "Name"} 
             email={application.profileSnapshot?.email ?? "Email"} 
@@ -29,6 +30,16 @@ export default function Application({application}: {application: JobApplication}
                 <BaseButton type={"button"} text={"Connect"} className="btn btn-primary"/>
                 <BaseButton type={"button"} text={"Reject"} className="btn btn-secondary"/>
                 <BaseButton type={"button"} text={"Updatedprofile"} className="btn btn-neutral"/>
+                <BaseButton type={"button"} text={"Analyze Candidate"} className="btn btn-neutral"/>
+            </div>
+            <div className="fab">
+                {/* a focusable div with tabIndex is necessary to work on all browsers. 
+                role="button" is necessary for accessibility */}
+                <div tabIndex={0} role="button" className="btn btn-lg btn-circle btn-primary">VA</div>
+
+                {/* buttons that show up when FAB is open */}
+                <button className="btn btn-md btn-accent">Reanalyze</button>
+                <button className="btn btn-md btn-secondary">Summary</button>
             </div>
         </div>
     )
