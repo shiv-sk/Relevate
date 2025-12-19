@@ -10,6 +10,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Job } from 'src/schemas/job.schema';
 import mongoose, { Model } from 'mongoose';
 import { CompanyService } from 'src/company/company.service';
+import { SearchJobDto } from './dto/searchJob.dto';
 
 @Injectable()
 export class JobService {
@@ -27,8 +28,7 @@ export class JobService {
       throw new NotFoundException('you are not created company yet');
     }
     const companyId = company._id;
-    const newJob = {
-      companyId,
+    const newJob = await this.jobModel.create({
       title: createJobDto.title,
       description: createJobDto.description,
       salary: createJobDto.salary,
@@ -36,17 +36,8 @@ export class JobService {
       type: createJobDto.type,
       location: createJobDto.location,
       requiredSkills: createJobDto.requiredSkills,
-    };
-    // const newJob = await this.jobModel.create({
-    //   title: createJobDto.title,
-    //   description: createJobDto.description,
-    //   salary: createJobDto.salary,
-    //   level: createJobDto.level,
-    //   type: createJobDto.type,
-    //   location: createJobDto.location,
-    //   requiredSkills: createJobDto.requiredSkills,
-    //   companyId,
-    // });
+      companyId,
+    });
     if (!newJob) {
       throw new InternalServerErrorException('new job is not created!');
     }
@@ -103,5 +94,15 @@ export class JobService {
       throw new NotFoundException('job not found and deleted');
     }
     return 'job successfully deleted';
+  }
+
+  async serachJob(searchQuery: SearchJobDto) {
+    const jobs = await this.jobModel.find({
+      title: { $regex: searchQuery.title, $options: 'i' },
+    });
+    if (jobs.length === 0) {
+      throw new NotFoundException(`not found ${searchQuery.title} jobs`);
+    }
+    return jobs;
   }
 }

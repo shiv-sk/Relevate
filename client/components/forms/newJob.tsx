@@ -76,7 +76,8 @@ export default function NewJobForm(
                 <BaseButton 
                 type={"submit"} 
                 text={"NewJob"} 
-                className="btn btn-primary w-full"/>
+                className="btn btn-primary w-full"
+                isLoading={isLoading}/>
             </form>
         </div>
     )

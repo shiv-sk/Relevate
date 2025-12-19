@@ -28,7 +28,7 @@ export function useGetAllJobs(){
         getAllJobs();
     }, []);
 
-    return { jobs, error, isLoading }
+    return { jobs, error, isLoading, setJobs, setIsLoading, setError }
 };
 
 export function useGetCompanyAllJobs(){

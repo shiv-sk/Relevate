@@ -8,6 +8,7 @@ import {
   Delete,
   UseGuards,
   Req,
+  Query,
 } from '@nestjs/common';
 import { JobService } from './job.service';
 import { CreateJobDto } from './dto/create-job.dto';
@@ -18,6 +19,7 @@ import { Roles } from 'src/auth/roles.decorators';
 import { UserRole } from 'commons/userRoles.common';
 import { Request } from 'express';
 import { User } from 'src/auth/interface/user.interfcae';
+import { SearchJobDto } from './dto/searchJob.dto';
 
 @Controller('job')
 export class JobController {
@@ -36,6 +38,11 @@ export class JobController {
   @Get()
   findAll() {
     return this.jobService.findAll();
+  }
+
+  @Get('/search')
+  searchJobs(@Query() searchQuery: SearchJobDto) {
+    return this.jobService.serachJob(searchQuery);
   }
 
   @Get('/myjobs')

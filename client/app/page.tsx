@@ -1,24 +1,41 @@
 "use client";
+import { baseUrl, getAndDeleteReq } from "@/apicalls/apiCalls";
 import JobCardSimple from "@/components/card/jobsimple.card";
+import { Loadingstate } from "@/components/forms/loadingState";
 import SearchBar from "@/components/searchbar/search";
 import Filter from "@/components/sidebar/filter";
 import { useGetAllJobs } from "@/customhooks/job";
+import { isAxiosError } from "axios";
 import { useState } from "react";
 
 export default function Home(){
     const [search, setSearch] = useState("");
-    const { jobs, error } = useGetAllJobs();
+    const { jobs, error, setJobs, setIsLoading, setError, isLoading } = useGetAllJobs();
 
     const handleOnChange = (value: string)=>{
         setSearch(value);
     }
 
-    const handleSearchOnClick = ()=>{
-        if(!search.trim()){
+    const handleSearchOnClick = async ()=>{
+        if(!search.trim() || search.length <= 2){
             alert("enter atleast three characters to search");
             return;
         }
-        console.log("the serach is!", search);
+        try {
+            setIsLoading(true);
+            const response = await getAndDeleteReq(`${baseUrl}/job/search?title=${search}`, "GET");
+            if(response){
+                setJobs(response);
+            }
+        } catch (error: unknown) {
+            if(isAxiosError(error)){
+                alert(error.response?.data.message || "not found");
+            }
+            setError(error);
+        }finally{
+            setIsLoading(false);
+        }
+
     }
 
     return(
@@ -32,7 +49,17 @@ export default function Home(){
                         <Filter />
                     </div>
                     <div className="w-full lg:w-[60%] py-4">
-                        <JobCardSimple jobs={jobs}></JobCardSimple>
+                        {
+                            isLoading ? (
+                                <Loadingstate className="loading-xl"/>
+                            ) : jobs && jobs.length > 0 ? (
+                                <JobCardSimple jobs={jobs}></JobCardSimple>
+                            ) : (
+                                <div>
+                                    <p>Jobs are not found!</p>
+                                </div>
+                            )
+                        }
                     </div>
                 </div>
             </div>

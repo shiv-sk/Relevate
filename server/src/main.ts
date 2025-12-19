@@ -13,7 +13,7 @@ async function bootstrap() {
     preflightContinue: false,
     optionsSuccessStatus: 200,
   });
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
   await app.listen(process.env.PORT ?? 3001);
 }
 bootstrap();
