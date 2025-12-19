@@ -58,7 +58,7 @@ export default function AllApplications(){
             jobapplication.preferredLocation === applicationFilter.preferredLocation
         })
         if(filteredApplications.length === 0){
-            alert("there are no such applications!");
+            alert("no applications match the selected filters!");
             return;
         }
         if(applicationFilter.projectCheck){
@@ -66,6 +66,10 @@ export default function AllApplications(){
         }
         if(applicationFilter.experienceCheck){
             filteredApplications.filter((app)=>(app.profileSnapshot.experience.length > 0));
+        }
+        if(filteredApplications.length === 0){
+            alert("no applications match the selected filters!");
+            return;
         }
         setJobApplications(filteredApplications);
         console.log("filter button is clicked with data! ", applicationFilter);
