@@ -55,3 +55,9 @@ export interface JobDetail {
     }[]
   }
 }
+
+export interface JobFilter {
+  JobLevel: JobLevel,
+  JobType: JobType,
+  JobLocation: JobLocation  
+}

@@ -42,11 +42,32 @@ export default function AllApplications(){
         experienceCheck: false
     });
 
-    const handleOnChange = (key: string, value: string)=>{
+    const handleOnChange = (key: string, value: string | boolean)=>{
         setApplicationFilter({...applicationFilter, [key]: value});
     }
 
     const handleOnClick = ()=>{
+        if(jobApplications.length === 0){
+            alert("no applications to filter!");
+            return;
+        }
+        const filteredApplications = jobApplications.filter((jobapplication)=>{
+            return jobapplication.salaryExcepted === applicationFilter.salaryExcepted && 
+            jobapplication.experience === applicationFilter.experience && 
+            jobapplication.availability === applicationFilter.availability && 
+            jobapplication.preferredLocation === applicationFilter.preferredLocation
+        })
+        if(filteredApplications.length === 0){
+            alert("there are no such applications!");
+            return;
+        }
+        if(applicationFilter.projectCheck){
+            filteredApplications.filter((app)=>(app.profileSnapshot.projects.length > 0));
+        }
+        if(applicationFilter.experienceCheck){
+            filteredApplications.filter((app)=>(app.profileSnapshot.experience.length > 0));
+        }
+        setJobApplications(filteredApplications);
         console.log("filter button is clicked with data! ", applicationFilter);
     }
 

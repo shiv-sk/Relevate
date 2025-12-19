@@ -1,3 +1,4 @@
+import { ApplicationFilters } from "@/interfaces/applicationInterface";
 import BaseButton from "../forms/baseButton";
 import BaseCheckbox from "../forms/baseCheckbox";
 import BaseSelect from "../forms/baseSelect";
@@ -7,7 +8,7 @@ import { SalaryExcepted, PreferredLocation, Availability, Experience } from "@/c
 
 export default function ApplicationFilter(
     {applicationFilter, onChange, onClick}:
-    {applicationFilter, onChange: (key: string, value: string)=>void, onClick: ()=>void}){
+    {applicationFilter: ApplicationFilters, onChange: (key: string, value: string | boolean)=>void, onClick: ()=>void}){
     return(
         <BaseSidebar>
             <div className="p-4 flex flex-col gap-4 w-full">

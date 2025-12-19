@@ -1,22 +1,13 @@
 "use client";
-import { JobLevel, JobLocation, JobType } from "@/interfaces/jobInterface";
+import { JobFilter, JobLevel, JobLocation, JobType } from "@/interfaces/jobInterface";
 import BaseSelect from "../forms/baseSelect";
 import BaseSidebar from "./baseSidebar";
-import { useState } from "react";
 import BaseButton from "../forms/baseButton";
 import H3 from "../headers/h3";
 
-export default function Filter(){
-
-    const [filters, setFilters] = useState({
-        JobType:"",
-        JobLevel:"",
-        JobLocation:""
-    });
-
-    const handleOnChange = (val: string, field: string)=>{
-        setFilters({...filters, [field]: val});
-    }
+export default function Filter(
+    {filters, onChange, handleFilterClick}: 
+    {filters: JobFilter, onChange: (key: string, val: string)=>void, handleFilterClick: ()=>void}){
 
     return(
         <BaseSidebar>
@@ -28,21 +19,25 @@ export default function Filter(){
                 option={[JobType.Contract, JobType.FullTime, JobType.Internship, JobType.PartTime]} 
                 label={"JobType"}
                 value={filters.JobType}
-                onChange={(val)=>handleOnChange(val, "JobType")} />
+                onChange={(e)=>onChange("JobType", e.target.value)} />
 
                 <BaseSelect 
                 option={[JobLocation.Onsite, JobLocation.Remote]} 
                 label={"JobLocation"}
                 value={filters.JobLocation}
-                onChange={(val)=>handleOnChange(val, "JobLocation")} />
+                onChange={(e)=>onChange("JobLocation", e.target.value)} />
 
                 <BaseSelect 
                 option={[JobLevel.Associate, JobLevel.Entry, JobLevel.Intern, JobLevel.Senior]} 
                 label={"JobLevel"}
                 value={filters.JobLevel}
-                onChange={(val)=>handleOnChange(val, "JobLevel")} />
+                onChange={(e)=>onChange("JobLevel", e.target.value)} />
 
-                <BaseButton type={"button"} text={"Filter"} className="btn btn-primary"/>
+                <BaseButton 
+                type={"button"} 
+                text={"Filter"} 
+                className="btn btn-primary"
+                handleOnClick={handleFilterClick}/>
 
             </div>
         </BaseSidebar>
