@@ -11,6 +11,7 @@ import { Job } from 'src/schemas/job.schema';
 import mongoose, { Model } from 'mongoose';
 import { CompanyService } from 'src/company/company.service';
 import { SearchJobDto } from './dto/searchJob.dto';
+import { JobStatus } from 'commons/job.common';
 
 @Injectable()
 export class JobService {
@@ -85,6 +86,16 @@ export class JobService {
     if (!updatedJob) {
       throw new NotFoundException('job not found and updated');
     }
+    return updatedJob;
+  }
+
+  async updateJobStatus(jobId: string) {
+    const job = await this.jobModel.findById(jobId);
+    if (!job) {
+      throw new NotFoundException('job not found and updated');
+    }
+    job.status = JobStatus.Close;
+    const updatedJob = await job.save();
     return updatedJob;
   }
 

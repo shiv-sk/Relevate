@@ -62,4 +62,25 @@ export class ApplicationController {
   ) {
     return this.applicationService.update(id, updateApplicationDto);
   }
+
+  @Patch('/connect/:id')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(UserRole.Employer, UserRole.Employer)
+  connectCandidate(@Param('id') id: string) {
+    return this.applicationService.connectCandidate(id);
+  }
+
+  @Patch('/reject/:id')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(UserRole.Employer, UserRole.Employer)
+  rejectCandidate(@Param('id') id: string) {
+    return this.applicationService.rejectCandidate(id);
+  }
+
+  @Patch('/withdrawn/:id')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(UserRole.Employer, UserRole.JobSeeker)
+  withdrawnApplication(@Param('id') id: string) {
+    return this.applicationService.withdrawApplication(id);
+  }
 }

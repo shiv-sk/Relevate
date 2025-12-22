@@ -9,6 +9,7 @@ import { ProfileService } from 'src/profile/profile.service';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Application } from 'src/schemas/application.schema';
+import { ApplicationStatus } from 'commons/application.common';
 
 @Injectable()
 export class ApplicationService {
@@ -90,6 +91,39 @@ export class ApplicationService {
     if (!updatedApplication) {
       throw new NotFoundException('applications is not found and not updated');
     }
+    return updatedApplication;
+  }
+
+  async connectCandidate(applicationId: string) {
+    const application = await this.applicationModel.findById(applicationId);
+    if (!application) {
+      throw new NotFoundException('applications is not found and not updated');
+    }
+    //email generation and sending logic here
+    application.status = ApplicationStatus.Connected;
+    const updatedApplication = await application.save();
+    return updatedApplication;
+  }
+
+  async rejectCandidate(applicationId: string) {
+    const application = await this.applicationModel.findById(applicationId);
+    if (!application) {
+      throw new NotFoundException('applications is not found and not updated');
+    }
+    //email generation and sending logic here
+    application.status = ApplicationStatus.Rejected;
+    const updatedApplication = await application.save();
+    return updatedApplication;
+  }
+
+  async withdrawApplication(applicationId: string) {
+    const application = await this.applicationModel.findById(applicationId);
+    if (!application) {
+      throw new NotFoundException('applications is not found and not updated');
+    }
+    //email generation and sending logic here
+    application.status = ApplicationStatus.Withdrawn;
+    const updatedApplication = await application.save();
     return updatedApplication;
   }
 }

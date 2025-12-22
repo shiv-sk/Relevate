@@ -64,6 +64,13 @@ export class JobController {
     return this.jobService.update(jobId, updateJobDto);
   }
 
+  @Patch('/status/:jobId')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(UserRole.Employer)
+  updateJobStatus(@Param('jobId') jobId: string) {
+    return this.jobService.updateJobStatus(jobId);
+  }
+
   @Delete(':jobId')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(UserRole.Employer)
