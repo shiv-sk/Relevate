@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument } from 'mongoose';
-import { Company } from './company.schema';
+import mongoose, { HydratedDocument, Types } from 'mongoose';
 import { JobLevel, JobLocation, JobStatus, JobType } from 'commons/job.common';
 
 export type JobDocument = HydratedDocument<Job>;
@@ -41,7 +40,7 @@ export class Job {
     required: true,
     index: true,
   })
-  companyId: Company;
+  companyId: Types.ObjectId;
 }
 
 export const JobSchema = SchemaFactory.createForClass(Job);

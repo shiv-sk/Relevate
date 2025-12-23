@@ -1,42 +1,52 @@
 import {
   Controller,
   Get,
+  Param,
+  UseGuards,
+  Req,
   Post,
   Body,
-  Patch,
-  Param,
-  Delete,
 } from '@nestjs/common';
 import { AiService } from './ai.service';
-import { CreateAiDto } from './dto/create-ai.dto';
-import { UpdateAiDto } from './dto/update-ai.dto';
+import { RolesGuard } from 'src/auth/role.guard';
+import { UserRole } from 'commons/userRoles.common';
+import { Roles } from 'src/auth/roles.decorators';
+import { AuthGuard } from '@nestjs/passport';
+import { User } from 'src/auth/interface/user.interfcae';
+import { GenerateJdDto } from './dto/generatejd.dto';
 
 @Controller('ai')
 export class AiController {
   constructor(private readonly aiService: AiService) {}
 
-  @Post()
-  create(@Body() createAiDto: CreateAiDto) {
-    return this.aiService.create(createAiDto);
+  @Get('jobfit/:jobId')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(UserRole.JobSeeker)
+  jobFit(@Param('jobId') jobId: string, @Req() req: Request & { user: User }) {
+    return this.aiService.jobFit(jobId, req.user.id);
   }
 
-  @Get()
-  findAll() {
-    return this.aiService.findAll();
+  @Get('improveprofile/:jobId')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(UserRole.JobSeeker)
+  improveProfile(
+    @Param('jobId') jobId: string,
+    @Req() req: Request & { user: User },
+  ) {
+    return this.aiService.improveProfile(jobId, req.user.id);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.aiService.findOne(+id);
+  @Get('analyzecandidate/:applicationId')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(UserRole.Employer)
+  analyzeCandidate(@Param('applicationId') applicationId: string) {
+    return this.aiService.analyzeCandidate(applicationId);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAiDto: UpdateAiDto) {
-    return this.aiService.update(+id, updateAiDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.aiService.remove(+id);
+  @Post('/generatejd')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(UserRole.Employer)
+  generateJd(@Body() generateJdDto: GenerateJdDto) {
+    return this.aiService.generateJobDescription(generateJdDto);
   }
 }

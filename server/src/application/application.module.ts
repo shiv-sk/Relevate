@@ -14,5 +14,6 @@ import { ProfileModule } from 'src/profile/profile.module';
   ],
   controllers: [ApplicationController],
   providers: [ApplicationService],
+  exports: [ApplicationService],
 })
 export class ApplicationModule {}

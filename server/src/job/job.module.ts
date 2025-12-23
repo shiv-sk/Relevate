@@ -12,5 +12,6 @@ import { CompanyModule } from 'src/company/company.module';
   ],
   controllers: [JobController],
   providers: [JobService],
+  exports: [JobService],
 })
 export class JobModule {}

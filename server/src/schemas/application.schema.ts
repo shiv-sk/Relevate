@@ -1,7 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument } from 'mongoose';
-import { User } from './user.schema';
-import { Job } from './job.schema';
+import mongoose, { HydratedDocument, Types } from 'mongoose';
 import {
   ApplicationStatus,
   Availability,
@@ -9,7 +7,6 @@ import {
   PreferredLocation,
   SalaryExcepted,
 } from 'commons/application.common';
-import { Profile } from './profile.schema';
 
 export type ApplicationDocument = HydratedDocument<Application>;
 
@@ -20,21 +17,21 @@ export class Application {
     ref: 'User',
     required: true,
   })
-  userId: User;
+  userId: Types.ObjectId;
 
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Job',
     required: true,
   })
-  jobId: Job;
+  jobId: Types.ObjectId;
 
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Profile',
     required: true,
   })
-  profileId: Profile;
+  profileId: Types.ObjectId;
   @Prop({
     type: {
       skills: { type: [String], default: [] },
