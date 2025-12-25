@@ -45,7 +45,6 @@ export class Application {
             company: { type: String, trim: true },
             role: { type: String, trim: true },
             years: { type: Number, default: 0 },
-            noticePeriod: { type: String, trim: true },
           },
         ],
         default: [],
@@ -67,7 +66,7 @@ export class Application {
     },
     default: {},
   })
-  profileSnapshot?: {
+  profileSnapshot: {
     lookingFor: string;
     name: string;
     email: string;
@@ -77,11 +76,10 @@ export class Application {
       company: string;
       role: string;
       years: number;
-      noticePeriod?: string;
     }[];
     projects?: {
-      name?: string;
-      description?: string;
+      name: string;
+      description: string;
       links?: {
         github?: string;
         live?: string;

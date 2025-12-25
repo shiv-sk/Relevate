@@ -16,14 +16,27 @@ import { useAuth } from "@/context/authcontext";
 import Meta from "../icons/meta";
 
 export default function JobDetail(
-    {job, confirmRef, onClick, applicationOptions, onChange, handleConfirmClick}:
+    {
+        job, 
+        confirmRef, 
+        onClick, 
+        applicationOptions, 
+        onChange, 
+        handleConfirmClick, 
+        handleProfileReview, 
+        handleProfileImprove,
+        isBtnClicked,
+    }:
     {
         job: JobDetailInterface, 
         confirmRef, 
         onClick: ()=>void, 
         applicationOptions: ApplicationOptions, 
         onChange: (key: string, value: string)=>void, 
-        handleConfirmClick: ()=>void
+        handleConfirmClick: ()=>void,
+        handleProfileReview: ()=>void,
+        handleProfileImprove: ()=>void,
+        isBtnClicked: boolean,
     }){
 
     const {jobId} = useParams();
@@ -98,11 +111,15 @@ export default function JobDetail(
                                     type={"button"} 
                                     text={"Apply"} 
                                     className="btn btn-primary"
-                                    handleOnClick={onClick} />
+                                    handleOnClick={onClick}
+                                    isLoading = {isBtnClicked} />
+
                                     <BaseButton 
                                     type={"button"} 
                                     text={"profileReview"} 
-                                    className="btn btn-secondary" />
+                                    className="btn btn-secondary"
+                                    handleOnClick={handleProfileReview}
+                                    isLoading = {isBtnClicked} />
                                 </>
                             )
                         }
@@ -186,7 +203,10 @@ export default function JobDetail(
                             <BaseButton 
                             type={"button"} 
                             text={"Improve Profile"} 
-                            className="btn btn-md btn-neutral"/>
+                            className="btn btn-md btn-neutral"
+                            handleOnClick={handleProfileImprove}
+                            isLoading = {isBtnClicked} />
+
                             <BaseButton 
                             type={"button"} 
                             text={"Job Summary"} 

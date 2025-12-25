@@ -7,10 +7,10 @@ interface Experience {
 interface Projects {
   name: string;
   description: string;
-  links: {
-    github: string;
-    live: string;
-    demo: string;
+  links?: {
+    github?: string;
+    live?: string;
+    demo?: string;
   };
 }
 export const improveProfilePrompt = ({
@@ -23,8 +23,8 @@ export const improveProfilePrompt = ({
   jobDescription: string;
   requiredSkills: string[];
   candidateSkills: string[];
-  candidateExperience: Experience[] | 'Not Provided';
-  candidateProjects: Projects[] | 'Not Provided';
+  candidateExperience: Experience[] | string;
+  candidateProjects: Projects[] | string;
 }) => {
   const experienceText =
     candidateExperience === 'Not Provided'

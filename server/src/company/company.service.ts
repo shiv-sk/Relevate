@@ -15,13 +15,16 @@ export class CompanyService {
   constructor(
     @InjectModel(Company.name) private companyModel: Model<Company>,
   ) {}
-  create(createCompanyDto: CreateCompanyDto, userId: string) {
+  async create(createCompanyDto: CreateCompanyDto, userId: string) {
     const isValidUserId = mongoose.isValidObjectId(userId);
     if (!isValidUserId) {
       throw new BadRequestException('Invalid userId');
     }
-    const newCompany = {
-      userId,
+    const existingCompany = await this.companyModel.findOne({ userId });
+    if (existingCompany) {
+      throw new BadRequestException('Company already exists for this user');
+    }
+    const newCompany = await this.companyModel.create({
       name: createCompanyDto.name,
       officialEmail: createCompanyDto.officialEmail,
       about: createCompanyDto.about,
@@ -29,17 +32,8 @@ export class CompanyService {
       size: createCompanyDto.size,
       location: createCompanyDto.location,
       socialMedia: createCompanyDto.socialMedia,
-    };
-    // const newCompany = await this.companyModel.create({
-    //   name: createCompanyDto.name,
-    //   officialEmail: createCompanyDto.officialEmail,
-    //   about: createCompanyDto.about,
-    //   domain: createCompanyDto.domain,
-    //   size: createCompanyDto.size,
-    //   location: createCompanyDto.location,
-    //   socialMedia: createCompanyDto.socialMedia,
-    //   userId,
-    // });
+      userId,
+    });
     if (!newCompany) {
       throw new InternalServerErrorException('server error');
     }

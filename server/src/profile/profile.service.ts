@@ -14,8 +14,14 @@ export class ProfileService {
   constructor(
     @InjectModel(Profile.name) private profileModel: Model<Profile>,
   ) {}
-  create(createProfileDto: CreateProfileDto, userId: string) {
-    const newProfile = {
+  async create(createProfileDto: CreateProfileDto, userId: string) {
+    const existingProfile = await this.profileModel.findOne({ userId });
+    if (existingProfile) {
+      throw new InternalServerErrorException(
+        'Profile already exists for this user',
+      );
+    }
+    const newProfile = await this.profileModel.create({
       name: createProfileDto.name,
       email: createProfileDto.email,
       bio: createProfileDto.bio,
@@ -27,20 +33,7 @@ export class ProfileService {
       socialMedia: createProfileDto.socialMedia,
       experience: createProfileDto.experience,
       userId,
-    };
-    // const newProfile = await this.profileModel.create({
-    //   name: createProfileDto.name,
-    //   email: createProfileDto.email,
-    //   bio: createProfileDto.bio,
-    //   currentLocation: createProfileDto.currentLocation,
-    //   lookingFor: createProfileDto.lookingFor,
-    //   skills: createProfileDto.skills,
-    //   education: createProfileDto.education,
-    //   projects: createProfileDto.projects,
-    //   socialMedia: createProfileDto.socialMedia,
-    //   experience: createProfileDto.experience,
-    //   userId,
-    // });
+    });
     if (!newProfile) {
       throw new InternalServerErrorException('Profile is not created!');
     }

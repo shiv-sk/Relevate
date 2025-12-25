@@ -1,6 +1,7 @@
 "use client";
 
-import { baseUrl, getAndDeleteReq } from "@/apicalls/apiCalls";
+import { baseUrl, getAndDeleteReq, postAndPatchReq } from "@/apicalls/apiCalls";
+import AiResponseCard from "@/components/card/aireponsecard";
 import JobDetail from "@/components/card/jobdetailcard";
 import { Loadingstate } from "@/components/forms/loadingState";
 import { Availability, Experience, PreferredLocation, SalaryExcepted } from "@/constants/applicationFilterContest";
@@ -11,8 +12,12 @@ import { useEffect, useRef, useState } from "react";
 
 export default function AboutJob(){
     const {jobId} = useParams();
-    const [job, setJob] = useState();
+    const [job, setJob] = useState(); 
+    const [jobFitAIResponse, setJobFitAIResponse] = useState(""); 
+    const [profileImproveAIResponse, setProfileImproveAIResponse] = useState(""); 
     const [isLoading, setIsLoading] = useState(true);
+    const [isBtnClicked, setIsBtnClicked] = useState(false);
+    const [isAIResponse, setIsAIResponse] = useState(false);
     const {user, isLoading: isAuthLoading} = useAuth();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [error, setError] = useState<any | null>(null);
@@ -49,7 +54,7 @@ export default function AboutJob(){
         }
     }
 
-    const  handleConfirmClick = ()=>{
+    const  handleConfirmClick = async ()=>{
         if(Object.values(applicationOptions).length === 0){
             alert("please select the options!");
             return;
@@ -60,9 +65,63 @@ export default function AboutJob(){
         };
         try {
             confirmRef.current?.close();
-            console.log("the final data to send! ", dataTosend);
+            setIsBtnClicked(true);
+            const response = await postAndPatchReq(`${baseUrl}/application/`, "POST", dataTosend);
+            if(response){
+                alert("job applied successfully!");
+            }
         } catch (error) {
             console.log("error of dialogbox! ", error);
+        }finally{
+            setIsBtnClicked(false);
+        }
+    }
+
+    const  handleProfileReview = async()=>{
+        if(!jobId){
+            return;
+        }
+        setProfileImproveAIResponse("");
+        if(jobFitAIResponse){
+            setIsAIResponse(true);
+            return;
+        }
+        try {
+            setIsBtnClicked(true);
+            setIsAIResponse(true);
+            const response = await getAndDeleteReq(`${baseUrl}/ai/jobfit/${jobId}`, "GET");
+            // console.log("the profile review response! ", response);
+            setJobFitAIResponse(response);
+        } catch (error) {
+            setError(error);
+        }finally{
+            setIsBtnClicked(false);
+        }
+    }
+
+    const handleIsAIResponse = ()=>{
+        setIsAIResponse(false);
+    }
+
+    const  handleProfileImprove = async()=>{
+        if(!jobId){
+            return;
+        }
+        setJobFitAIResponse("");
+        if(profileImproveAIResponse){
+            setIsAIResponse(true);
+            return;
+        }
+        try {
+            setIsBtnClicked(true);
+            setIsAIResponse(true);
+            const response = await getAndDeleteReq(`${baseUrl}/ai/improveprofile/${jobId}`, "GET");
+            // console.log("the profile review response! ", response);
+            setProfileImproveAIResponse(response);
+        } catch (error) {
+            setError(error);
+        }finally{
+            setIsBtnClicked(false);
         }
     }
 
@@ -83,6 +142,13 @@ export default function AboutJob(){
                 {
                     isLoading ? (
                         <Loadingstate className="loading-xl"/>  
+                    ) : isAIResponse ? 
+                    (
+                        <AiResponseCard 
+                        title={"AIresponse"} 
+                        content={jobFitAIResponse || profileImproveAIResponse} 
+                        handleIsAIResponse={handleIsAIResponse} 
+                        isBtnClicked = {isBtnClicked}/>
                     ) : job ? (
                         <>
                             <JobDetail 
@@ -91,7 +157,10 @@ export default function AboutJob(){
                             onClick={handleOnClick} 
                             applicationOptions={applicationOptions} 
                             onChange={handleOnChange}
-                            handleConfirmClick={handleConfirmClick} />
+                            handleConfirmClick={handleConfirmClick}
+                            handleProfileReview = {handleProfileReview}
+                            handleProfileImprove = {handleProfileImprove}
+                            isBtnClicked = {isBtnClicked} />
                         </>
                     ) : (
                         <div>

@@ -7,10 +7,11 @@ interface Experience {
 interface Projects {
   name: string;
   description: string;
-  links: {
-    github: string;
-    live: string;
-    demo: string;
+  links?: {
+    github?: string;
+    live?: string;
+    demo?: string;
+    article?: string;
   };
 }
 export const jobfitPrompt = ({
@@ -23,8 +24,8 @@ export const jobfitPrompt = ({
   jobDescription: string;
   requiredSkills: string[];
   candidateSkills: string[];
-  candidateExperience: Experience[] | 'Not Provided';
-  candidateProjects: Projects[] | 'Not Provided';
+  candidateExperience: Experience[] | string;
+  candidateProjects: Projects[] | string;
 }) => {
   const experienceText =
     candidateExperience === 'Not Provided'
@@ -35,7 +36,7 @@ export const jobfitPrompt = ({
     candidateProjects === 'Not Provided'
       ? 'Not Provided'
       : JSON.stringify(candidateProjects);
-  return `You are an AI assistant evaluating how well a candidate profile matches a job description.
+  return `You are helping a job-seeker by comparing their profile for a specific job.
 
 Rules:
 - If experience or projects are missing, do NOT assume they exist.
@@ -65,6 +66,6 @@ Output:
 - Matching Skills
 - Missing / Unclear Skills
 - Confidence Level (High / Medium / Low)
-- Short Verdict
+- Recommendation (Recommended to Apply / Apply with Improvements / Not Recommended Yet)
 - Short Explanation`;
 };

@@ -59,7 +59,6 @@ export class Profile {
         company: { type: String, trim: true },
         role: { type: String, trim: true },
         years: { type: Number, default: 0 },
-        noticePeriod: { type: String, trim: true },
       },
     ],
     default: [],
@@ -67,7 +66,6 @@ export class Profile {
   experience: {
     company: string;
     role: string;
-    noticePeriod: string;
     years: number;
   }[];
 
