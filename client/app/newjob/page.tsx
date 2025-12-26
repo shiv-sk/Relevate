@@ -4,9 +4,11 @@ import { baseUrl, postAndPatchReq } from "@/apicalls/apiCalls";
 import NewJobForm from "@/components/forms/newJob";
 import { JobLevel, JobLocation, JobType } from "@/constants/jobcontest";
 import { Job } from "@/interfaces/jobInterface";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function NewJob(){
+    const router = useRouter();
 
     const [job, setJob] = useState<Job>({
         title:"",
@@ -37,7 +39,8 @@ export default function NewJob(){
             setIsLoading(true);
             const response = await postAndPatchReq(`${baseUrl}/job`, "POST", job);
             if(response){
-                alert("new job added successfully!");
+                alert("job created successfully");
+                router.push("/company");
             }
         } catch (error) {
             console.log("error from newJob page!", error);
@@ -60,6 +63,14 @@ export default function NewJob(){
         setJob({...job, requiredSkills: [...job.requiredSkills, skill]});
         setSkill("");
     }
+    const removeSkill = (index: number)=>{
+        setJob((prev)=>(
+            {
+                ...prev,
+                requiredSkills: prev.requiredSkills.filter((_, i) => i !== index),
+            }
+        ))
+    }
     return(
         <div className="min-h-screen gap-4 py-5 bg-base-300">
             <div className="max-w-sm mx-auto">
@@ -69,7 +80,10 @@ export default function NewJob(){
                 handleOnChange={handleOnChange} 
                 handleOnSubmit={handleOnSubmit} 
                 handleAddSkill={handleAddSkill}
-                isLoading={isLoading} />
+                isLoading={isLoading}
+                removeSkill={removeSkill}
+                title="NewJob"
+                btnTitle="Create" />
             </div>
         </div>
     )

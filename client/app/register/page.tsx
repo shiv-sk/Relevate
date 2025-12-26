@@ -2,9 +2,11 @@
 import RegisterForm from "@/components/forms/registerForm";
 import { useAuth } from "@/context/authcontext";
 import { Register as RegisterInterface } from "@/interfaces/registerInterface";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Register(){
+    const router = useRouter();
     const {registerUser, isLoading} = useAuth();
     const [form, setForm] = useState<RegisterInterface>({email:"", password:"", name:"", role:""});
 
@@ -13,9 +15,13 @@ export default function Register(){
     }
     const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
-        const { success, error } = await registerUser(form);
-        if(!success){
-            alert(error);
+        try {
+            const response = await registerUser(form);
+            if(response.success && response.data){
+                router.push("/login");
+            }
+        } catch (error) {
+            console.log("error from loginPage!", error);
         }
     }
     return(

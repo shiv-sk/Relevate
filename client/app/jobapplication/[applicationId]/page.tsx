@@ -34,7 +34,9 @@ export default function JobApplication(){
             mx-auto space-y-4 px-2">
                 {
                     isLoading ? (
-                        <Loadingstate className="loading-xl"/>
+                        <div className="flex justify-center items-center">
+                            <Loadingstate className="loading-xl"/>
+                        </div>
                     ) : application ? (
                         <>
                             <Application application={application} />

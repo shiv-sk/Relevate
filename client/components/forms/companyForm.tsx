@@ -14,7 +14,10 @@ export default function CompanyForm(
         socialMedia, 
         handleSocialMediaAdd, 
         onSubmit, 
-        isLoading
+        isLoading,
+        removeSocialMedia,
+        title,
+        btnTitle
     }: 
     {
         onChange: (val: string, key: string) => void, 
@@ -23,12 +26,15 @@ export default function CompanyForm(
         socialMedia: SocialMedia,
         handleSocialMediaAdd: ()=>void,
         onSubmit: (e: React.FormEvent<HTMLFormElement>)=>void,
-        isLoading: boolean
+        isLoading: boolean,
+        removeSocialMedia:(index: number)=>void,
+        title: string
+        btnTitle: string
     }){
     return(
         <div 
         className="bg-base-100 flex flex-col justify-center items-center max-w-sm w-full p-6 rounded-lg shadow-lg mx-auto">
-            <H1 heading={"NewCompany"}/>
+            <H1 heading={title}/>
             <form className="gap-2.5 py-6 space-y-3 w-full" onSubmit={(e)=>onSubmit(e)}>
                 <BaseInput 
                 type={"text"} 
@@ -86,10 +92,22 @@ export default function CompanyForm(
                     text={"Add"} 
                     className="btn btn-secondary" 
                     handleOnClick={handleSocialMediaAdd}/>
+                    {
+                        company.socialMedia.length > 0 && company.socialMedia.map((media, index)=>(
+                            <li key={index} className="p-2 border rounded">
+                                <a href={media.link}>{media.name}</a>
+                                <BaseButton 
+                                type="button" 
+                                text="remove" 
+                                className="text-red-500 text-sm"
+                                handleOnClick={() => removeSocialMedia(index)}/>
+                            </li>
+                        ))
+                    }
                 </div>
                 <BaseButton 
                 type={"submit"} 
-                text={"Create"} 
+                text={btnTitle} 
                 className="btn btn-primary w-full"
                 isLoading={isLoading}/>
             </form>

@@ -4,9 +4,8 @@ import JobCardSimple from "@/components/card/jobsimple.card";
 import { Loadingstate } from "@/components/forms/loadingState";
 import SearchBar from "@/components/searchbar/search";
 import Filter from "@/components/sidebar/filter";
-import { JobType } from "@/constants/jobcontest";
 import { useGetAllJobs } from "@/customhooks/job";
-import { JobFilter, JobLevel, JobLocation } from "@/interfaces/jobInterface";
+import { JobFilter, JobLevel, JobLocation, JobType } from "@/interfaces/jobInterface";
 import { isAxiosError } from "axios";
 import { useState } from "react";
 
@@ -79,10 +78,12 @@ export default function Home(){
                     <div className="w-full lg:w-[60%] py-4">
                         {
                             isLoading ? (
-                                <Loadingstate className="loading-xl"/>
+                                <div className="flex justify-center items-center">
+                                    <Loadingstate className="loading-xl"/>
+                                </div> 
                             ) : jobs && jobs.length > 0 ? (
                                 <JobCardSimple jobs={jobs}></JobCardSimple>
-                            ) : (
+                            ) : ( 
                                 <div>
                                     <p>Jobs are not found!</p>
                                 </div>

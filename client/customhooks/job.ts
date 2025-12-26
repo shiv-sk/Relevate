@@ -3,6 +3,7 @@
 
 import { baseUrl, getAndDeleteReq } from "@/apicalls/apiCalls";
 import { Job, SimpleJob } from "@/interfaces/jobInterface";
+import { AxiosError, isAxiosError } from "axios";
 import { useEffect, useState } from "react";
 
 export function useGetAllJobs(){
@@ -54,5 +55,35 @@ export function useGetCompanyAllJobs(){
         getAllJobs();
     }, []);
 
-    return { companyJobs, error, isLoading }
+    return { companyJobs, error, isLoading, setCompanyJobs }
+};
+
+export function useGetJob(jobId: string){
+
+    const [job, setJob] = useState<Job | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<AxiosError | null>(null);
+
+    useEffect(()=>{
+        const getJob = async()=>{
+            if(!jobId){
+                return;
+            }
+            try {
+                setIsLoading(true);
+                const response = await getAndDeleteReq(`${baseUrl}/job/${jobId}`, "GET");
+                setJob(response);
+            } catch (error: unknown) {
+                console.log("error from getJob! ", error);
+                if(isAxiosError(error)){
+                    setError(error);
+                }
+            }finally{
+                setIsLoading(false);
+            }
+        }
+        getJob();
+        }, [jobId]);
+
+    return { job, error, isLoading, setJob };
 };

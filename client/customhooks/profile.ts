@@ -28,5 +28,5 @@ export function useGetProfile(){
         }
         getProfile();
     }, []);
-    return {isLoading, profile, error};
+    return {isLoading, profile, error, setProfile};
 }

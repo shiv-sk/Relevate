@@ -26,7 +26,7 @@ export default function MyApplications(){
                 <h1 className="font-bold text-lg">Applications</h1>
                 {
                     pageLoading ? (
-                        <div>
+                        <div className="flex justify-center items-center">
                             <Loadingstate className={"loading-xl"}/>
                         </div>
                     ) :

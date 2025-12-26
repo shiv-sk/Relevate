@@ -89,7 +89,9 @@ export default function AllApplications(){
                     <div className="w-full lg:w-[60%] py-4">
                         {
                             isLoading ? (
-                                <Loadingstate className="loading-xl"/>
+                                <div className="flex justify-center items-center">
+                                    <Loadingstate className="loading-xl"/>
+                                </div>
                             ) : jobApplications.length > 0 ? (
                                 <AllJobApplicationsCard applications={jobApplications}/>
                             ) : (

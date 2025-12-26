@@ -1,6 +1,8 @@
 "use client";
+import { baseUrl, postAndPatchReq } from "@/apicalls/apiCalls";
 import NewJob from "@/components/forms/newJob";
 import { Job as JobInterface, JobLevel, JobLocation, JobType } from "@/interfaces/jobInterface";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Job(){
@@ -14,8 +16,10 @@ export default function Job(){
         type: JobType.Contract,
         location: JobLocation.Onsite
     })
+    const router = useRouter();
 
     const [skill, setSkill] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleOnChange = (key: string, val: string)=>{
         if(key === "skill"){
@@ -38,7 +42,7 @@ export default function Job(){
         setSkill("");
     }
 
-    const handleOnSubmit = (e)=>{
+    const handleOnSubmit = async (e)=>{
         e.preventDefault();
         if(
             !job.title.trim() || 
@@ -52,7 +56,17 @@ export default function Job(){
             alert("empty fields are not allowed");
             return;
         }
-        console.log("the new job data is!", job);
+        try {
+            setIsLoading(true);
+            const response = await postAndPatchReq(`${baseUrl}/job`, "POST", job);
+            if(response){
+                router.push("/jobs");
+            }
+        } catch (error) {
+            console.log("error from new job page! ", error);
+        }finally{
+            setIsLoading(false);
+        }
     }
 
     return(
@@ -63,7 +77,8 @@ export default function Job(){
                 skill={skill} 
                 handleOnChange={handleOnChange} 
                 handleOnSubmit={handleOnSubmit} 
-                handleAddSkill={handleAddSkill}/>
+                handleAddSkill={handleAddSkill}
+                isLoading={isLoading}/>
             </div>
         </div>
     )

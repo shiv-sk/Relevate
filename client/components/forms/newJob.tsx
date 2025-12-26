@@ -6,21 +6,24 @@ import BaseSelect from "./baseSelect";
 import Textarea from "./textarea";
 import BaseButton from "./baseButton";
 
-export default function NewJobForm(
-    {job, skill, handleOnChange, handleOnSubmit, handleAddSkill, isLoading}: 
+export default function JobForm(
+    {job, skill, handleOnChange, handleOnSubmit, handleAddSkill, isLoading, removeSkill, title, btnTitle}: 
     {
         job: Job, 
         skill: string, 
         handleOnChange: (key: string, value: string)=>void, 
         handleOnSubmit: (e: React.FormEvent<HTMLFormElement>)=>void, 
         handleAddSkill: ()=>void,
-        isLoading: boolean
+        isLoading?: boolean,
+        removeSkill: (index: number)=>void,
+        title: string,
+        btnTitle: string
     }){
     return(
         <div 
         className="bg-base-100 flex flex-col justify-center items-center w-full p-6 rounded-lg shadow-lg">
             <form className="gap-2.5 py-6 space-y-3 w-full" onSubmit={(e)=>handleOnSubmit(e)}>
-                <H1 heading={"AddJob"}/>
+                <H1 heading={title}/>
 
                 <BaseInput 
                 type={"text"} 
@@ -52,6 +55,24 @@ export default function NewJobForm(
                     text={"Add"} 
                     className="btn btn-secondary"
                     handleOnClick={handleAddSkill}/>
+                    {
+                        job.requiredSkills.length > 0 && (
+                            <div className="flex flex-wrap gap-2">
+                                {
+                                    job.requiredSkills.map((skill, index)=>(
+                                        <span key={index} className="badge badge-outline badge-primary">
+                                            {skill}
+                                            <BaseButton 
+                                            type="button" 
+                                            text="✕" 
+                                            className="ml-1 text-red-500"
+                                            handleOnClick={()=>removeSkill(index)}/>
+                                        </span>
+                                    ))
+                                }
+                            </div>
+                        )
+                    }
                 </div>
 
                 <BaseSelect 
@@ -75,7 +96,7 @@ export default function NewJobForm(
 
                 <BaseButton 
                 type={"submit"} 
-                text={"NewJob"} 
+                text={btnTitle} 
                 className="btn btn-primary w-full"
                 isLoading={isLoading}/>
             </form>

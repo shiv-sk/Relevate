@@ -3,11 +3,13 @@
 import LoginForm from "@/components/forms/loginForm";
 import { useAuth } from "@/context/authcontext";
 import { Login as LoginInterface } from "@/interfaces/loginInterface";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Login(){
     const [form, setForm] = useState<LoginInterface>({email:"", password:""});
     const {loginUser, isLoading} = useAuth();
+    const router = useRouter();
 
     const handleOnChange = (key: string, value: string)=>{
         setForm({...form, [key]: value});
@@ -16,7 +18,14 @@ export default function Login(){
         e.preventDefault();
         try {
             const response = await loginUser(form);
-            console.log("the response from loginPage!", response);
+            if(response.success && response.data){
+                if(response.data.role === "JobSeeker"){
+                    router.push("/");
+                }
+                else{
+                    router.push("/company");
+                }
+            }
         } catch (error) {
             console.log("error from loginPage!", error);
         }

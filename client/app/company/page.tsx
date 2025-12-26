@@ -22,7 +22,9 @@ export default function CompanyPage(){
             mx-auto space-y-4 border-2 px-2">
                 {
                     isLoading ? (
-                        <Loadingstate className="loading-xl"/>
+                        <div className="flex justify-center items-center">
+                            <Loadingstate className="loading-xl"/>
+                        </div>
                     ) : company ? (
                             <Company company={company} />
                     ) : ""

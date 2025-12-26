@@ -2,26 +2,26 @@ import BaseButton from "./baseButton";
 import BaseInput from "./baseInput";
 import Textarea from "./textarea";
 
-export default function NewProfileForm(
+export default function ProfileForm(
     {
         skill, onChange, onSubmit, addSkill, form, addEducation, addProject, 
         addSocialMedia, addExperience, onEducationChange, onExperienceChange, 
         onProjectChange, onSocialMediaChange, education, project, experience, socialMedia, onProjectLinkChange,
-        isLoading
+        isLoading, removeEducation, removeSocialMedia, removeProjects, removeExperience, title, btnTitle, removeSkill
     }){
     return(
         <div className="bg-base-100 flex justify-center items-center max-w-sm w-full p-6 rounded-lg shadow-lg mx-auto flex-col">
-            <h1 className="text-center font-bold text-2xl underline">NewProfile</h1>
+            <h1 className="text-center font-bold text-2xl underline">{title}</h1>
             <div>
-                <form action="" className="gap-2.5 py-6 space-y-3 w-full" onSubmit={onSubmit}>
-                    <BaseInput 
+                <form className="gap-2.5 py-6 space-y-3 w-full" onSubmit={onSubmit}>
+                    <BaseInput
                     label="Name" 
                     type="text" 
-                    onChange={(e)=>onChange("name", e.target.value)} 
+                    onChange={(e)=>onChange("name", e.target.value)}
                     value={form.name} 
                     placeholder="John Doe" />
                             
-                    <BaseInput 
+                    <BaseInput
                     label="Email" 
                     type="text" 
                     onChange={(e)=>onChange("email", e.target.value)} 
@@ -60,12 +60,43 @@ export default function NewProfileForm(
                         text="Add" 
                         className="btn btn-secondary py-2.5 px-2"
                         handleOnClick={addSkill}/>
+                        {
+                            form.skills.length > 0 && (
+                                <div className="flex flex-wrap gap-2">
+                                    {
+                                        form.skills.map((skill, index)=>(
+                                            <span key={index} className="badge badge-outline badge-primary">
+                                                {skill}
+                                                <BaseButton 
+                                                type="button" 
+                                                text="✕" 
+                                                className="ml-1 text-red-500"
+                                                handleOnClick={()=>removeSkill(index)}/>
+                                            </span>
+                                        ))
+                                    }
+                                </div>
+                            )
+                        }  
                     </div>
 
                     <div className="space-y-1.5">
                         <h3 className="text-lg font-semibold">Education 
                             <span className="font-normal">(optional)</span>
                         </h3>
+                        {
+                            form.education.length > 0 && form.education.map((edu, index)=>(
+                                <li key={index} className="p-2 border rounded">
+                                    <p><b>{edu.institute}</b></p>
+                                    <p>{edu.degree} ({edu.passoutYear})</p>
+                                    <BaseButton 
+                                    type="button" 
+                                    text="remove" 
+                                    className="text-red-500 text-sm"
+                                    handleOnClick={() => removeEducation(index)}/>
+                                </li>
+                            ))
+                        }
                         <BaseInput 
                         label="Institute" 
                         type="text" 
@@ -85,6 +116,7 @@ export default function NewProfileForm(
                         type="number" 
                         onChange={(e)=>onEducationChange("passoutYear" , e.target.value)} 
                         value={education.passoutYear}  />
+                        
                         <BaseButton 
                         type="button" 
                         text="Add" 
@@ -96,6 +128,19 @@ export default function NewProfileForm(
                         <h3 className="text-lg font-semibold">Experience 
                             <span className="font-normal">(optional)</span>
                         </h3>
+                        {
+                            form.experience.length > 0 && form.experience.map((exp, index)=>(
+                                <li key={index} className="p-2 border rounded">
+                                    <p><b>{exp.company}</b></p>
+                                    <p>{exp.role} ({exp.years})</p>
+                                    <BaseButton 
+                                    type="button" 
+                                    text="remove" 
+                                    className="text-red-500 text-sm"
+                                    handleOnClick={() => removeExperience(index)}/>
+                                </li>
+                            ))
+                        }
                         <BaseInput 
                         label="Company" 
                         type="text" 
@@ -115,13 +160,7 @@ export default function NewProfileForm(
                         type="number"  
                         onChange={(e)=>onExperienceChange("years", e.target.value)} 
                         value={experience.years}  />
-                        
-                        <BaseInput 
-                        label="Noticeperiod" 
-                        type="text" 
-                        onChange={(e)=>onExperienceChange("noticePeriod", e.target.value)} 
-                        value={experience.noticePeriod}
-                        placeholder="30-45"  />
+
                         <BaseButton 
                         type="button" 
                         text="Add" 
@@ -133,6 +172,24 @@ export default function NewProfileForm(
                         <h3 className="text-lg font-semibold">Project 
                             <span className="font-normal">(optional)</span>
                         </h3>
+                        {
+                            form.projects.length > 0 && form.projects.map((pro, index)=>(
+                                <li key={index} className="p-2 border rounded">
+                                    <p><b>{pro.name}</b></p>
+                                    <p>{pro.description}</p>
+                                    <div className="flex flex-wrap gap-1">
+                                        <a href={pro.links.github}>Github</a>
+                                        <a href={pro.links.live}>Live</a>
+                                        <a href={pro.links.demo}>Demo</a>
+                                    </div>
+                                    <BaseButton 
+                                    type="button" 
+                                    text="remove" 
+                                    className="text-red-500 text-sm"
+                                    handleOnClick={() => removeProjects(index)}/>
+                                </li>
+                            ))
+                        }
                         <BaseInput 
                         label="Name" 
                         type="text" 
@@ -168,13 +225,6 @@ export default function NewProfileForm(
                         value={project.links.demo}
                         placeholder="Project-Demo-Link"  />
 
-                        <BaseInput 
-                        label="Article" 
-                        type="text" 
-                        onChange={(e)=>onProjectLinkChange("article", e.target.value)} 
-                        value={project.links.article}
-                        placeholder="Project-Article-Link"  />
-
                         <BaseButton 
                         type="button" 
                         text="Add" 
@@ -186,6 +236,18 @@ export default function NewProfileForm(
                         <h3 className="text-lg font-semibold">SocialMedia 
                             <span className="font-normal">(optional)</span>
                         </h3>
+                        {
+                            form.socialMedia.length > 0 && form.socialMedia.map((media, index)=>(
+                                <li key={index} className="p-2 border rounded">
+                                    <a href={media.link}>{media.name}</a>
+                                    <BaseButton 
+                                    type="button" 
+                                    text="remove" 
+                                    className="text-red-500 text-sm"
+                                    handleOnClick={() => removeSocialMedia(index)}/>
+                                </li>
+                            ))
+                        }
                         <BaseInput 
                         label="Name" 
                         type="text" 
@@ -210,7 +272,7 @@ export default function NewProfileForm(
                     <BaseButton
                     isLoading={isLoading} 
                     type="submit" 
-                    text="Create" 
+                    text={btnTitle} 
                     className="btn btn-primary py-2.5 px-2 w-full"/>
                 </form>
             </div>

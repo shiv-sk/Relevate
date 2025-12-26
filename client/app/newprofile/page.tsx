@@ -2,12 +2,13 @@
 "use client";
 
 import { baseUrl, postAndPatchReq } from "@/apicalls/apiCalls";
-import { Loadingstate } from "@/components/forms/loadingState";
 import NewProfileForm from "@/components/forms/newProfileForm";
 import { Education, Experience, ProfileInterface, Projects, SocialMedia } from "@/interfaces/profileInterface";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function NewProfile(){
+    const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const [skill, setSkill] = useState("");
     const [education, setEducation] = useState<Education>({
@@ -28,7 +29,6 @@ export default function NewProfile(){
     const [experience, setExperience] = useState<Experience>({
         company:"",
         role:"",
-        noticePeriod:"",
         years:0
     });
     const [socialMedia, setSocialMedia] = useState<SocialMedia>({
@@ -143,9 +143,6 @@ export default function NewProfile(){
         }else if(!experience.role?.trim()){
             alert("Role is required");
             return;
-        }else if(!experience.noticePeriod?.trim()){
-            alert("Noticeperiod is required");
-            return;
         }else if(!experience.years){
             alert("No. of Experience years is required");
             return;
@@ -158,6 +155,46 @@ export default function NewProfile(){
             years:0,
             noticePeriod:""
         })
+    }
+    const removeEducation = (index: number)=>{
+        setForm((prev)=>(
+            {
+                ...prev,
+                education: prev.education.filter((_, i) => i !== index),
+            }
+        ))
+    }
+    const removeProjects = (index: number)=>{
+        setForm((prev)=>(
+            {
+                ...prev,
+                projects: prev.projects.filter((_, i) => i !== index),
+            }
+        ))
+    }
+    const removeExperience = (index: number)=>{
+        setForm((prev)=>(
+            {
+                ...prev,
+                experience: prev.experience.filter((_, i) => i !== index),
+            }
+        ))
+    }
+    const removeSocialMedia = (index: number)=>{
+        setForm((prev)=>(
+            {
+                ...prev,
+                socialMedia: prev.socialMedia.filter((_, i) => i !== index),
+            }
+        ))
+    }
+    const removeSkill = (index: number)=>{
+        setForm((prev)=>(
+            {
+                ...prev,
+                skills: prev.skills.filter((_, i) => i !== index),
+            }
+        ))
     }
     const handleSocialMediaChange = (key: keyof SocialMedia, value: string)=>{
         setSocialMedia({...socialMedia, [key]: value});
@@ -190,6 +227,7 @@ export default function NewProfile(){
             const response = await postAndPatchReq(`${baseUrl}/profile`, "POST", form);
             if(response){
                 alert("profile created successfully!");
+                router.push("/myprofile");
             }
         } catch (error: any) {
             console.log("error is from newProfile-Page!", error);
@@ -201,34 +239,35 @@ export default function NewProfile(){
 
     return(
         <div className="min-h-screen gap-4 py-5 bg-base-300">
-            {
-                isLoading ? (
-                    <div>
-                        <Loadingstate className="loading-xl"/>
-                    </div>
-                ) : (
-                    <NewProfileForm 
-                    skill={skill} 
-                    onChange={handleOnChange} 
-                    onSubmit={handleOnSubmit} 
-                    addSkill={handleAddSkill}
-                    addEducation = {handleAddEducation}
-                    addProject = {handleAddProject}
-                    addSocialMedia = {handleAddSocialMedia}
-                    addExperience = {handleAddExperience}
-                    onEducationChange = {handleEducationChange}
-                    onExperienceChange = {handleExperienceChange}
-                    onProjectChange = {handleProjectsChange}
-                    onProjectLinkChange = {handleProjectLinksChange}
-                    onSocialMediaChange = {handleSocialMediaChange}
-                    form={form}
-                    education={education}
-                    project={project}
-                    experience={experience}
-                    socialMedia={socialMedia}
-                    isLoading = {isLoading} />
-                )
-            }
+            <div>
+                <NewProfileForm 
+                skill={skill} 
+                onChange={handleOnChange} 
+                onSubmit={handleOnSubmit} 
+                addSkill={handleAddSkill}
+                addEducation = {handleAddEducation}
+                addProject = {handleAddProject}
+                addSocialMedia = {handleAddSocialMedia}
+                addExperience = {handleAddExperience}
+                onEducationChange = {handleEducationChange}
+                onExperienceChange = {handleExperienceChange}
+                onProjectChange = {handleProjectsChange}
+                onProjectLinkChange = {handleProjectLinksChange}
+                onSocialMediaChange = {handleSocialMediaChange}
+                form={form}
+                education={education}
+                project={project}
+                experience={experience}
+                socialMedia={socialMedia}
+                isLoading = {isLoading}
+                removeEducation={removeEducation}
+                removeExperience={removeExperience}
+                removeProjects={removeProjects}
+                removeSocialMedia={removeSocialMedia}
+                title={"NewProfile"}
+                btnTitle={"Create"}
+                removeSkill={removeSkill} />
+            </div>
         </div>
     )
 }

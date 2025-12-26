@@ -109,7 +109,6 @@ const AuthProvider = ({ children }: { children: ReactNode })=>{
         try {
             const response = await postAndPatchReq(`${baseUrl}/auth/register` , "POST" , data);
             console.log(response);
-            setUser(response);
             return { success: true, data: response?.data };
         } catch (error: any) {
             const errorMessage = error.response?.data?.message || "Unable to find current user.";

@@ -20,7 +20,7 @@ export default function ViewProfile(){
         <div>
             {
                 isLoading ? (
-                    <div>
+                    <div className="flex justify-center items-center">
                         <Loadingstate className="loading-xl"/>
                     </div>
                 ) : profile ? (

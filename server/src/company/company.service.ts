@@ -53,10 +53,17 @@ export class CompanyService {
     return company;
   }
 
-  update(userId: string, updateCompanyDto: UpdateCompanyDto) {
+  async update(userId: string, updateCompanyDto: UpdateCompanyDto) {
     //find company by userId and update
-    console.log(updateCompanyDto);
-    return `This action updates a #${userId} company`;
+    const updatedCompany = await this.companyModel.findOneAndUpdate(
+      { userId },
+      updateCompanyDto,
+      { new: true, runValidators: true },
+    );
+    if (!updatedCompany) {
+      throw new NotFoundException('Company not found and updated');
+    }
+    return updatedCompany;
   }
 
   remove(userId: string) {

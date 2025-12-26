@@ -141,8 +141,10 @@ export default function AboutJob(){
             <div className="w-full max-w-[580px] mx-auto space-y-4">
                 {
                     isLoading ? (
-                        <Loadingstate className="loading-xl"/>  
-                    ) : isAIResponse ? 
+                        <div className="flex justify-center items-center">
+                            <Loadingstate className="loading-xl"/>
+                        </div>    
+                    ) : isAIResponse ?
                     (
                         <AiResponseCard 
                         title={"AIresponse"} 

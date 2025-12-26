@@ -3,9 +3,11 @@
 import { baseUrl, postAndPatchReq } from "@/apicalls/apiCalls";
 import CompanyForm from "@/components/forms/companyForm";
 import {Company as CompanyInterface, SocialMedia} from "@/interfaces/company";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function NewCompany(){
+    const router = useRouter();
 
     const handleOnChange = (val: string, key: string)=>{
         setCompany({...company, [key]: val});
@@ -37,7 +39,10 @@ export default function NewCompany(){
         try {
             setIsLoading(true);
             const response = await postAndPatchReq(`${baseUrl}/company`, "POST", company);
-            console.log("the response from newCompany page!", response);
+            if(response){
+                router.push("/company");
+            }
+            // console.log("the response from newCompany page!", response);
         } catch (error: any) {
             console.log("the error from newCompany page!", error);
         }finally{
@@ -62,6 +67,14 @@ export default function NewCompany(){
     })
 
     const [isLoading, setIsLoading] = useState(false);
+    const removeSocialMedia = (index: number)=>{
+        setCompany((prev)=>(
+            {
+                ...prev,
+                socialMedia: prev.socialMedia.filter((_, i) => i !== index),
+            }
+        ))
+    }
 
     return(
         <div className="min-h-screen bg-base-300 py-6">
@@ -73,7 +86,10 @@ export default function NewCompany(){
                 socialMedia={socialMedia}
                 handleSocialMediaAdd={handleSocialMediaAdd}
                 onSubmit={handleOnSubmit}
-                isLoading={isLoading}/>
+                isLoading={isLoading}
+                removeSocialMedia={removeSocialMedia}
+                title="NewCompany"
+                btnTitle="Create"/>
             </div>
         </div>
     )
