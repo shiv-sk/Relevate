@@ -61,11 +61,15 @@ export default function AboutJob(){
         }
         const dataTosend = {
             jobId,
-            applicationOptions
+            salaryExcepted: applicationOptions.salaryExcepted,
+            preferredLocation: applicationOptions.preferredLocation,
+            availability: applicationOptions.availability,
+            experience: applicationOptions.experience,
         };
         try {
             confirmRef.current?.close();
             setIsBtnClicked(true);
+            console.log("the data to send! ", dataTosend);
             const response = await postAndPatchReq(`${baseUrl}/application/`, "POST", dataTosend);
             if(response){
                 alert("job applied successfully!");

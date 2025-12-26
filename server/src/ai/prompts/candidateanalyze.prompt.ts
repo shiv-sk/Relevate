@@ -64,5 +64,6 @@ Output:
 - Candidate pros
 - Candidate cons
 - Short Verdict
-- Short Explanation`;
+- Short Explanation
+- Recommendation (Proceed to Interview / Consider After Clarification / Low Priority for This Role)`;
 };

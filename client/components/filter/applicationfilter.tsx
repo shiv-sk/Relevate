@@ -46,12 +46,12 @@ export default function ApplicationFilter(
                 onChange={(e)=>onChange("experience", e.target.value)} />
 
                 <BaseCheckbox 
-                label={"Filterout with no Experience"} 
+                label={"Filterout with no Projects"} 
                 value={applicationFilter.projectCheck}
                 handleOnChange={(e)=>onChange("projectCheck", e.target.checked)} />
 
                 <BaseCheckbox 
-                label={"Filterout with no Projects"}
+                label={"Filterout with no Experience"}
                 value={applicationFilter.experienceCheck}
                 handleOnChange={(e)=>onChange("experienceCheck", e.target.checked)} />
             

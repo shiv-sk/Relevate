@@ -6,7 +6,8 @@ import ApplicationHeader from "./applicationheader";
 import UserFooter from "./userfooter";
 import UserInfo from "./userInfo";
 
-export default function Application({application}: {application: JobApplication}){
+export default function Application({application, handleAnalyzeCandidate}: 
+    {application: JobApplication, handleAnalyzeCandidate: ()=>void}){
     return(
         <div className="w-full px-4 py-4 space-y-5 bg-base-100 rounded-lg">
             <h3 className="text-lg font-semibold text-center">Candidate Application</h3>
@@ -22,18 +23,34 @@ export default function Application({application}: {application: JobApplication}
 
             <UserFooter 
             salaryExcepted={application.salaryExcepted} 
-            preferredLocation={application.preferredLocation} 
+            preferredLocation={application.preferredLocation}
             availability={application.availability} 
             experience={application.experience} />
 
             <div className="card-actions justify-end">
-                <BaseButton type={"button"} text={"Connect"} className="btn btn-primary"/>
-                <BaseButton type={"button"} text={"Reject"} className="btn btn-secondary"/>
-                <BaseButton type={"button"} text={"Updatedprofile"} className="btn btn-neutral"/>
-                <BaseButton type={"button"} text={"Analyze Candidate"} className="btn btn-neutral"/>
+                <BaseButton 
+                type={"button"} 
+                text={"Connect"} 
+                className="btn btn-primary"/>
+                
+                <BaseButton 
+                type={"button"} 
+                text={"Reject"} 
+                className="btn btn-secondary"/>
+
+                <BaseButton 
+                type={"button"} 
+                text={"Updatedprofile"} 
+                className="btn btn-neutral"/>
+
+                <BaseButton 
+                type={"button"} 
+                text={"Analyze Candidate"} 
+                className="btn btn-neutral"
+                handleOnClick={handleAnalyzeCandidate}/>
             </div>
             <div className="fab">
-                {/* a focusable div with tabIndex is necessary to work on all browsers. 
+                {/* a focusable div with tabIndex is necessary to work on all browsers.
                 role="button" is necessary for accessibility */}
                 <div tabIndex={0} role="button" className="btn btn-lg btn-circle btn-primary">VA</div>
 

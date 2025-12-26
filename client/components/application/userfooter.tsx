@@ -15,10 +15,6 @@ export default function UserFooter(
         experience: string,
         className?: string
     }){
-        let location;
-        if(preferredLocation === "alloftheabove"){
-            location = "OnSite/Remote/Hybrid" 
-        }
     return(
         <div className="bg-base-300 rounded-xl p-4 w-full space-y-4">
             <h3 className="text-lg font-bold">Application Preferences</h3>
@@ -29,7 +25,7 @@ export default function UserFooter(
                 </div>
                 <div className="bg-base-100 rounded-lg p-4 shadow flex flex-col gap-1">
                     <span className="text-sm text-gray-500">Preferred Location</span>
-                    <span className="text-lg font-semibold">{location ?? "Not specified"}</span>
+                    <span className="text-lg font-semibold">{preferredLocation ?? "Not specified"}</span>
                 </div>
                 <div className="bg-base-100 rounded-lg p-4 shadow flex flex-col gap-1">
                     <span className="text-sm text-gray-500">Expected Salary</span>

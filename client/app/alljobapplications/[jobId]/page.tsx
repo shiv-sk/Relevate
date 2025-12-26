@@ -51,7 +51,7 @@ export default function AllApplications(){
             alert("no applications to filter!");
             return;
         }
-        const filteredApplications = jobApplications.filter((jobapplication)=>{
+        let filteredApplications = jobApplications.filter((jobapplication)=>{
             return jobapplication.salaryExcepted === applicationFilter.salaryExcepted && 
             jobapplication.experience === applicationFilter.experience && 
             jobapplication.availability === applicationFilter.availability && 
@@ -62,10 +62,10 @@ export default function AllApplications(){
             return;
         }
         if(applicationFilter.projectCheck){
-            filteredApplications.filter((app)=>(app.profileSnapshot.projects.length > 0));
+            filteredApplications = filteredApplications.filter((app)=>(app.profileSnapshot?.projects?.length > 0));
         }
         if(applicationFilter.experienceCheck){
-            filteredApplications.filter((app)=>(app.profileSnapshot.experience.length > 0));
+            filteredApplications = filteredApplications.filter((app)=>(app.profileSnapshot?.experience?.length > 0));
         }
         if(filteredApplications.length === 0){
             alert("no applications match the selected filters!");
