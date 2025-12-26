@@ -6,8 +6,13 @@ import ApplicationHeader from "./applicationheader";
 import UserFooter from "./userfooter";
 import UserInfo from "./userInfo";
 
-export default function Application({application, handleAnalyzeCandidate}: 
-    {application: JobApplication, handleAnalyzeCandidate: ()=>void}){
+export default function Application({application, handleAnalyzeCandidate, handleConnect, handleReject, isBtnClicked}: 
+    {
+        application: JobApplication, 
+        handleAnalyzeCandidate: ()=>void, 
+        handleConnect: ()=>void, 
+        handleReject: ()=>void
+        isBtnClicked: boolean}){
     return(
         <div className="w-full px-4 py-4 space-y-5 bg-base-100 rounded-lg">
             <h3 className="text-lg font-semibold text-center">Candidate Application</h3>
@@ -31,12 +36,16 @@ export default function Application({application, handleAnalyzeCandidate}:
                 <BaseButton 
                 type={"button"} 
                 text={"Connect"} 
-                className="btn btn-primary"/>
-                
+                className="btn btn-primary"
+                handleOnClick={handleConnect}
+                isLoading={isBtnClicked}/>
+
                 <BaseButton 
                 type={"button"} 
                 text={"Reject"} 
-                className="btn btn-secondary"/>
+                className="btn btn-secondary"
+                handleOnClick={handleReject}
+                isLoading={isBtnClicked}/>
 
                 <BaseButton 
                 type={"button"} 

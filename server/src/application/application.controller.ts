@@ -63,24 +63,24 @@ export class ApplicationController {
     return this.applicationService.update(id, updateApplicationDto);
   }
 
-  @Patch('/connect/:id')
+  @Patch('/connect/:applicationId')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(UserRole.Employer, UserRole.Employer)
-  connectCandidate(@Param('id') id: string) {
-    return this.applicationService.connectCandidate(id);
+  connectCandidate(@Param('applicationId') applicationId: string) {
+    return this.applicationService.connectCandidate(applicationId);
   }
 
-  @Patch('/reject/:id')
+  @Patch('/reject/:applicationId')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(UserRole.Employer, UserRole.Employer)
-  rejectCandidate(@Param('id') id: string) {
-    return this.applicationService.rejectCandidate(id);
+  rejectCandidate(@Param('applicationId') applicationId: string) {
+    return this.applicationService.rejectCandidate(applicationId);
   }
 
-  @Patch('/withdrawn/:id')
+  @Patch('/withdrawn/:applicationId')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(UserRole.Employer, UserRole.JobSeeker)
-  withdrawnApplication(@Param('id') id: string) {
-    return this.applicationService.withdrawApplication(id);
+  withdrawnApplication(@Param('applicationId') applicationId: string) {
+    return this.applicationService.withdrawApplication(applicationId);
   }
 }

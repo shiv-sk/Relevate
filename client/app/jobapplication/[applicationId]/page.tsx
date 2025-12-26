@@ -1,6 +1,6 @@
 "use client";
 
-import { baseUrl, getAndDeleteReq } from "@/apicalls/apiCalls";
+import { baseUrl, getAndDeleteReq, postAndPatchReq } from "@/apicalls/apiCalls";
 import Application from "@/components/application/application";
 import AiResponseCard from "@/components/card/aireponsecard";
 import { Loadingstate } from "@/components/forms/loadingState";
@@ -14,6 +14,7 @@ export default function JobApplication(){
     const [isLoading, setIsLoading] = useState(true);
     const [isAILoading, setIsAILoading] = useState(false);
     const [isAIResponse, setIsAIResponse] = useState(false);
+    const [isBtnClicked, setIsBtnClicked] = useState(false);
     const [aiResponse, setAIResponse] = useState("");
 
     useEffect(()=>{
@@ -53,6 +54,40 @@ export default function JobApplication(){
         }
     }
 
+    const handleConnect = async()=>{
+        if(!applicationId){
+            return;
+        }
+        try {
+            setIsBtnClicked(true);
+            const response = await postAndPatchReq(`${baseUrl}/application/connect/${applicationId}`, "PATCH" , {});
+            if(response){
+                alert("connection request sent successfully!");
+            }
+        } catch (error) {
+            console.log("error from connect candidate! ", error);
+        }finally{
+            setIsBtnClicked(false);
+        }
+    }
+
+    const handleReject = async()=>{
+        if(!applicationId){
+            return;
+        }
+        try {
+            setIsBtnClicked(true);
+            const response = await postAndPatchReq(`${baseUrl}/application/reject/${applicationId}`, "PATCH" , {});
+            if(response){
+                alert("reject request sent successfully!");
+            }
+        } catch (error) {
+            console.log("error from reject candidate! ", error);
+        }finally{
+            setIsBtnClicked(false);
+        }
+    }
+
     const handleAIResponse = ()=>{
         setIsAIResponse(false);
     }
@@ -77,7 +112,10 @@ export default function JobApplication(){
                         <>
                             <Application 
                             application={application} 
-                            handleAnalyzeCandidate={handleAnalyzeCandidate}/>
+                            handleAnalyzeCandidate={handleAnalyzeCandidate}
+                            handleConnect={handleConnect}
+                            handleReject={handleReject}
+                            isBtnClicked={isBtnClicked}/>
                         </>
                     ): (
                         <div>
