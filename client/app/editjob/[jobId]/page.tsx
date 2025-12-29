@@ -3,13 +3,21 @@
 import { baseUrl, postAndPatchReq } from "@/apicalls/apiCalls";
 import EditJobForm from "@/components/forms/newJob";
 import { JobLevel, JobLocation, JobType } from "@/constants/jobcontest";
+import { useAuth } from "@/context/authcontext";
 import { useGetJob } from "@/customhooks/job";
 import { Job } from "@/interfaces/jobInterface";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function EditJob(){
+    const {user, isLoading: authLoading} = useAuth();
     const router = useRouter();
+    
+    useEffect(()=>{
+        if(!authLoading && !user){
+            router.push("/login");
+        }
+    }, [user, authLoading, router]);
     const {jobId} = useParams();
     const {job: jobData} = useGetJob(jobId as string);
 

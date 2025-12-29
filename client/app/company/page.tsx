@@ -2,6 +2,7 @@
 
 import Company from "@/components/company/company";
 import { Loadingstate } from "@/components/forms/loadingState";
+import { useAuth } from "@/context/authcontext";
 import { useGetCompany } from "@/customhooks/company";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -9,6 +10,13 @@ import { useEffect } from "react";
 export default function CompanyPage(){
     const { company, isLoading } = useGetCompany();
     const router = useRouter();
+    const {user, isLoading: authLoading} = useAuth();
+
+    useEffect(()=>{
+        if(!authLoading && !user){
+            router.push("/login");
+        }
+    }, [user, authLoading, router]);
 
     useEffect(()=>{
         if(!isLoading && company === null){

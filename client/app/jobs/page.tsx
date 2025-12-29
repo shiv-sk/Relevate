@@ -7,13 +7,21 @@ import Filter from "@/components/sidebar/filter";
 import { useAuth } from "@/context/authcontext";
 import { useGetCompanyAllJobs } from "@/customhooks/job";
 import { JobFilter, JobLevel, JobLocation, JobType } from "@/interfaces/jobInterface";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function CompanyJobs(){
+    const {user, isLoading: authLoading} = useAuth();
+    const router = useRouter();
+    
+    useEffect(()=>{
+        if(!authLoading && !user){
+            router.push("/login");
+        }
+    }, [user, authLoading, router]);
 
     const [search, setSearch] = useState("");
     const {companyJobs, isLoading, setCompanyJobs} = useGetCompanyAllJobs()
-    const {user} = useAuth();
     const [filters, setFilters] = useState<JobFilter>({
         JobType:JobType.FullTime,
         JobLevel: JobLevel.Entry,

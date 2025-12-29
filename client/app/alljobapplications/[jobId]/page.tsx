@@ -5,11 +5,20 @@ import AllJobApplicationsCard from "@/components/card/alljobapplications";
 import ApplicationFilter from "@/components/filter/applicationfilter";
 import { Loadingstate } from "@/components/forms/loadingState";
 import { Availability, Experience, PreferredLocation, SalaryExcepted } from "@/constants/applicationFilterContest";
+import { useAuth } from "@/context/authcontext";
 import { JobApplication } from "@/interfaces/applicationInterface";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function AllApplications(){
+    const {user, isLoading: authLoading} = useAuth();
+    const router = useRouter();
+    
+    useEffect(()=>{
+        if(!authLoading && !user){
+            router.push("/login");
+        }
+    }, [user, authLoading, router]);
 
     const {jobId} = useParams();
     const [jobApplications, setJobApplications] = useState<JobApplication[]>([]);

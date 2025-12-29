@@ -2,7 +2,7 @@ import { Loadingstate } from "./loadingState";
 
 type BaseButtonProps = {
     type: "button" | "submit" | "reset";
-    text: string;
+    text: string | undefined;
     className?: string;
     handleOnClick?: ()=>void;
     isLoading?: boolean

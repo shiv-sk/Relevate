@@ -80,7 +80,7 @@ const AuthProvider = ({ children }: { children: ReactNode })=>{
             const response = await getAndDeleteReq(`${baseUrl}/auth/logout` , "GET");
             console.log(response);
             setUser(null);
-            return { success: true, data: response?.data };
+            return { success: true, data: response };
         } catch (error: any) {
             const errorMessage = error.response?.data?.message || "Unable to find current user.";
             throw { success:false , error:errorMessage }

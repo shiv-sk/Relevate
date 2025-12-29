@@ -3,14 +3,22 @@
 
 import { baseUrl, postAndPatchReq } from "@/apicalls/apiCalls";
 import EditProfileForm from "@/components/forms/newProfileForm";
+import { useAuth } from "@/context/authcontext";
 import { useGetProfile } from "@/customhooks/profile";
 import { Education, Experience, ProfileInterface, Projects, SocialMedia } from "@/interfaces/profileInterface";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function EditProfile(){
-    const {profile, isLoading: profileLoading, error} = useGetProfile();
+    const {user, isLoading: authLoading} = useAuth();
     const router = useRouter();
+
+    useEffect(()=>{
+        if(!authLoading && !user){
+            router.push("/login");
+        }
+    }, [user, authLoading, router]);
+    const {profile, isLoading: profileLoading, error} = useGetProfile();
     const [isLoading, setIsLoading] = useState(false);
     const [skill, setSkill] = useState("");
     const [education, setEducation] = useState<Education>({

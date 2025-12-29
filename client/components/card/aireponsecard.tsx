@@ -1,6 +1,7 @@
 "use client";
 import BaseButton from "../forms/baseButton";
 import { Loadingstate } from "../forms/loadingState";
+import ReactMarkdown from 'react-markdown';
 
 export default function AiResponseCard({title, content, isBtnClicked, handleIsAIResponse}: 
     {title: string, content: string, isBtnClicked: boolean, handleIsAIResponse: () => void}){
@@ -15,7 +16,7 @@ export default function AiResponseCard({title, content, isBtnClicked, handleIsAI
                     <div className="card max-w-[550px] bg-base-100 card-md shadow-sm whitespace-pre-line">
                         <div className="card-body">
                             <h2 className="card-title">{title}</h2>
-                            <p>{content}</p>
+                            <ReactMarkdown>{content}</ReactMarkdown>
                             <div className="justify-end card-actions">
                             
                             <BaseButton className="btn btn-neutral btn-sm" 

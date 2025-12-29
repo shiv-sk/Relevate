@@ -13,6 +13,7 @@ import { useEffect, useRef, useState } from "react";
 export default function AboutJob(){
     const {jobId} = useParams();
     const [job, setJob] = useState(); 
+    const [title, setTitle] = useState(""); 
     const [jobFitAIResponse, setJobFitAIResponse] = useState(""); 
     const [profileImproveAIResponse, setProfileImproveAIResponse] = useState(""); 
     const [isLoading, setIsLoading] = useState(true);
@@ -95,7 +96,10 @@ export default function AboutJob(){
             setIsAIResponse(true);
             const response = await getAndDeleteReq(`${baseUrl}/ai/jobfit/${jobId}`, "GET");
             // console.log("the profile review response! ", response);
-            setJobFitAIResponse(response);
+            if(response){
+               setTitle("Job Compatibility Review");
+               setJobFitAIResponse(response); 
+            }
         } catch (error) {
             setError(error);
         }finally{
@@ -121,7 +125,10 @@ export default function AboutJob(){
             setIsAIResponse(true);
             const response = await getAndDeleteReq(`${baseUrl}/ai/improveprofile/${jobId}`, "GET");
             // console.log("the profile review response! ", response);
-            setProfileImproveAIResponse(response);
+            if(response){
+               setTitle("Profile Improvement Insights");
+               setProfileImproveAIResponse(response); 
+            } 
         } catch (error) {
             setError(error);
         }finally{
@@ -151,7 +158,7 @@ export default function AboutJob(){
                     ) : isAIResponse ?
                     (
                         <AiResponseCard 
-                        title={"AIresponse"} 
+                        title={title} 
                         content={jobFitAIResponse || profileImproveAIResponse} 
                         handleIsAIResponse={handleIsAIResponse} 
                         isBtnClicked = {isBtnClicked}/>

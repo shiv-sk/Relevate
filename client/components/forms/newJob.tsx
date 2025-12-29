@@ -16,8 +16,8 @@ export default function JobForm(
         handleAddSkill: ()=>void,
         isLoading?: boolean,
         removeSkill: (index: number)=>void,
-        title: string,
-        btnTitle: string
+        title?: string,
+        btnTitle?: string
     }){
     return(
         <div 

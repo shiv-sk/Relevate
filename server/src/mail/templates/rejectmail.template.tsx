@@ -38,7 +38,9 @@ const RejectEmail: React.FC<RejectEmailProps> = ({
             We encourage you to continue applying to relevant opportunities on
             Relevate.
           </Text>
-          <Text>Relevate Team</Text>
+          <Text>
+            Regards, <br /> Relevate Team
+          </Text>
         </Container>
       </Body>
     </Html>

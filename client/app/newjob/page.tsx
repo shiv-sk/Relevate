@@ -3,12 +3,20 @@
 import { baseUrl, postAndPatchReq } from "@/apicalls/apiCalls";
 import NewJobForm from "@/components/forms/newJob";
 import { JobLevel, JobLocation, JobType } from "@/constants/jobcontest";
+import { useAuth } from "@/context/authcontext";
 import { Job } from "@/interfaces/jobInterface";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function NewJob(){
     const router = useRouter();
+    const {user, isLoading: authLoading} = useAuth();
+
+    useEffect(()=>{
+        if(!authLoading && !user){
+            router.push("/login");
+        }
+    }, [user, authLoading, router]);
 
     const [job, setJob] = useState<Job>({
         title:"",

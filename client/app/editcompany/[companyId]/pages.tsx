@@ -2,6 +2,7 @@
 "use client";
 import { baseUrl, postAndPatchReq } from "@/apicalls/apiCalls";
 import CompanyForm from "@/components/forms/companyForm";
+import { useAuth } from "@/context/authcontext";
 import { useGetCompany } from "@/customhooks/company";
 import {Company as CompanyInterface, SocialMedia} from "@/interfaces/company";
 import { useRouter } from "next/navigation";
@@ -10,6 +11,13 @@ import { useEffect, useState } from "react";
 export default function EditCompany(){
     const router = useRouter();
     const { company: companyData, isLoading: companyLoading } = useGetCompany();
+    const {user, isLoading: authLoading} = useAuth();
+
+    useEffect(()=>{
+        if(!authLoading && !user){
+            router.push("/login");
+        }
+    }, [user, authLoading, router]);
 
     const handleOnChange = (val: string, key: string)=>{
         setCompany({...company, [key]: val});

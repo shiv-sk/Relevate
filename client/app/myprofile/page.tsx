@@ -2,6 +2,7 @@
 
 import { Loadingstate } from "@/components/forms/loadingState";
 import ProfileDisplay from "@/components/profile/profile";
+import { useAuth } from "@/context/authcontext";
 import { useGetProfile } from "@/customhooks/profile";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -9,7 +10,15 @@ import { useEffect } from "react";
 export default function ViewProfile(){
     const {isLoading, profile} = useGetProfile();
     const router = useRouter();
+    const {user, isLoading: authLoading} = useAuth();
+    
+    useEffect(()=>{
+        if(!authLoading && !user){
+            router.push("/login");
+        }
+    }, [user, authLoading, router]);
 
+    
     useEffect(()=>{
         if(!isLoading && profile === null){
             router.push("/newprofile");

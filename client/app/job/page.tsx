@@ -1,11 +1,20 @@
 "use client";
 import { baseUrl, postAndPatchReq } from "@/apicalls/apiCalls";
 import NewJob from "@/components/forms/newJob";
+import { useAuth } from "@/context/authcontext";
 import { Job as JobInterface, JobLevel, JobLocation, JobType } from "@/interfaces/jobInterface";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Job(){
+    const {user, isLoading: authLoading} = useAuth();
+    const router = useRouter();
+    
+    useEffect(()=>{
+        if(!authLoading && !user){
+            router.push("/login");
+        }
+    }, [user, authLoading, router]);
 
     const [job, setJob] = useState<JobInterface>({
         title:"",
@@ -16,8 +25,7 @@ export default function Job(){
         type: JobType.Contract,
         location: JobLocation.Onsite
     })
-    const router = useRouter();
-
+    
     const [skill, setSkill] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
@@ -40,6 +48,15 @@ export default function Job(){
         }
         setJob({...job, requiredSkills: [...job.requiredSkills, skill]});
         setSkill("");
+    }
+
+    const removeSkill = (index: number)=>{
+        setJob((prev)=>(
+            {
+                ...prev,
+                requiredSkills: prev.requiredSkills.filter((_, i) => i !== index),
+            }
+        ))
     }
 
     const handleOnSubmit = async (e)=>{
@@ -72,13 +89,14 @@ export default function Job(){
     return(
         <div className="min-h-screen bg-base-300 py-6">
             <div>
-                <NewJob 
+                <NewJob
                 job={job}
                 skill={skill} 
                 handleOnChange={handleOnChange} 
                 handleOnSubmit={handleOnSubmit} 
                 handleAddSkill={handleAddSkill}
-                isLoading={isLoading}/>
+                isLoading={isLoading}
+                removeSkill={removeSkill}/>
             </div>
         </div>
     )

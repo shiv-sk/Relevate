@@ -104,7 +104,7 @@ export default function JobApplication(){
                         </div>
                     ) : isAIResponse ? (
                         <AiResponseCard 
-                        title={"AI Candidate Analysis"} 
+                        title={"Candidate Evaluation Summary"} 
                         content={aiResponse} 
                         isBtnClicked={isAILoading}
                         handleIsAIResponse={handleAIResponse}/>
