@@ -10,11 +10,14 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Application } from 'src/schemas/application.schema';
 import { ApplicationStatus } from 'commons/application.common';
+import { MailService } from 'src/mail/mail.service';
+import { PopulatedApplication } from './interface/populatedapplication';
 
 @Injectable()
 export class ApplicationService {
   constructor(
     private readonly profileService: ProfileService,
+    private readonly mailService: MailService,
     @InjectModel(Application.name) private applicationModel: Model<Application>,
   ) {}
   async create(createApplicationDto: CreateApplicationDto, userId: string) {
@@ -95,24 +98,78 @@ export class ApplicationService {
   }
 
   async connectCandidate(applicationId: string) {
-    const application = await this.applicationModel.findById(applicationId);
+    const application = (await this.applicationModel
+      .findById(applicationId)
+      .populate([
+        {
+          path: 'jobId',
+          select: 'title',
+          populate: { path: 'companyId', select: 'name' },
+        },
+        {
+          path: 'userId',
+          select: 'name email',
+        },
+      ])
+      .lean()) as unknown as PopulatedApplication;
     if (!application) {
       throw new NotFoundException('applications is not found and not updated');
     }
     //email generation and sending logic here
-    application.status = ApplicationStatus.Connected;
-    const updatedApplication = await application.save();
+    const jobTitle = application.jobId.title;
+    const companyName = application.jobId.companyId.name;
+    const candidateName = application.userId.name;
+    const candidateEmail = application.userId.email;
+    const sentMail = await this.mailService.sendConnectMail(
+      candidateEmail,
+      companyName,
+      jobTitle,
+      candidateName,
+    );
+    console.log('the response from send mail!', sentMail);
+    const updatedApplication = await this.applicationModel.findByIdAndUpdate(
+      applicationId,
+      { status: ApplicationStatus.Connected },
+      { new: true },
+    );
     return updatedApplication;
   }
 
   async rejectCandidate(applicationId: string) {
-    const application = await this.applicationModel.findById(applicationId);
+    const application = (await this.applicationModel
+      .findById(applicationId)
+      .populate([
+        {
+          path: 'jobId',
+          select: 'title',
+          populate: { path: 'companyId', select: 'name' },
+        },
+        {
+          path: 'userId',
+          select: 'name email',
+        },
+      ])
+      .lean()) as unknown as PopulatedApplication;
     if (!application) {
       throw new NotFoundException('applications is not found and not updated');
     }
     //email generation and sending logic here
-    application.status = ApplicationStatus.Rejected;
-    const updatedApplication = await application.save();
+    const jobTitle = application.jobId.title;
+    const companyName = application.jobId.companyId.name;
+    const candidateName = application.userId.name;
+    const candidateEmail = application.userId.email;
+    const sentMail = await this.mailService.sendRejectMail(
+      candidateEmail,
+      companyName,
+      jobTitle,
+      candidateName,
+    );
+    console.log('the response from send mail!', sentMail);
+    const updatedApplication = await this.applicationModel.findByIdAndUpdate(
+      applicationId,
+      { status: ApplicationStatus.Rejected },
+      { new: true },
+    );
     return updatedApplication;
   }
 
