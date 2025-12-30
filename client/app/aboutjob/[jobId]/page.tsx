@@ -40,6 +40,7 @@ export default function AboutJob(){
         }
         getJob();
     }, [jobId]);
+    console.log("the error is!", error);
 
     const confirmRef = useRef<HTMLDialogElement | null>(null);
 
@@ -164,7 +165,7 @@ export default function AboutJob(){
                         isBtnClicked = {isBtnClicked}/>
                     ) : job ? (
                         <>
-                            <JobDetail 
+                            <JobDetail
                             job={job} 
                             confirmRef={confirmRef} 
                             onClick={handleOnClick} 

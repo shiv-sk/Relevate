@@ -18,6 +18,13 @@ export default function EditJob(){
             router.push("/login");
         }
     }, [user, authLoading, router]);
+    
+    useEffect(()=>{
+        if(!authLoading && user && user.role !== "Employer"){
+            alert("Forbidden resource!");
+            router.push("/");
+        }
+    }, [user, authLoading, router]);
     const {jobId} = useParams();
     const {job: jobData} = useGetJob(jobId as string);
 
@@ -100,7 +107,8 @@ export default function EditJob(){
                 isLoading={isLoading}
                 removeSkill={removeSkill}
                 title="EditJob"
-                btnTitle="Update" />
+                btnTitle="Update"
+                isNewJob={false} />
             </div>
         </div>
     )

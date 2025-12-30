@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 
 export default function EditCompany(){
     const router = useRouter();
-    const { company: companyData, isLoading: companyLoading } = useGetCompany();
+    const { company: companyData } = useGetCompany();
     const {user, isLoading: authLoading} = useAuth();
 
     useEffect(()=>{

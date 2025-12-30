@@ -59,7 +59,7 @@ export default function Job(){
         ))
     }
 
-    const handleOnSubmit = async (e)=>{
+    const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
         if(
             !job.title.trim() || 
@@ -96,7 +96,8 @@ export default function Job(){
                 handleOnSubmit={handleOnSubmit} 
                 handleAddSkill={handleAddSkill}
                 isLoading={isLoading}
-                removeSkill={removeSkill}/>
+                removeSkill={removeSkill}
+                isNewJob={false}/>
             </div>
         </div>
     )

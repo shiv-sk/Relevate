@@ -7,7 +7,7 @@ import Textarea from "./textarea";
 import BaseButton from "./baseButton";
 
 export default function JobForm(
-    {job, skill, handleOnChange, handleOnSubmit, handleAddSkill, isLoading, removeSkill, title, btnTitle}: 
+    {job, skill, handleOnChange, handleOnSubmit, handleAddSkill, isLoading, removeSkill, title, btnTitle, isNewJob, generateJD}: 
     {
         job: Job, 
         skill: string, 
@@ -17,7 +17,9 @@ export default function JobForm(
         isLoading?: boolean,
         removeSkill: (index: number)=>void,
         title?: string,
-        btnTitle?: string
+        btnTitle?: string,
+        isNewJob: boolean,
+        generateJD?: ()=>void
     }){
     return(
         <div 
@@ -93,6 +95,16 @@ export default function JobForm(
                 label={"JobLocation"} 
                 value={job.location}
                 onChange={(e)=>handleOnChange("location", e.target.value)} />
+                {
+                    isNewJob && (
+                        <BaseButton 
+                        type={"button"} 
+                        text={"Generate JD"} 
+                        className="btn btn-secondary w-full"
+                        isLoading={isLoading}
+                        handleOnClick={generateJD}/>
+                    )
+                }
 
                 <BaseButton 
                 type={"submit"} 

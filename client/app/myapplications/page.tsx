@@ -20,6 +20,13 @@ export default function MyApplications(){
         }
     }, [user, isLoading, router]);
 
+    useEffect(()=>{
+        if(!isLoading && user && user.role !== "JobSeeker"){
+            router.push("/");
+            alert("Forbidden resource!");
+        }
+    }, [user, isLoading, router]);
+
     return(
         <div className="min-h-screen bg-base-300 py-10">
             <div className="flex items-center flex-col space-y-4">

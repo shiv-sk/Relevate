@@ -4,12 +4,14 @@
 import { baseUrl, postAndPatchReq } from "@/apicalls/apiCalls";
 import NewProfileForm from "@/components/forms/newProfileForm";
 import { useAuth } from "@/context/authcontext";
+import { useGetProfile } from "@/customhooks/profile";
 import { Education, Experience, ProfileInterface, Projects, SocialMedia } from "@/interfaces/profileInterface";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function NewProfile(){
     const {user, isLoading: authLoading} = useAuth();
+    const {isLoading: isProfileLoading, profile} = useGetProfile();
     const router = useRouter();
     
     useEffect(()=>{
@@ -17,6 +19,20 @@ export default function NewProfile(){
             router.push("/login");
         }
     }, [user, authLoading, router]);
+    
+
+    useEffect(()=>{
+        if(!authLoading && user && user.role !== "JobSeeker"){
+            router.push("/");
+            alert("Forbidden resource!");
+        }
+    }, [user, authLoading, router]);
+
+    useEffect(()=>{
+        if(!isProfileLoading && profile){
+            router.push("/myprofile");
+        }
+    }, [isProfileLoading, profile, router]);
     const [isLoading, setIsLoading] = useState(false);
     const [skill, setSkill] = useState("");
     const [education, setEducation] = useState<Education>({
@@ -106,7 +122,7 @@ export default function NewProfile(){
     const handleProjectsChange = (key: keyof Projects, value: string)=>{
         setProject({...project, [key]: value});
     }
-    const handleProjectLinksChange = (key: keyof Projects["links"], value: string)=>{
+    const handleProjectLinksChange = (key: string, value: string)=>{
         setProject((prev)=>({
             ...prev,
             links:{

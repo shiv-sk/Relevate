@@ -5,7 +5,7 @@ export default function BaseInput(
         label?: string, 
         type :string, 
         onChange: (e: React.ChangeEvent<HTMLInputElement>)=>void, 
-        value: string, 
+        value: string | number, 
         placeholder?: string, 
         required?: boolean, 
         className?: string

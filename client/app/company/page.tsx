@@ -19,6 +19,13 @@ export default function CompanyPage(){
     }, [user, authLoading, router]);
 
     useEffect(()=>{
+        if(!authLoading && user && user.role !== "Employer"){
+            alert("Forbidden resource!");
+            router.push("/");
+        }
+    }, [user, authLoading, router]);
+
+    useEffect(()=>{
         if(!isLoading && company === null){
             router.push("/newcompany");
         }

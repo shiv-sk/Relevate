@@ -29,7 +29,8 @@ export default function JobDetail(
     }:
     {
         job: JobDetailInterface, 
-        confirmRef, 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        confirmRef: any, 
         onClick: ()=>void, 
         applicationOptions: ApplicationOptions, 
         onChange: (key: string, value: string)=>void, 
@@ -206,11 +207,6 @@ export default function JobDetail(
                             className="btn btn-md btn-neutral"
                             handleOnClick={handleProfileImprove}
                             isLoading = {isBtnClicked} />
-
-                            <BaseButton 
-                            type={"button"} 
-                            text={"Job Summary"} 
-                            className="btn btn-md btn-accent"/>
                         </>
                     )
                 }

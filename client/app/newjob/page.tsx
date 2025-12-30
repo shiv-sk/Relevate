@@ -1,6 +1,8 @@
 "use client";
 
 import { baseUrl, postAndPatchReq } from "@/apicalls/apiCalls";
+import AiResponseCard from "@/components/card/aireponsecard";
+import { Loadingstate } from "@/components/forms/loadingState";
 import NewJobForm from "@/components/forms/newJob";
 import { JobLevel, JobLocation, JobType } from "@/constants/jobcontest";
 import { useAuth } from "@/context/authcontext";
@@ -18,6 +20,13 @@ export default function NewJob(){
         }
     }, [user, authLoading, router]);
 
+    useEffect(()=>{
+        if(!authLoading && user && user.role !== "Employer"){
+            alert("Forbidden resource!");
+            router.push("/");
+        }
+    }, [user, authLoading, router]);
+
     const [job, setJob] = useState<Job>({
         title:"",
         description:"",
@@ -29,6 +38,9 @@ export default function NewJob(){
     });
     const [skill, setSkill] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [isAILoading, setIsAILoading] = useState(false);
+    const [isAIResponse, setIsAIResponse] = useState(false);
+    const [aiResponse, setAIResponse] = useState("");
 
     const handleOnChange = (key: string, value: string)=>{
         if(key === "skill"){
@@ -79,19 +91,66 @@ export default function NewJob(){
             }
         ))
     }
+
+    const handleGenerateJD = async ()=>{
+        if(!job.title.trim() || !job.description.trim() || job.requiredSkills.length === 0){
+            alert("please add skills, description, title");
+            return;
+        }
+        const JDData = {
+            title: job.title,
+            description: job.description,
+            requiredSkills: job.requiredSkills
+        }
+        if(aiResponse){
+            return;
+        }
+        try {
+            setIsAILoading(true);
+            setIsAIResponse(true);
+            const response = await postAndPatchReq(`${baseUrl}/ai/generatejd`, "POST", JDData);
+            if(response){
+                setAIResponse(response);
+            }
+        } catch (error) {
+            console.log("the error from GenerateJd!", error);
+        }finally{
+            setIsAILoading(false);
+        }
+    }
+
+    const handleAIResponse = ()=>{
+        setIsAIResponse(false);
+    }
     return(
         <div className="min-h-screen gap-4 py-5 bg-base-300">
             <div className="max-w-sm mx-auto">
-                <NewJobForm 
-                job={job} 
-                skill={skill} 
-                handleOnChange={handleOnChange} 
-                handleOnSubmit={handleOnSubmit} 
-                handleAddSkill={handleAddSkill}
-                isLoading={isLoading}
-                removeSkill={removeSkill}
-                title="NewJob"
-                btnTitle="Create" />
+                {
+                    isAILoading ? (
+                        <div className="flex justify-center items-center">
+                            <Loadingstate className="loading-xl"/>
+                        </div>
+                    ) : isAIResponse ? (
+                        <AiResponseCard 
+                        title={"Job Description Assistant"}
+                        content={aiResponse} 
+                        isBtnClicked={isAILoading} 
+                        handleIsAIResponse={handleAIResponse} />
+                    ) : (
+                        <NewJobForm 
+                        job={job} 
+                        skill={skill} 
+                        handleOnChange={handleOnChange} 
+                        handleOnSubmit={handleOnSubmit} 
+                        handleAddSkill={handleAddSkill}
+                        isLoading={isLoading}
+                        removeSkill={removeSkill}
+                        title="NewJob"
+                        btnTitle="Create"
+                        isNewJob={true}
+                        generateJD={handleGenerateJD} />
+                    )
+                }
             </div>
         </div>
     )

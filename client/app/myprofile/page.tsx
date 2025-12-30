@@ -18,12 +18,19 @@ export default function ViewProfile(){
         }
     }, [user, authLoading, router]);
 
+    useEffect(()=>{
+        if(!isLoading && user && user.role !== "JobSeeker"){
+            router.push("/");
+            alert("Forbidden resource!");
+        }
+    }, [user, isLoading, router]);
     
     useEffect(()=>{
         if(!isLoading && profile === null){
             router.push("/newprofile");
         }
     }, [isLoading, profile, router]);
+    
 
     return(
         <div>

@@ -4,10 +4,26 @@ import { baseUrl, getAndDeleteReq, postAndPatchReq } from "@/apicalls/apiCalls";
 import Application from "@/components/application/application";
 import AiResponseCard from "@/components/card/aireponsecard";
 import { Loadingstate } from "@/components/forms/loadingState";
-import { useParams } from "next/navigation";
+import { useAuth } from "@/context/authcontext";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function JobApplication(){
+    const {user, isLoading: authLoading} = useAuth();
+    const router = useRouter();
+    
+    useEffect(()=>{
+        if(!authLoading && !user){
+            router.push("/login");
+        }
+    }, [user, authLoading, router]);
+    
+    useEffect(()=>{
+        if(!authLoading && user && user.role !== "Employer"){
+            alert("Forbidden resource!");
+            router.push("/");
+        }
+    }, [user, authLoading, router]);
 
     const {applicationId} = useParams();
     const [application, setApplication] = useState(null);

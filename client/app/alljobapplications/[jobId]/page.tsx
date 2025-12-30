@@ -19,6 +19,13 @@ export default function AllApplications(){
             router.push("/login");
         }
     }, [user, authLoading, router]);
+    
+    useEffect(()=>{
+        if(!authLoading && user && user.role !== "Employer"){
+            alert("Forbidden resource!");
+            router.push("/");
+        }
+    }, [user, authLoading, router]);
 
     const {jobId} = useParams();
     const [jobApplications, setJobApplications] = useState<JobApplication[]>([]);
@@ -112,14 +119,6 @@ export default function AllApplications(){
                         
                     </div>
                 </div>
-            </div>
-            <div className="fab">
-                {/* a focusable div with tabIndex is necessary to work on all browsers. 
-                role="button" is necessary for accessibility */}
-                <div tabIndex={0} role="button" className="btn btn-lg btn-circle btn-primary">VA</div>
-
-                {/* buttons that show up when FAB is open */}
-                <button className="btn btn-md btn-secondary">Rank Candidates</button>
             </div>
         </div>
     )

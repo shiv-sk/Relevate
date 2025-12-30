@@ -6,6 +6,8 @@ import {
   Req,
   Post,
   Body,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { AiService } from './ai.service';
 import { RolesGuard } from 'src/auth/role.guard';
@@ -44,6 +46,7 @@ export class AiController {
   }
 
   @Post('/generatejd')
+  @HttpCode(HttpStatus.OK)
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(UserRole.Employer)
   generateJd(@Body() generateJdDto: GenerateJdDto) {

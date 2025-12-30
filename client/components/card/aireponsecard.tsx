@@ -13,10 +13,13 @@ export default function AiResponseCard({title, content, isBtnClicked, handleIsAI
                         <Loadingstate className="loading-xl"/>
                     </div>
                 ) : content ? (
-                    <div className="card max-w-[550px] bg-base-100 card-md shadow-sm whitespace-pre-line">
+                    <div className="card max-w-[550px] bg-base-100 card-md shadow-sm">
                         <div className="card-body">
                             <h2 className="card-title">{title}</h2>
                             <ReactMarkdown>{content}</ReactMarkdown>
+                            <p className="text-sm font-semibold text-gray-500">
+                                This is an AI-generated insight. Please use it as guidance, not a final decision.
+                            </p>
                             <div className="justify-end card-actions">
                             
                             <BaseButton className="btn btn-neutral btn-sm" 

@@ -1,13 +1,63 @@
+import { Education, Experience, ProfileInterface, Projects, SocialMedia } from "@/interfaces/profileInterface";
 import BaseButton from "./baseButton";
 import BaseInput from "./baseInput";
 import Textarea from "./textarea";
 
 export default function ProfileForm(
     {
-        skill, onChange, onSubmit, addSkill, form, addEducation, addProject, 
-        addSocialMedia, addExperience, onEducationChange, onExperienceChange, 
-        onProjectChange, onSocialMediaChange, education, project, experience, socialMedia, onProjectLinkChange,
-        isLoading, removeEducation, removeSocialMedia, removeProjects, removeExperience, title, btnTitle, removeSkill
+        skill, 
+        onChange, 
+        onSubmit, 
+        addSkill, 
+        form, 
+        addEducation, 
+        addProject, 
+        addSocialMedia, 
+        addExperience, 
+        onEducationChange, 
+        onExperienceChange, 
+        onProjectChange, 
+        onSocialMediaChange, 
+        education, 
+        project, 
+        experience, 
+        socialMedia,
+        onProjectLinkChange,
+        isLoading, 
+        removeEducation, 
+        removeSocialMedia, 
+        removeProjects, 
+        removeExperience, 
+        title, 
+        btnTitle, 
+        removeSkill
+    }: {
+        skill: string, 
+        onChange: (key: string, value: string)=>void, 
+        onSubmit: (e: React.FormEvent<HTMLFormElement>)=>void, 
+        addSkill: ()=>void, 
+        form: ProfileInterface, 
+        addEducation: ()=>void, 
+        addProject: ()=>void, 
+        addSocialMedia: ()=>void, 
+        addExperience: ()=>void, 
+        onEducationChange: (key: keyof Education, value: string)=>void, 
+        onExperienceChange: (key: keyof Experience, value: string)=>void, 
+        onProjectChange: (key: keyof Projects, value: string)=>void, 
+        onSocialMediaChange: (key: keyof SocialMedia, value: string)=>void, 
+        education: Education, 
+        project: Projects, 
+        experience: Experience, 
+        socialMedia: SocialMedia, 
+        onProjectLinkChange: (key: string, value: string)=>void,
+        isLoading: boolean, 
+        removeEducation: (index: number)=>void, 
+        removeSocialMedia: (index: number)=>void, 
+        removeProjects: (index: number)=>void, 
+        removeExperience: (index: number)=>void, 
+        title: string, 
+        btnTitle: string, 
+        removeSkill: (index: number)=>void
     }){
     return(
         <div className="bg-base-100 flex justify-center items-center max-w-sm w-full p-6 rounded-lg shadow-lg mx-auto flex-col">
@@ -36,7 +86,7 @@ export default function ProfileForm(
                     placeholder="Dehli" />
 
                     <BaseInput 
-                    label="Expectingjobrole" 
+                    label="LookingFor" 
                     type="text" 
                     onChange={(e)=>onChange("lookingFor", e.target.value)} 
                     value={form.lookingFor} 
@@ -101,21 +151,21 @@ export default function ProfileForm(
                         label="Institute" 
                         type="text" 
                         onChange={(e)=>onEducationChange("institute" , e.target.value)} 
-                        value={education.institute} 
+                        value={education.institute || ""} 
                         placeholder="Institute Name" />
 
                         <BaseInput 
                         label="Degree" 
                         type="text" 
                         onChange={(e)=>onEducationChange("degree" , e.target.value)} 
-                        value={education.degree} 
+                        value={education.degree || ""} 
                         placeholder="BE" />
 
                         <BaseInput 
                         label="PassoutYear" 
                         type="number" 
                         onChange={(e)=>onEducationChange("passoutYear" , e.target.value)} 
-                        value={education.passoutYear}  />
+                        value={education.passoutYear || 0}  />
                         
                         <BaseButton 
                         type="button" 
@@ -145,21 +195,21 @@ export default function ProfileForm(
                         label="Company" 
                         type="text" 
                         onChange={(e)=>onExperienceChange("company", e.target.value)} 
-                        value={experience.company} 
+                        value={experience.company || ""} 
                         placeholder="Company Name" />
 
                         <BaseInput 
                         label="Role" 
                         type="text" 
                         onChange={(e)=>onExperienceChange("role", e.target.value)} 
-                        value={experience.role} 
+                        value={experience.role || ""}
                         placeholder="Tester" />
 
                         <BaseInput 
                         label="Years" 
                         type="number"  
                         onChange={(e)=>onExperienceChange("years", e.target.value)} 
-                        value={experience.years}  />
+                        value={experience.years || 0}  />
 
                         <BaseButton 
                         type="button" 
@@ -178,9 +228,9 @@ export default function ProfileForm(
                                     <p><b>{pro.name}</b></p>
                                     <p>{pro.description}</p>
                                     <div className="flex flex-wrap gap-1">
-                                        <a href={pro.links.github}>Github</a>
-                                        <a href={pro.links.live}>Live</a>
-                                        <a href={pro.links.demo}>Demo</a>
+                                        <a href={pro.links?.github}>Github</a>
+                                        <a href={pro.links?.live}>Live</a>
+                                        <a href={pro.links?.demo}>Demo</a>
                                     </div>
                                     <BaseButton 
                                     type="button" 
@@ -194,35 +244,35 @@ export default function ProfileForm(
                         label="Name" 
                         type="text" 
                         onChange={(e)=>onProjectChange("name", e.target.value)} 
-                        value={project.name} 
+                        value={project.name || ""} 
                         placeholder="Project Name" />
 
                         <BaseInput 
                         label="Description" 
                         type="text" 
                         onChange={(e)=>onProjectChange("description", e.target.value)} 
-                        value={project.description} 
+                        value={project.description || ""} 
                         placeholder="About Project" />
                         
                         <BaseInput 
                         label="Github" 
                         type="text" 
                         onChange={(e)=>onProjectLinkChange("github", e.target.value)} 
-                        value={project.links.github}
+                        value={project.links?.github || ""}
                         placeholder="Project-Github-Link"  />
 
                         <BaseInput 
                         label="Live" 
                         type="text" 
                         onChange={(e)=>onProjectLinkChange("live", e.target.value)} 
-                        value={project.links.live}
+                        value={project.links?.live || ""}
                         placeholder="Project-Live-Link"  />
 
                         <BaseInput 
                         label="Demo" 
                         type="text" 
                         onChange={(e)=>onProjectLinkChange("demo", e.target.value)} 
-                        value={project.links.demo}
+                        value={project.links?.demo || ""}
                         placeholder="Project-Demo-Link"  />
 
                         <BaseButton 
@@ -252,14 +302,14 @@ export default function ProfileForm(
                         label="Name" 
                         type="text" 
                         onChange={(e)=>onSocialMediaChange("name", e.target.value)} 
-                        value={socialMedia.name} 
+                        value={socialMedia.name || ""} 
                         placeholder="SocialMedia Name" />
 
                         <BaseInput 
                         label="Link" 
                         type="text" 
                         onChange={(e)=>onSocialMediaChange("link", e.target.value)} 
-                        value={socialMedia.link} 
+                        value={socialMedia.link || ""} 
                         placeholder="SocialMedia-Link" />
 
                         <BaseButton 

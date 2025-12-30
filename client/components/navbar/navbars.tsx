@@ -70,12 +70,9 @@ export default function Navbar(){
                                 <ul
                                     tabIndex={-1}
                                     className="menu menu-sm dropdown-content bg-base-200 rounded-box z-10 mt-3 w-52 p-2 shadow">
-                                    <li>
-                                        <Link href={"/login"}>
-                                            <BaseButton 
-                                            type={"button"} 
-                                            text={"Login"} 
-                                            className="btn w-full bg-orange-500 font-medium"/>
+                                    <li className="w-full bg-primary rounded-lg font-bold text-9xl">
+                                        <Link className="text-lg bg-primary text-white" href={"/login"}>
+                                            Login
                                         </Link>
                                     </li>
                                 </ul>

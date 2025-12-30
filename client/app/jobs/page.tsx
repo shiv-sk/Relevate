@@ -19,6 +19,13 @@ export default function CompanyJobs(){
             router.push("/login");
         }
     }, [user, authLoading, router]);
+    
+    useEffect(()=>{
+        if(!authLoading && user && user.role !== "Employer"){
+            alert("Forbidden resource!");
+            router.push("/");
+        }
+    }, [user, authLoading, router]);
 
     const [search, setSearch] = useState("");
     const {companyJobs, isLoading, setCompanyJobs} = useGetCompanyAllJobs()
