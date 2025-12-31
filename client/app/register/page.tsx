@@ -15,13 +15,11 @@ export default function Register(){
     }
     const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
-        try {
-            const response = await registerUser(form);
-            if(response.success && response.data){
-                router.push("/login");
-            }
-        } catch (error) {
-            console.log("error from loginPage!", error);
+        const response = await registerUser(form);
+        if(response.success && response.data){
+            router.push("/login");
+        }else{
+            alert(response.error || "Internal Server Error");
         }
     }
     return(

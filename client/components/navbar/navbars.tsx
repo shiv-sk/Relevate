@@ -31,7 +31,7 @@ export default function Navbar(){
                                         <Link href={"/company"} className="text-lg">Company</Link>
                                     </li>
                                     <li className="font-medium">
-                                        <Link href={"/jobs"} className="text-lg">Jobs</Link>
+                                        <Link href={"/jobs"} className="text-lg">AllJobs</Link>
                                     </li>
                                     <li className="font-medium">
                                         <Link href={"/newjob"} className="text-lg">NewJob</Link>

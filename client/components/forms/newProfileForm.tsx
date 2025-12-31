@@ -83,7 +83,7 @@ export default function ProfileForm(
                     type="text" 
                     onChange={(e)=>onChange("currentLocation", e.target.value)} 
                     value={form.currentLocation} 
-                    placeholder="Dehli" />
+                    placeholder="Lucknow" />
 
                     <BaseInput 
                     label="LookingFor" 

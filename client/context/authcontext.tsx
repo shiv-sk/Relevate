@@ -113,9 +113,12 @@ const AuthProvider = ({ children }: { children: ReactNode })=>{
         try {
             const response = await postAndPatchReq(`${baseUrl}/auth/register` , "POST" , data);
             console.log(response);
-            return { success: true, data: response?.data };
-        } catch (error: any) {
-            const errorMessage = error.response?.data?.message || "Unable to register user.";
+            return { success: true, data: response };
+        } catch (error: unknown) {
+            let errorMessage;
+            if(isAxiosError(error)){
+                errorMessage = error.response?.data?.message || "Unable to register user.";
+            }
             return { success:false , error:errorMessage }
         }finally{
             setIsLoading(false);

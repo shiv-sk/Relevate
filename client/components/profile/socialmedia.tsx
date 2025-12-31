@@ -18,7 +18,7 @@ export default function SocialMedia({socialMedia}: {socialMedia: socialMediaInte
                         ))
                     ) : (
                         <div>
-                            <p>No educations!</p>
+                            <p>No SocialMedia!</p>
                         </div>
                     )
                 }

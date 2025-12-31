@@ -16,9 +16,6 @@ export default function Experience({experience}: {experience: ExperienceInterfac
                                 <p className="font-medium">{exp.role}</p>
                                 <div className="flex flex-wrap gap-4 text-sm mt-2">
                                     <span>{exp.years}-years</span>
-                                    <p className="font-bold">Available-In 
-                                        &nbsp;<span className="font-normal">{exp.noticePeriod ?? 0}</span>
-                                    </p>
                                 </div>
                             </div>
                         ))
