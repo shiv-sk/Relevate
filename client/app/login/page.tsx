@@ -16,19 +16,32 @@ export default function Login(){
     }
     const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
-        try {
-            const response = await loginUser(form);
-            if(response.success && response.data){
-                if(response.data.role === "JobSeeker"){
-                    router.push("/");
-                }
-                else{
-                    router.push("/company");
-                }
+        const response = await loginUser(form);
+        if(response.success && response.data){
+            if(response.data.role === "JobSeeker"){
+                router.push("/");
             }
-        } catch (error) {
-            console.log("error from loginPage!", error);
+            else{
+                router.push("/company");
+            }
+        }else{
+            alert(response.error || "Internal Server Error");
         }
+        console.log("response from login page!", response);
+    }
+
+    const handleDemoEmployer = ()=>{
+        setForm({
+            email:"cloudmint@dev.com",
+            password:"123456"
+        })
+    }
+
+    const handleDemoJobSeeker = ()=>{
+        setForm({
+            email:"sumeet.g.patel@email.com",
+            password:"123456" 
+        })
     }
     return(
         <div className="min-h-screen gap-4 py-36 bg-base-300">
@@ -36,7 +49,9 @@ export default function Login(){
             onChange={handleOnChange} 
             form={form} 
             onSubmit={handleOnSubmit} 
-            isLoading={isLoading}/>
+            isLoading={isLoading}
+            handleDemoEmployer={handleDemoEmployer}
+            handleDemoJobSeeker = {handleDemoJobSeeker}/>
         </div>
     )
 }

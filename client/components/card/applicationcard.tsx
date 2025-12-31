@@ -23,11 +23,11 @@ export default function ApplicationCard({applications}: {applications: UserAppli
         console.log("this line is printing after ref ele");
     }
     return(
-        <div className="gap-3 px-2 py-4 flex flex-wrap justify-center items-center border-2">
+        <div className="gap-3 px-2 py-4 flex flex-wrap justify-center items-center">
             {
                 applications.map((application)=>(
                     <BaseApplicationCard key={application._id} className="md:w-[480px] w-[350px]">
-                        <div className="py-4 px-3 flex-col border-2">
+                        <div className="py-4 px-3 flex-col">
                             <h3 className="card-title">{application.jobId.title}</h3>
                             <h5>{application.jobId.companyId.name}</h5>
                             <div className="flex gap-2 space-x-2 items-center">

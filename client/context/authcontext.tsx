@@ -2,6 +2,7 @@
 "use client";
 
 import { baseUrl, getAndDeleteReq, postAndPatchReq } from "@/apicalls/apiCalls";
+import { isAxiosError } from "axios";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react"
 
 interface User{
@@ -82,7 +83,7 @@ const AuthProvider = ({ children }: { children: ReactNode })=>{
             setUser(null);
             return { success: true, data: response };
         } catch (error: any) {
-            const errorMessage = error.response?.data?.message || "Unable to find current user.";
+            const errorMessage = error.response?.data?.message || "Unable to logout user.";
             throw { success:false , error:errorMessage }
         }finally{
             setIsLoading(false);
@@ -96,8 +97,11 @@ const AuthProvider = ({ children }: { children: ReactNode })=>{
             console.log(response);
             setUser(response);
             return { success: true, data: response };
-        } catch (error: any) {
-            const errorMessage = error?.response?.data?.messgae || "Unable to find current user.";
+        } catch (error: unknown) {
+            let errorMessage;
+            if(isAxiosError(error)){
+                errorMessage = error?.response?.data?.messgae || "Unable to find user.";
+            }
             return { success:false , error:errorMessage }
         }finally{
             setIsLoading(false);
@@ -111,7 +115,7 @@ const AuthProvider = ({ children }: { children: ReactNode })=>{
             console.log(response);
             return { success: true, data: response?.data };
         } catch (error: any) {
-            const errorMessage = error.response?.data?.message || "Unable to find current user.";
+            const errorMessage = error.response?.data?.message || "Unable to register user.";
             return { success:false , error:errorMessage }
         }finally{
             setIsLoading(false);

@@ -9,7 +9,7 @@ import { Company as CompanyInterface } from "@/interfaces/company";
 
 export default function Company({company}: {company: CompanyInterface}){
     return(
-        <div className="bg-base-100 rounded-xl shadow-lg p-6 space-y-4">
+        <div className="bg-base-100 rounded-lg shadow-lg p-6 space-y-4">
             <div className="flex justify-between items-center">
                 <h3 className="text-xl font-bold">{company.name ?? "companyName"}</h3>
                 <BaseButton text="Edit" className="btn btn-primary btn-sm" type={"button"} />

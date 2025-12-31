@@ -7,11 +7,11 @@ import { JobApplication } from "@/interfaces/applicationInterface";
 
 export default function AllJobApplicationsCard({applications}: {applications: JobApplication[]}){
     return(
-        <div className="gap-3 px-2 py-4 flex flex-wrap justify-center items-center border-2">
+        <div className="gap-3 px-2 py-4 flex flex-wrap justify-center items-center">
             {
                 applications.map((application)=>(
                     <BaseApplicationCard key={application._id} className="md:w-[680px] w-[350px]">
-                        <div className="py-4 px-3 flex-col border-2">
+                        <div className="py-4 px-3 flex-col">
                             <h3 className="text-lg font-bold">
                                 <span className="font-normal">{application.profileSnapshot?.name}</span>
                             </h3>

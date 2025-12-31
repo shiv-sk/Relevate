@@ -6,12 +6,14 @@ import Redirect from "./redirectPage";
 import React from "react";
 
 export default function LoginForm(
-    {onChange, form, onSubmit, isLoading}: 
+    {onChange, form, onSubmit, isLoading, handleDemoEmployer, handleDemoJobSeeker}: 
     {
         onChange: (key: string, value: string)=>void, 
         form: Login, 
         onSubmit: (e: React.FormEvent<HTMLFormElement>)=>void,
-        isLoading: boolean
+        isLoading: boolean,
+        handleDemoEmployer: ()=>void,
+        handleDemoJobSeeker: ()=>void,
     }){
     return(
         <div className="bg-base-100 flex justify-center items-center max-w-sm w-full p-6 rounded-lg shadow-lg mx-auto flex-col">
@@ -32,11 +34,24 @@ export default function LoginForm(
                     value={form.password} 
                     placeholder="Pass@123" />
                     <Redirect url={"/register"} name={"Register"} text={"New to Relevate"}/>
+                    
                     <BaseButton 
                     type="submit" 
                     text="Login"
                     isLoading={isLoading} 
                     className="btn btn-primary py-2.5 px-2 w-full"/>
+
+                    <BaseButton 
+                    type="button"
+                    text="Demo Employer"
+                    handleOnClick={handleDemoEmployer}
+                    className="btn btn-secondary py-2.5 px-2 w-full"/>
+
+                    <BaseButton 
+                    type="button" 
+                    text="Demo JobSeeker"
+                    handleOnClick={handleDemoJobSeeker} 
+                    className="btn btn-neutral py-2.5 px-2 w-full"/>
                 </form>
             </div>
         </div>
