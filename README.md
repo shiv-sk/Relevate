@@ -104,10 +104,17 @@ Unlike traditional job portals that rely only on resumes and keyword matching, R
 > API keys are required for full functionality but are optional for basic usage.
 
 # Screenshots
-- coming soon
+![Page1](screenshots/relevate-1.png)
+![Page2](screenshots/relevate-2.png)
+![Page3](screenshots/relevate-3.png)
+![Page4](screenshots/relevate-4.png)
+![Page5](screenshots/relevate-5.png)
+![Page6](screenshots/relevate-6.png)
+![Page7](screenshots/relevate-7.png)
+![Page8](screenshots/relevate-8.png)
 
 # Links
-- coming soon
+- Live Demo: https://relevate-gamma.vercel.app
 
 # Contact
 - email: shivanandcrew034@gmail.com
