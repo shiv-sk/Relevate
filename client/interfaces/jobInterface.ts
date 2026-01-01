@@ -53,7 +53,8 @@ export interface JobDetail {
       name: string,
       link: string
     }[]
-  }
+  },
+  status: string,
 }
 
 export interface JobFilter {

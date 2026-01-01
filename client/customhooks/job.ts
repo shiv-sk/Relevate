@@ -17,7 +17,7 @@ export function useGetAllJobs(){
             try {
                 setIsLoading(true);
                 const response = await getAndDeleteReq(`${baseUrl}/job/`, "GET");
-                console.log("response from alljobs", response);
+                // console.log("response from alljobs", response);
                 setJobs(response);
             } catch (error) {
                 console.log("error from allJobs page!", error);
@@ -43,7 +43,7 @@ export function useGetCompanyAllJobs(){
             try {
                 setIsLoading(true);
                 const response = await getAndDeleteReq(`${baseUrl}/job/myjobs`, "GET");
-                console.log("response from alljobs", response);
+                // console.log("response from alljobs", response);
                 setCompanyJobs(response);
             } catch (error) {
                 console.log("error from allJobs page!", error);

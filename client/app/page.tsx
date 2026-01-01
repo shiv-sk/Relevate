@@ -57,7 +57,7 @@ export default function Home(){
         const filteredJobs = jobs.filter((job)=>{
             return job.level === filters.JobLevel && job.type === filters.JobType && job.location === filters.JobLocation;
         })
-        console.log("the filtered jobs! ", filteredJobs);
+        // console.log("the filtered jobs! ", filteredJobs);
         if(filteredJobs.length === 0){
             alert("jobs are not found!");
             return;

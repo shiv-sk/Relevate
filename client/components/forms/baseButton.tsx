@@ -5,15 +5,16 @@ type BaseButtonProps = {
     text: string | undefined;
     className?: string;
     handleOnClick?: ()=>void;
-    isLoading?: boolean
+    isLoading?: boolean,
+    disabled?: boolean,
 }
 export default function BaseButton(
-    {type, text, className, handleOnClick, isLoading}: BaseButtonProps){
+    {type, text, className, handleOnClick, isLoading, disabled}: BaseButtonProps){
     return(
         <button 
-        className={`text-lg ${className}`} 
+        className={`text-lg ${className}`}
         type={type}
-        disabled={isLoading}
+        disabled={disabled}
         onClick={handleOnClick}>{
             isLoading ? <Loadingstate className="loading-xs"/> : text
         }

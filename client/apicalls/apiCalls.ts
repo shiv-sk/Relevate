@@ -7,7 +7,7 @@ const getToken = ()=>{
 }
 const token = getToken();
 const getAndDeleteReq = async(url: string , method: "GET" | "DELETE")=>{
-    console.log("baseurl from getanddelete req:" , baseUrl);
+    // console.log("baseurl from getanddelete req:" , baseUrl);
     try {
         const response = await axios({
             url,

@@ -47,7 +47,7 @@ export class JobService {
   }
 
   async findAll() {
-    const allJobs = await this.jobModel.find();
+    const allJobs = await this.jobModel.find({ status: JobStatus.Open });
     if (allJobs.length === 0) {
       throw new NotFoundException('Jobs are not found');
     }

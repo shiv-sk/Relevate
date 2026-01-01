@@ -55,7 +55,7 @@ const AuthProvider = ({ children }: { children: ReactNode })=>{
 
     useEffect(()=>{
         const currentUser = async():Promise<AuthResponse>=>{
-            console.log("baseurl is!" , baseUrl);
+            // console.log("baseurl is!" , baseUrl);
             setIsLoading(true);
             try {
                 const response = await getAndDeleteReq(`${baseUrl}/auth/me` , "GET");

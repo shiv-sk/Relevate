@@ -1,18 +1,20 @@
 "use client";
 
 import { baseUrl, getAndDeleteReq, postAndPatchReq } from "@/apicalls/apiCalls";
+import { JobDetail as JobDetailInterface } from "@/interfaces/jobInterface";
 import AiResponseCard from "@/components/card/aireponsecard";
 import JobDetail from "@/components/card/jobdetailcard";
 import { Loadingstate } from "@/components/forms/loadingState";
 import { Availability, Experience, PreferredLocation, SalaryExcepted } from "@/constants/applicationFilterContest";
 import { useAuth } from "@/context/authcontext";
 import { ApplicationOptions } from "@/interfaces/applicationInterface";
+import { isAxiosError } from "axios";
 import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 export default function AboutJob(){
     const {jobId} = useParams();
-    const [job, setJob] = useState(); 
+    const [job, setJob] = useState<JobDetailInterface>();
     const [title, setTitle] = useState(""); 
     const [jobFitAIResponse, setJobFitAIResponse] = useState(""); 
     const [profileImproveAIResponse, setProfileImproveAIResponse] = useState(""); 
@@ -53,6 +55,50 @@ export default function AboutJob(){
             confirmRef.current?.showModal();
         } catch (error) {
             console.log("error of dialogbox! ", error);
+        }
+    }
+
+    const handleOnCloseJob = async ()=>{
+        if(!jobId){
+            return;
+        }
+        if(job && job.status === "Close"){
+            alert("job is already closed");
+            return;
+        }
+        try {
+            setIsLoading(true);
+            const response = await postAndPatchReq(`${baseUrl}/job/status/${jobId}`, "PATCH", {});
+            if(response){
+                alert("job status change success!");
+            }
+        } catch (error: unknown) {
+            if(isAxiosError(error)){
+                const errorMessage = error.response?.data.message || "Internal Server Error";
+                alert(errorMessage);
+            }
+        }finally{
+            setIsLoading(false);
+        }
+    }
+
+    const handleOnDeleteJob = async ()=>{
+        if(!jobId){
+            return;
+        }
+        try {
+            setIsLoading(true);
+            const response = await getAndDeleteReq(`${baseUrl}/job/${jobId}`, "DELETE");
+            if(response){
+                alert("job delete success!");
+            }
+        } catch (error: unknown) {
+            if(isAxiosError(error)){
+                const errorMessage = error.response?.data.message || "Internal Server Error";
+                alert(errorMessage);
+            }
+        }finally{
+            setIsLoading(false);
         }
     }
 
@@ -174,7 +220,10 @@ export default function AboutJob(){
                             handleConfirmClick={handleConfirmClick}
                             handleProfileReview = {handleProfileReview}
                             handleProfileImprove = {handleProfileImprove}
-                            isBtnClicked = {isBtnClicked} />
+                            isBtnClicked = {isBtnClicked}
+                            handleOnCloseJob={handleOnCloseJob}
+                            handleOnDeleteJob={handleOnDeleteJob}
+                            isLoading={isLoading} />
                         </>
                     ) : (
                         <div>

@@ -17,7 +17,7 @@ import Meta from "../icons/meta";
 
 export default function JobDetail(
     {
-        job, 
+        job,
         confirmRef, 
         onClick, 
         applicationOptions, 
@@ -26,6 +26,9 @@ export default function JobDetail(
         handleProfileReview, 
         handleProfileImprove,
         isBtnClicked,
+        handleOnDeleteJob,
+        handleOnCloseJob,
+        isLoading
     }:
     {
         job: JobDetailInterface, 
@@ -38,6 +41,9 @@ export default function JobDetail(
         handleProfileReview: ()=>void,
         handleProfileImprove: ()=>void,
         isBtnClicked: boolean,
+        isLoading: boolean,
+        handleOnDeleteJob: ()=>void,
+        handleOnCloseJob: ()=>void,
     }){
 
     const {jobId} = useParams();
@@ -138,8 +144,21 @@ export default function JobDetail(
                                         <BaseButton 
                                         type={"button"} 
                                         text={"Applications"} 
-                                        className="btn btn-neutral" />
+                                        className="btn btn-primary" />
                                     </Link>
+                                    <BaseButton 
+                                    type={"button"} 
+                                    text={job.status === "Close" ? "Closed" : "Close"}
+                                    isLoading={isLoading}
+                                    disabled={job.status === "Close"}
+                                    handleOnClick={handleOnCloseJob}
+                                    className="btn btn-neutral" />
+                                    <BaseButton 
+                                    type={"button"} 
+                                    text={"Delete"}
+                                    isLoading={isLoading}
+                                    handleOnClick={handleOnDeleteJob}
+                                    className="btn btn-outline btn-error" />
                                 </>
                             )
                         }
