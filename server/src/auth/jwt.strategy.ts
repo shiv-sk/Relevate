@@ -1,22 +1,26 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
-import { ConfigService } from '@nestjs/config';
 import { UserPayload } from './interface/userPayload.interface';
 import { Request } from 'express';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(
-    private userService: UserService,
-    private configService: ConfigService,
-  ) {
+  constructor(private userService: UserService) {
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
-        (req: Request) => req?.cookies?.access_token || null,
+        (req: Request) => {
+          if (req?.cookies?.access_token) {
+            return req.cookies.access_token;
+          }
+          const authHeader = req?.headers?.authorization;
+          if (authHeader?.startsWith('Bearer ')) {
+            return authHeader.split(' ')[1];
+          }
+          return null;
+        },
       ]),
       ignoreExpiration: false,
       secretOrKey: process.env.JWT_SECRET || '',

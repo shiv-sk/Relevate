@@ -40,18 +40,20 @@ export default function LoginForm(
                     text="Login"
                     isLoading={isLoading} 
                     className="btn btn-primary py-2.5 px-2 w-full"/>
+                    <div className="flex flex-wrap justify-center items-center gap-1">
+                        <BaseButton 
+                        type="button"
+                        text="Demo Employer"
+                        handleOnClick={handleDemoEmployer}
+                        className="btn btn-secondary py-2.5 px-2"/>
 
-                    <BaseButton 
-                    type="button"
-                    text="Demo Employer"
-                    handleOnClick={handleDemoEmployer}
-                    className="btn btn-secondary py-2.5 px-2 w-full"/>
-
-                    <BaseButton 
-                    type="button" 
-                    text="Demo JobSeeker"
-                    handleOnClick={handleDemoJobSeeker} 
-                    className="btn btn-neutral py-2.5 px-2 w-full"/>
+                        <BaseButton 
+                        type="button" 
+                        text="Demo JobSeeker"
+                        handleOnClick={handleDemoJobSeeker} 
+                        className="btn btn-neutral py-2.5 px-2"/>
+                    </div>
+                    
                 </form>
             </div>
         </div>

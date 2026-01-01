@@ -44,7 +44,7 @@ export default function Login(){
         })
     }
     return(
-        <div className="min-h-screen gap-4 py-36 bg-base-300">
+        <div className="min-h-screen gap-4 py-24 bg-base-300">
             <LoginForm 
             onChange={handleOnChange} 
             form={form} 

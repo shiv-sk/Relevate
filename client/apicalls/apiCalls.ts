@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+const getToken = ()=>{
+    if(typeof window === "undefined") return;
+    return sessionStorage.getItem("access_token") ?? "";
+}
+const token = getToken();
 const getAndDeleteReq = async(url: string , method: "GET" | "DELETE")=>{
     console.log("baseurl from getanddelete req:" , baseUrl);
     try {
@@ -8,7 +13,8 @@ const getAndDeleteReq = async(url: string , method: "GET" | "DELETE")=>{
             url,
             method,
             headers:{
-                "Content-Type":"application/json"
+                "Content-Type":"application/json",
+                "Authorization": `Bearer ${token}`
             },
             withCredentials:true,
         })
@@ -27,7 +33,8 @@ const postAndPatchReq = async(url: string , method: "POST" | "PATCH" , data: obj
             method,
             data,
             headers:{
-                "Content-Type":isFormData ? "multipart/form-data" : "application/json"
+                "Content-Type":isFormData ? "multipart/form-data" : "application/json",
+                "Authorization": `Bearer ${token}`
             },
             withCredentials:true
         })

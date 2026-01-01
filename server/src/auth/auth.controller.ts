@@ -43,7 +43,7 @@ export class AuthController {
       sameSite: 'none',
       maxAge: 1000 * 60 * 60 * 24,
     });
-    return user;
+    return { user, access_token: access_token };
   }
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(UserRole.Employer, UserRole.JobSeeker)

@@ -16,6 +16,7 @@ export default function Register(){
     const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
         const response = await registerUser(form);
+        // console.log("response from register page!", response);
         if(response.success && response.data){
             router.push("/login");
         }else{
@@ -23,7 +24,7 @@ export default function Register(){
         }
     }
     return(
-        <div className="min-h-screen gap-4 py-36 bg-base-300">
+        <div className="min-h-screen gap-4 py-28 bg-base-300">
             <RegisterForm 
             onChange={handleOnChange} 
             form={form} 

@@ -79,7 +79,7 @@ const AuthProvider = ({ children }: { children: ReactNode })=>{
         setIsLoading(true);
         try {
             const response = await getAndDeleteReq(`${baseUrl}/auth/logout` , "GET");
-            console.log(response);
+            // console.log(response);
             setUser(null);
             return { success: true, data: response };
         } catch (error: any) {
@@ -94,9 +94,10 @@ const AuthProvider = ({ children }: { children: ReactNode })=>{
         setIsLoading(true);
         try {
             const response = await postAndPatchReq(`${baseUrl}/auth/login` , "POST" , data);
-            console.log(response);
-            setUser(response);
-            return { success: true, data: response };
+            // console.log(response);
+            setUser(response?.user);
+            sessionStorage.setItem("access_token", response?.access_token || "");
+            return { success: true, data: response?.user };
         } catch (error: unknown) {
             let errorMessage;
             if(isAxiosError(error)){
@@ -112,7 +113,7 @@ const AuthProvider = ({ children }: { children: ReactNode })=>{
         setIsLoading(true);
         try {
             const response = await postAndPatchReq(`${baseUrl}/auth/register` , "POST" , data);
-            console.log(response);
+            // console.log(response);
             return { success: true, data: response };
         } catch (error: unknown) {
             let errorMessage;
