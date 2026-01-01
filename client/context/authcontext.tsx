@@ -81,6 +81,7 @@ const AuthProvider = ({ children }: { children: ReactNode })=>{
             const response = await getAndDeleteReq(`${baseUrl}/auth/logout` , "GET");
             // console.log(response);
             setUser(null);
+            sessionStorage.clear();
             return { success: true, data: response };
         } catch (error: any) {
             const errorMessage = error.response?.data?.message || "Unable to logout user.";
