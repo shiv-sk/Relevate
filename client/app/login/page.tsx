@@ -22,7 +22,7 @@ export default function Login(){
                 router.push("/");
             }
             else{
-                router.push("/");
+                router.push("/jobs");
             }
         }else{
             alert(response.error || "Internal Server Error");
