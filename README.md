@@ -114,7 +114,8 @@ Unlike traditional job portals that rely only on resumes and keyword matching, R
 ![Page8](screenshots/relevate-8.png)
 
 # Links
-- Live Demo: https://relevate-gamma.vercel.app
+- Live: https://relevate-gamma.vercel.app
+- Demo: https://drive.google.com/file/d/1MPX5JRrqvpkInIj2rK0DZ09QeDIP48hs/view?usp=sharing
 
 # Contact
 - email: shivanandcrew034@gmail.com
