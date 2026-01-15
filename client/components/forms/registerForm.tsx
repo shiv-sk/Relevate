@@ -25,27 +25,32 @@ export default function RegisterForm(
                     type="text" 
                     onChange={(e: React.ChangeEvent<HTMLInputElement>)=>onChange("name", e.target.value)} 
                     value={form.name} 
-                    placeholder="John Doe" />
+                    placeholder="John Doe"
+                    required={true} />
                     
                     <BaseInput 
                     label="Email" 
                     type="text" 
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange("email", e.target.value)} 
                     value={form.email} 
-                    placeholder="exp123@email.com" />
+                    placeholder="exp123@email.com"
+                    required={true} />
 
                     <BaseInput 
                     label="Password" 
                     type="password" 
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange("password", e.target.value)} 
                     value={form.password} 
-                    placeholder="Pass@123" />
+                    placeholder="Pass@123"
+                    required={true} />
 
                     <BaseSelect 
                     option={[UserRole.Employer, UserRole.JobSeeker]} 
                     label={"Role"} 
                     value={form.role} 
-                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onChange("role", e.target.value)}/>
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onChange("role", e.target.value)}
+                    required={true}
+                    />
 
                     <Redirect url={"/login"} name={"Login"} text={"Already Have An Account"} />
                     <BaseButton 

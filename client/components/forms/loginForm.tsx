@@ -25,14 +25,16 @@ export default function LoginForm(
                     type="text" 
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange("email", e.target.value)} 
                     value={form.email} 
-                    placeholder="exp123@email.com" />
+                    placeholder="exp123@email.com"
+                    required={true} />
 
                     <BaseInput 
                     label="Password" 
                     type="password" 
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange("password", e.target.value)} 
                     value={form.password} 
-                    placeholder="Pass@123" />
+                    placeholder="Pass@123"
+                    required={true} />
                     <Redirect url={"/register"} name={"Register"} text={"New to Relevate"}/>
                     
                     <BaseButton 
